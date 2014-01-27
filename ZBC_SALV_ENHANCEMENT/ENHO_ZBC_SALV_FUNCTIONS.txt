@@ -1,0 +1,80 @@
+New methods:
+ADD_FUNCTION2	Instance Method	Public
+
+
+
+Method parameters ADD_FUNCTION2:
+I_NAME	Importing	Type	CSEQUENCE
+I_ICON	Importing	Type	CSEQUENCE
+I_TEXT	Importing	Type	CSEQUENCE
+I_TOOLTIP	Importing	Type	CSEQUENCE
+I_POSITION	Importing	Type	SALV_DE_FUNCTION_POS	IF_SALV_C_FUNCTION_POSITION=>RIGHT_OF_SALV_FUNCTIONS
+
+
+
+Method exceptions ADD_FUNCTION2:
+CX_SALV_EXISTING
+CX_SALV_WRONG_CALL
+
+
+
+METHOD add_function2 .
+
+  DATA: lv_name TYPE salv_de_function
+      , lv_icon TYPE string
+      , lv_text TYPE string
+      , lv_tooltip TYPE string
+      .
+
+
+  lv_name = i_name.
+  lv_icon = i_icon.
+  lv_text = i_text.
+  lv_tooltip = i_tooltip.
+
+  IF i_icon IS INITIAL.
+    lv_icon = i_name.
+  ENDIF.
+
+  CALL FUNCTION 'ICON_CREATE'
+    EXPORTING
+      name   = lv_icon
+      text   = lv_text
+      info   = lv_tooltip
+    IMPORTING
+      result = lv_icon
+    EXCEPTIONS
+      OTHERS = 1.
+
+  IF sy-subrc EQ 0.
+    CONDENSE lv_icon.
+
+    IF lv_tooltip IS INITIAL.
+      lv_tooltip = lv_icon.
+      SHIFT lv_tooltip RIGHT DELETING TRAILING ' @'.
+      CONDENSE lv_tooltip.
+      SHIFT lv_tooltip BY 5 PLACES.
+    ENDIF.
+
+  ELSE.
+    FREE lv_icon.
+
+    IF lv_text IS INITIAL.
+      lv_text = i_name.
+    ENDIF.
+  ENDIF.
+
+  TRY.
+      add_function(
+          name     = lv_name
+          icon     = lv_icon
+          text     = lv_text
+          tooltip  = lv_tooltip
+          position = i_position
+             ).
+
+    CATCH cx_salv_method_not_supported.                 "#EC NO_HANDLER
+      " suppress exception for fullscreen grid and list
+  ENDTRY.
+
+ENDMETHOD.

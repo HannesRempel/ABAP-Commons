@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CLAS CLSNAME="ZCL_SALV_CHANGES" VERSION="1" LANGU="D" DESCRIPT="ALV: Änderungen" CATEGORY="00" EXPOSURE="0" STATE="1" RELEASE="0" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+ <friends CLSNAME="ZCL_SALV_CHANGES" REFCLSNAME="CL_SALV_EVENTS_TABLE" FRIENDTYPE="0" VERSION="1" STATE="1"/>
+ <friends CLSNAME="ZCL_SALV_CHANGES" REFCLSNAME="ZCL_SALV_CHANGE" FRIENDTYPE="0" VERSION="1" STATE="1"/>
+ <implementing CLSNAME="ZCL_SALV_CHANGES" REFCLSNAME="ZIF_SALV_C_CHANGES" VERSION="1" EXPOSURE="2" STATE="1" RELTYPE="1" EDITORDER="1 "/>
+ <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+ <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <typeUsage CLSNAME="ZCL_SALV_CHANGES" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+ <forwardDeclaration>ABAP</forwardDeclaration>
+ <attribute CLSNAME="ZCL_SALV_CHANGES" CMPNAME="CO_F4_AFTER" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="0" STATE="1" EDITORDER="0 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="0" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " REFCLSNAME="ZIF_SALV_C_CHANGES" REFCMPNAME="CO_F4_AFTER" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZCL_SALV_CHANGES" CMPNAME="CO_F4_BEFORE" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="0" STATE="1" EDITORDER="0 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="0" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " REFCLSNAME="ZIF_SALV_C_CHANGES" REFCMPNAME="CO_F4_BEFORE" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZCL_SALV_CHANGES" CMPNAME="CO_F4_NONE" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="0" STATE="1" EDITORDER="0 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="0" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " REFCLSNAME="ZIF_SALV_C_CHANGES" REFCMPNAME="CO_F4_NONE" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZCL_SALV_CHANGES" CMPNAME="CO_F4_NORMAL" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="0" STATE="1" EDITORDER="0 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="0" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " REFCLSNAME="ZIF_SALV_C_CHANGES" REFCMPNAME="CO_F4_NORMAL" TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZCL_SALV_CHANGES" CMPNAME="GO_TABLE" VERSION="1" LANGU="D" DESCRIPT="Basisklasse für einfache Tabellen" EXPOSURE="0" STATE="1" EDITORDER="1 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="CL_SALV_TABLE" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZCL_SALV_CHANGES" CMPNAME="GT_CHANGES" VERSION="1" LANGU="D" DESCRIPT="ALV: Änderungen" EXPOSURE="0" STATE="1" EDITORDER="2 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ZBC_SALV_T_CHANGE" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZCL_SALV_CHANGES" CMPNAME="GV_AFTER" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" EXPOSURE="0" STATE="1" EDITORDER="4 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SAP_BOOL" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="ZCL_SALV_CHANGES" CMPNAME="GV_ONF4" VERSION="1" LANGU="D" DESCRIPT="F4 Typ" EXPOSURE="0" STATE="1" EDITORDER="3 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ZBC_SALV_DE_F4" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <method CLSNAME="ZCL_SALV_CHANGES" CMPNAME="CONSTRUCTOR" VERSION="1" LANGU="D" DESCRIPT="CONSTRUCTOR" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="2" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="CONSTRUCTOR" SCONAME="I_EVENTS" VERSION="1" LANGU="D" DESCRIPT="Ereignisse in einfachen, zweidimensionalen Tabellen" CMPTYPE="1" MTDTYPE="2" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_SALV_EVENTS_TABLE"/>
+  <exception CLSNAME="ZCL_SALV_CHANGES" CMPNAME="CONSTRUCTOR" SCONAME="CX_SY_REF_IS_INITIAL" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei ASSIGN" MTDTYPE="2" EDITORDER="1 "/>
+  <source>METHOD constructor.
+
+  go_table = zcf_salv_table=&gt;get_table_for_events( i_events ).
+
+  IF go_table IS INITIAL.
+    RAISE EXCEPTION TYPE cx_sy_ref_is_initial.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZCL_SALV_CHANGES" CMPNAME="GET_CHANGES" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="GET_CHANGES" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="ALV: Änderungen" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="ZBC_SALV_T_CHANGE"/>
+  <source>METHOD get_changes.
+
+  DATA: ls_change TYPE REF TO zbc_salv_s_change
+      .
+
+
+  IF gv_after EQ abap_true.
+    result = gt_changes.
+
+  ELSE.
+    LOOP AT gt_changes REFERENCE INTO ls_change.
+      IF        ls_change-&gt;r_change-&gt;go_protocol IS BOUND
+            AND ls_change-&gt;r_change-&gt;is_changed( ) EQ abap_true.
+        INSERT ls_change-&gt;* INTO TABLE result.
+      ENDIF.
+    ENDLOOP.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZCL_SALV_CHANGES" CMPNAME="GET_ONF4" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="GET_ONF4" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="F4 Typ" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="ZBC_SALV_DE_F4"/>
+  <source>METHOD get_onf4.
+
+  result = gv_onf4.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZCL_SALV_CHANGES" CMPNAME="GET_VALUE_NEW" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="GET_VALUE_NEW" SCONAME="I_ROW_ID" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="I"/>
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="GET_VALUE_NEW" SCONAME="I_COLUMN" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="GET_VALUE_NEW" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+  <source>METHOD get_value_new.
+
+  DATA: ls_change TYPE REF TO zbc_salv_s_change
+      .
+
+
+  READ TABLE gt_changes
+        WITH TABLE KEY  row_id = i_row_id
+                        columnname = i_column
+        REFERENCE INTO ls_change.
+
+  IF sy-subrc EQ 0.
+    result = ls_change-&gt;r_change-&gt;get_value_new( ).
+
+  ELSE.
+    result = _get_cell_value(
+        i_row_id = i_row_id
+        i_column = i_column
+           ).
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZCL_SALV_CHANGES" CMPNAME="GET_VALUE_OLD" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="5 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="GET_VALUE_OLD" SCONAME="I_ROW_ID" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="I"/>
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="GET_VALUE_OLD" SCONAME="I_COLUMN" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="GET_VALUE_OLD" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+  <source>METHOD get_value_old.
+
+  DATA: ls_change TYPE REF TO zbc_salv_s_change
+      .
+
+
+  READ TABLE gt_changes
+        WITH TABLE KEY  row_id = i_row_id
+                        columnname = i_column
+        REFERENCE INTO ls_change.
+
+  IF sy-subrc EQ 0.
+    result = ls_change-&gt;r_change-&gt;get_value_old( ).
+
+  ELSE.
+    result = _get_cell_value(
+        i_row_id = i_row_id
+        i_column = i_column
+           ).
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZCL_SALV_CHANGES" CMPNAME="GET_VALUE_REQUESTED" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="6 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="GET_VALUE_REQUESTED" SCONAME="I_ROW_ID" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="I"/>
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="GET_VALUE_REQUESTED" SCONAME="I_COLUMN" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="GET_VALUE_REQUESTED" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+  <source>METHOD get_value_requested.
+
+  DATA: ls_change TYPE REF TO zbc_salv_s_change
+      .
+
+
+  READ TABLE gt_changes
+        WITH TABLE KEY  row_id = i_row_id
+                        columnname = i_column
+        REFERENCE INTO ls_change.
+
+  IF sy-subrc EQ 0.
+    result = ls_change-&gt;r_change-&gt;get_value_requested( ).
+
+  ELSE.
+    result = _get_cell_value(
+        i_row_id = i_row_id
+        i_column = i_column
+           ).
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZCL_SALV_CHANGES" CMPNAME="HAS_CHANGES" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="7 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="HAS_CHANGES" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+  <source>METHOD has_changes.
+
+  DATA: ls_change TYPE REF TO zbc_salv_s_change
+      .
+
+
+  IF gv_after EQ abap_true.
+    IF gt_changes IS NOT INITIAL.
+      result = abap_true.
+    ENDIF.
+
+  ELSE.
+    LOOP AT gt_changes REFERENCE INTO ls_change.
+      IF        ls_change-&gt;r_change-&gt;go_protocol IS BOUND
+            AND ls_change-&gt;r_change-&gt;is_changed( ) EQ abap_true.
+        result = abap_true.
+        RETURN.
+      ENDIF.
+    ENDLOOP.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZCL_SALV_CHANGES" CMPNAME="HAS_ERROR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="8 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="HAS_ERROR" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+  <source>METHOD has_error.
+
+  DATA: ls_change TYPE REF TO zbc_salv_s_change
+      .
+
+
+  LOOP AT gt_changes REFERENCE INTO ls_change.
+    IF ls_change-&gt;r_change-&gt;has_error( ) EQ abap_true.
+      result = abap_true.
+      RETURN.
+    ENDIF.
+  ENDLOOP.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZCL_SALV_CHANGES" CMPNAME="IS_CELL_CHANGED" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="9 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="IS_CELL_CHANGED" SCONAME="I_ROW_ID" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="I"/>
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="IS_CELL_CHANGED" SCONAME="I_COLUMN" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="IS_CELL_CHANGED" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+  <source>METHOD is_cell_changed.
+
+  READ TABLE gt_changes
+        WITH TABLE KEY  row_id = i_row_id
+                        columnname = i_column
+        TRANSPORTING NO FIELDS.
+
+  IF sy-subrc EQ 0.
+    result = abap_true.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZCL_SALV_CHANGES" CMPNAME="SET_VALUE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="10 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="SET_VALUE" SCONAME="I_ROW_ID" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="I"/>
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="SET_VALUE" SCONAME="I_COLUMN" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="SET_VALUE" SCONAME="I_VALUE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE"/>
+  <exception CLSNAME="ZCL_SALV_CHANGES" CMPNAME="SET_VALUE" SCONAME="CX_SY_CONVERSION_ERROR" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei Konvertierungsfehlern" MTDTYPE="0" EDITORDER="1 "/>
+  <source>METHOD set_value.
+
+  DATA: ls_change TYPE REF TO zbc_salv_s_change
+      , ls_mod_cell TYPE REF TO lvc_s_modi
+      .
+
+
+  READ TABLE gt_changes
+        WITH TABLE KEY  row_id = i_row_id
+                        columnname = i_column
+        REFERENCE INTO ls_change.
+
+  IF sy-subrc NE 0.
+    CREATE DATA ls_mod_cell.
+    ls_mod_cell-&gt;row_id = i_row_id.
+    ls_mod_cell-&gt;fieldname = i_column.
+    ls_mod_cell-&gt;value = _get_cell_value(
+        i_row_id = i_row_id
+        i_column = i_column
+           ).
+
+    CREATE DATA ls_change.
+    ls_change-&gt;row_id = i_row_id.
+    ls_change-&gt;columnname = i_column.
+    INSERT ls_change-&gt;* INTO TABLE gt_changes REFERENCE INTO ls_change.
+
+    CREATE OBJECT ls_change-&gt;r_change
+      EXPORTING
+        i_old_value = ls_mod_cell-&gt;value
+        i_mod_cell  = ls_mod_cell
+        i_table     = go_table.
+  ENDIF.
+
+  ls_change-&gt;r_change-&gt;set_value( i_value ).
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZCL_SALV_CHANGES" CMPNAME="_GET_CELL_VALUE" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="14 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="_GET_CELL_VALUE" SCONAME="I_ROW_ID" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="I"/>
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="_GET_CELL_VALUE" SCONAME="I_COLUMN" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="_GET_CELL_VALUE" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+  <source>METHOD _get_cell_value.
+
+  DATA: lx_root TYPE REF TO cx_root
+      .
+
+
+  TRY.
+      CALL METHOD go_table-&gt;(&apos;GET_CELL_VALUE&apos;)
+        EXPORTING
+          i_row_id = i_row_id
+          i_column = i_column
+        RECEIVING
+          result   = result.
+
+    CATCH cx_sy_dyn_call_error INTO lx_root.
+      &quot; message in case of inactive enhancement
+      MESSAGE lx_root TYPE &apos;E&apos;.
+  ENDTRY.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZCL_SALV_CHANGES" CMPNAME="_ON_AFTER_DATA_CHANGE" VERSION="1" LANGU="D" EXPOSURE="1" STATE="1" EDITORDER="11 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD _on_after_data_change.
+
+  _on_data_change( ).
+  gv_after = abap_true.
+  gv_onf4 = co_f4_none.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZCL_SALV_CHANGES" CMPNAME="_ON_BEFORE_DATA_CHANGE" VERSION="1" LANGU="D" EXPOSURE="1" STATE="1" EDITORDER="12 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="_ON_BEFORE_DATA_CHANGE" SCONAME="I_PROTOCOL" VERSION="1" LANGU="D" DESCRIPT="Message Protokoll für Dataentry" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_ALV_CHANGED_DATA_PROTOCOL"/>
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="_ON_BEFORE_DATA_CHANGE" SCONAME="I_ONF4" VERSION="1" LANGU="D" DESCRIPT="Charakterfeld der Länge 1" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CHAR01"/>
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="_ON_BEFORE_DATA_CHANGE" SCONAME="I_ONF4_BEFORE" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SAP_BOOL"/>
+  <parameter CLSNAME="ZCL_SALV_CHANGES" CMPNAME="_ON_BEFORE_DATA_CHANGE" SCONAME="I_ONF4_AFTER" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SAP_BOOL"/>
+  <exception CLSNAME="ZCL_SALV_CHANGES" CMPNAME="_ON_BEFORE_DATA_CHANGE" SCONAME="CX_SY_REF_IS_INITIAL" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei ASSIGN" MTDTYPE="0" EDITORDER="1 "/>
+  <source>METHOD _on_before_data_change.
+
+  DATA: ls_change TYPE REF TO zbc_salv_s_change
+      , ls_mod_cell TYPE REF TO lvc_s_modi
+      , ls_row_data TYPE REF TO data
+      , lv_value TYPE lvc_value
+      .
+
+  FIELD-SYMBOLS: &lt;lt_data&gt; TYPE STANDARD TABLE
+               .
+
+
+  _on_data_change( ).
+  gv_onf4 = co_f4_none.
+
+  IF i_onf4 IS NOT INITIAL.
+    gv_onf4 = co_f4_normal.
+  ENDIF.
+
+  IF i_onf4_before EQ abap_true.
+    gv_onf4 = co_f4_before.
+  ENDIF.
+
+  IF i_onf4_after EQ abap_true.
+    gv_onf4 = co_f4_after.
+  ENDIF.
+
+  ASSIGN i_protocol-&gt;mp_mod_rows-&gt;* TO &lt;lt_data&gt;.
+  IF sy-subrc NE 0.
+    RETURN.
+  ENDIF.
+
+  LOOP AT i_protocol-&gt;mt_mod_cells REFERENCE INTO ls_mod_cell.
+    READ TABLE &lt;lt_data&gt;
+          INDEX ls_mod_cell-&gt;tabix
+          REFERENCE INTO ls_row_data.
+    IF sy-subrc NE 0.
+      CONTINUE.
+    ENDIF.
+
+    READ TABLE gt_changes
+          WITH TABLE KEY  row_id = ls_mod_cell-&gt;row_id
+                          columnname = ls_mod_cell-&gt;fieldname
+          REFERENCE INTO ls_change.
+    IF sy-subrc NE 0.
+      CREATE DATA ls_change.
+      ls_change-&gt;row_id = ls_mod_cell-&gt;row_id.
+      ls_change-&gt;columnname = ls_mod_cell-&gt;fieldname.
+      INSERT ls_change-&gt;* INTO TABLE gt_changes REFERENCE INTO ls_change.
+    ENDIF.
+
+    lv_value = _get_cell_value(
+        i_row_id = ls_mod_cell-&gt;row_id
+        i_column = ls_mod_cell-&gt;fieldname
+           ).
+
+    CREATE OBJECT ls_change-&gt;r_change
+      EXPORTING
+        i_old_value = lv_value
+        i_mod_cell  = ls_mod_cell
+        i_row_data  = ls_row_data
+        i_table     = go_table
+        i_protocol  = i_protocol.
+  ENDLOOP.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZCL_SALV_CHANGES" CMPNAME="_ON_DATA_CHANGE" VERSION="1" LANGU="D" EXPOSURE="1" STATE="1" EDITORDER="13 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD _on_data_change.
+
+  DATA: ls_change TYPE REF TO zbc_salv_s_change
+      .
+
+
+  LOOP AT gt_changes REFERENCE INTO ls_change.
+    IF        ls_change-&gt;r_change-&gt;gr_mod_cell IS NOT BOUND
+          OR  ls_change-&gt;r_change-&gt;is_changed( ) NE abap_true.
+      DELETE gt_changes.
+
+    ELSE.
+      FREE ls_change-&gt;r_change-&gt;go_protocol.
+    ENDIF.
+  ENDLOOP.
+
+ENDMETHOD.</source>
+ </method>
+</CLAS>

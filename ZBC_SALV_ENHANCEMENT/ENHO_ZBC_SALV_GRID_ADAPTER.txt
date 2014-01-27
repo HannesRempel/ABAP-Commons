@@ -1,0 +1,61 @@
+Post-Methods for:
+IF_SALV_ADAPTER~SET_METADATA
+
+
+
+CLASS lcl_zbc_salv_grid_adapter DEFINITION DEFERRED.
+CLASS cl_salv_grid_adapter DEFINITION LOCAL FRIENDS lcl_zbc_salv_grid_adapter.
+*----------------------------------------------------------------------*
+*       CLASS LCL_ZBC_SALV_GRID_ADAPTER DEFINITION
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+CLASS lcl_zbc_salv_grid_adapter DEFINITION.
+
+  PUBLIC SECTION.
+    CLASS-DATA obj TYPE REF TO lcl_zbc_salv_grid_adapter.   "#EC NEEDED
+    DATA core_object TYPE REF TO cl_salv_grid_adapter .     "#EC NEEDED
+
+
+ INTERFACES  IPO_ZBC_SALV_GRID_ADAPTER.
+    METHODS:
+     constructor IMPORTING core_object
+       TYPE REF TO cl_salv_grid_adapter OPTIONAL.
+
+  PRIVATE SECTION.
+    DATA gv_flag TYPE sap_bool.
+
+ENDCLASS.                    "LCL_ZBC_CL_SALV_GRID_ADAPTER DEFINITION
+*----------------------------------------------------------------------*
+*       CLASS LCL_ZBC_CL_SALV_GRID_ADAPTER IMPLEMENTATION
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+CLASS lcl_zbc_salv_grid_adapter IMPLEMENTATION.
+
+  METHOD constructor.
+    me->core_object = core_object.
+  ENDMETHOD.                    "CONSTRUCTOR
+
+  METHOD ipo_zbc_salv_grid_adapter~set_metadata.
+*"------------------------------------------------------------------------*
+*" Declaration of POST-method, do not insert any comments here please!
+*"
+*"methods SET_METADATA
+*"  importing
+*"    !S_STABLE type LVC_S_STBL optional
+*"    !R_CHANGELIST type ref to CL_SALV_CONTROLLER_CHANGELIST .
+*"------------------------------------------------------------------------*
+
+    IF gv_flag EQ if_salv_c_bool_sap=>false.
+      gv_flag = if_salv_c_bool_sap=>true.
+
+      CALL METHOD cl_salv_controller_events=>raise_grid_created
+        EXPORTING
+          i_controller = core_object->r_controller
+          i_grid       = core_object->r_grid.
+    ENDIF.
+
+  ENDMETHOD.                    "IPO_ZBC_CL_SALV_GRID_ADAPTER~SET_METADATA
+
+ENDCLASS.

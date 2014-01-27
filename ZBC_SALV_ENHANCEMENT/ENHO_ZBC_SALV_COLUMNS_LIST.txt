@@ -1,0 +1,151 @@
+New Methods:
+GET_COLUMN2	Instance Method	Public
+HAS_EDITABLE	Instance Method	Public
+HAS_KEY	Instance Method	Public
+SET_EDITABLE	Instance Method	Public
+SET_KEY	Instance Method	Public
+
+
+
+Method parameters GET_COLUMN2:
+I_COLUMNNAME	Importing	Type	LVC_FNAME
+RESULT	Returning	Type Ref To	CL_SALV_COLUMN_LIST
+
+
+
+Method exceptions GET_COLUMN2:
+CX_SALV_NOT_FOUND
+
+
+
+Method parameters HAS_EDITABLE:
+RESULT	Returning	Type	SAP_BOOL
+
+
+
+Method parameters HAS_KEY:
+RESULT	Returning	Type	SAP_BOOL
+
+
+
+Method parameters SET_EDITABLE:
+I_EDITABLE	Importing	Type	SAP_BOOL	TRUE
+
+
+
+Method parameters SET_KEY:
+I_DESCR	Importing	Type Ref To	CL_ABAP_TABLEDESCR
+
+
+
+METHOD get_column2 .
+
+  result ?= get_column( i_columnname ).
+
+ENDMETHOD.
+
+
+
+METHOD has_editable .
+
+  DATA: ls_column TYPE REF TO salv_s_column_ref
+      , lr_column TYPE REF TO cl_salv_column_list
+      .
+
+
+  LOOP AT t_columns REFERENCE INTO ls_column.
+    lr_column ?= ls_column->r_column.
+    result = lr_column->get_editable( ).
+    IF result EQ true.
+      RETURN.
+    ENDIF.
+  ENDLOOP.
+
+ENDMETHOD.
+
+
+
+METHOD has_key .
+
+  DATA: ls_column TYPE REF TO salv_s_column_ref
+      , lr_column TYPE REF TO cl_salv_column_list
+      .
+
+
+  LOOP AT t_columns REFERENCE INTO ls_column.
+    lr_column ?= ls_column->r_column.
+    result = lr_column->is_key( ).
+    IF result EQ true.
+      RETURN.
+    ENDIF.
+  ENDLOOP.
+
+ENDMETHOD.
+
+
+
+METHOD set_editable .
+
+  DATA: ls_column TYPE REF TO salv_s_column_ref
+      , lr_column TYPE REF TO cl_salv_column_list
+      .
+
+
+  LOOP AT t_columns REFERENCE INTO ls_column.
+    lr_column ?= ls_column->r_column.
+    lr_column->set_editable( i_editable ).
+  ENDLOOP.
+
+ENDMETHOD.
+
+
+
+METHOD set_key .
+
+  DATA: ls_column TYPE REF TO salv_s_column_ref
+      , lo_column TYPE REF TO cl_salv_column_list
+      , ls_key TYPE REF TO abap_keydescr
+      .
+
+
+  READ TABLE i_descr->key
+        INDEX 1
+        REFERENCE INTO ls_key.
+  IF sy-subrc EQ 0 AND ls_key->name EQ 'TABLE_LINE'.
+    LOOP AT t_columns REFERENCE INTO ls_column.
+      lo_column ?= ls_column->r_column.
+      IF lo_column->is_key( ) EQ false.
+        lo_column->set_key( true ).
+      ENDIF.
+    ENDLOOP.
+    RETURN.
+  ENDIF.
+
+  LOOP AT t_columns REFERENCE INTO ls_column.
+    lo_column ?= ls_column->r_column.
+    IF lo_column->is_key( ) EQ true.
+      READ TABLE i_descr->key
+            WITH TABLE KEY  name = ls_column->columnname
+            TRANSPORTING NO FIELDS.
+
+      IF sy-subrc NE 0.
+        lo_column->set_key( false ).
+      ENDIF.
+    ENDIF.
+  ENDLOOP.
+
+  LOOP AT i_descr->key REFERENCE INTO ls_key.
+    READ TABLE t_columns
+          WITH TABLE KEY  columnname = ls_key->name
+          REFERENCE INTO ls_column.
+    IF sy-subrc NE 0.
+      CONTINUE.
+    ENDIF.
+
+    lo_column ?= ls_column->r_column.
+    IF lo_column->is_key( ) EQ false.
+      lo_column->set_key( ).
+    ENDIF.
+  ENDLOOP.
+
+ENDMETHOD.

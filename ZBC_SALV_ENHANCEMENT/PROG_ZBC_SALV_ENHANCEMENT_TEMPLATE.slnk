@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PROG NAME="ZBC_SALV_ENHANCEMENT_TEMPLATE" VARCL="X" SUBC="I" RSTAT="T" RMAND="200" RLOAD="D" UCCHECK="X">
+ <textPool>
+  <language SPRAS="D">
+   <textElement ID="R" ENTRY="Testen der SALV Erweiterung" LENGTH="27 "/>
+  </language>
+ </textPool>
+ <source>*&amp;---------------------------------------------------------------------*
+*&amp; Report
+*&amp;
+*&amp;---------------------------------------------------------------------*
+*&amp;
+*&amp;
+*&amp;---------------------------------------------------------------------*
+REPORT.
+
+
+
+*----------------------------------------------------------------------*
+*       CLASS lcl_report DEFINITION
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+CLASS lcl_report DEFINITION FINAL.
+
+  TYPE-POOLS: abap, icon.
+
+  PUBLIC SECTION.
+    CLASS-METHODS main.
+
+  PRIVATE SECTION.
+    CLASS-DATA: gt_data TYPE STANDARD TABLE OF t005
+              , go_table TYPE REF TO cl_salv_table
+              .
+
+    CLASS-METHODS:
+      _select_data,
+      _display
+        RAISING
+          cx_salv_access_error
+          cx_salv_error,
+      _create_table
+        RAISING
+          cx_salv_msg,
+      _on_added_function
+        FOR EVENT added_function OF if_salv_events_functions
+        IMPORTING
+          e_salv_function,
+      _on_double_click
+        FOR EVENT double_click OF if_salv_events_actions_table,
+      _on_before_data_change
+        FOR EVENT before_data_change OF zif_salv_events_table
+        IMPORTING
+          i_changes,
+      _on_after_data_change
+        FOR EVENT after_data_change OF zif_salv_events_table
+        IMPORTING
+          i_changes,
+      _toggle,
+      _save.
+
+ENDCLASS.                    &quot;lcl_report DEFINITION
+*----------------------------------------------------------------------*
+*       CLASS lcl_report IMPLEMENTATION
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+CLASS lcl_report IMPLEMENTATION.
+
+  METHOD main.
+
+    DATA: lx_root TYPE REF TO cx_root
+        .
+
+
+    TRY.
+        _select_data( ).
+        _create_table( ).
+        _display( ).
+        _save( ).
+
+      CATCH cx_static_check cx_dynamic_check INTO lx_root.
+        MESSAGE lx_root TYPE &apos;I&apos; DISPLAY LIKE &apos;E&apos;.
+    ENDTRY.
+
+  ENDMETHOD.                    &quot;main
+
+  METHOD _select_data.
+
+    SELECT *
+          FROM t005
+          INTO CORRESPONDING FIELDS OF TABLE gt_data.
+
+  ENDMETHOD.                    &quot;_select_data
+
+  METHOD _create_table.
+
+    CALL METHOD zcf_salv_table=&gt;factory
+      IMPORTING
+        r_salv_table = go_table
+      CHANGING
+        t_table      = gt_data.
+
+  ENDMETHOD.                    &quot;_create_table
+
+  METHOD _display.
+
+    DATA: lo_columns TYPE REF TO cl_salv_columns_table
+        , lo_column TYPE REF TO cl_salv_column_list
+        , lo_events TYPE REF TO cl_salv_events_table
+        , lo_functions TYPE REF TO cl_salv_functions_list
+        , lo_selections TYPE REF TO cl_salv_selections
+        , lo_change_settings TYPE REF TO zcl_salv_change_settings
+        .
+
+
+    lo_columns = go_table-&gt;get_columns( ).
+    lo_columns-&gt;set_optimize( ).
+    lo_columns-&gt;set_editable( ).
+    lo_column = lo_columns-&gt;get_column2( &apos;MANDT&apos; ).
+    lo_column-&gt;set_technical( ).
+    lo_column = lo_columns-&gt;get_column2( &apos;LAND1&apos; ).
+    lo_column-&gt;set_editable( abap_false ).
+
+    lo_events = go_table-&gt;get_event( ).
+    SET HANDLER _on_double_click
+                _on_added_function
+                _on_before_data_change
+                _on_after_data_change
+                FOR lo_events.
+
+    lo_functions = go_table-&gt;get_functions( ).
+    lo_functions-&gt;set_all( ).
+    lo_functions-&gt;add_function2( icon_toggle_display_change ).
+
+    lo_selections = go_table-&gt;get_selections( ).
+    lo_selections-&gt;set_selection_mode( if_salv_c_selection_mode=&gt;cell ).
+
+    lo_change_settings = go_table-&gt;get_change_settings( ).
+    lo_change_settings-&gt;register_edit_event_enter( ).
+
+    go_table-&gt;display( ).
+
+  ENDMETHOD.                    &quot;_display
+
+  METHOD _on_added_function.
+
+    CASE e_salv_function.
+      WHEN icon_toggle_display_change.
+        _toggle( ).
+
+      WHEN cl_gui_alv_grid=&gt;mc_fc_data_save.
+        _save( ).
+    ENDCASE.
+
+  ENDMETHOD.                    &quot;_on_ADDED_FUNCTION
+
+  METHOD _on_double_click.
+
+    go_table-&gt;set_function( cl_gui_alv_grid=&gt;mc_fc_detail ).
+
+  ENDMETHOD.                    &quot;_on_DOUBLE_CLICK
+
+  METHOD _on_before_data_change.
+
+*    DATA: lt_change TYPE zbc_salv_t_change
+*        , ls_change TYPE REF TO zbc_salv_s_change
+*        .
+*
+*
+*    lt_change = i_changes-&gt;get_changes( ).
+*    LOOP AT lt_change REFERENCE INTO ls_change.
+*      &quot; do something
+*    ENDLOOP.
+
+  ENDMETHOD.                    &quot;_on_before_data_change
+
+  METHOD _on_after_data_change.
+
+*    &quot; do something and refresh if needed
+*    go_table-&gt;refresh( ).
+
+  ENDMETHOD.                    &quot;_on_after_data_change
+
+  METHOD _toggle.
+
+    DATA: lo_columns TYPE REF TO cl_salv_columns_table
+        , lv_editable TYPE sap_bool
+        .
+
+
+    lo_columns = go_table-&gt;get_columns( ).
+    lv_editable = lo_columns-&gt;has_editable( ).
+    TRANSLATE lv_editable USING &apos;X  X&apos;.
+    lo_columns-&gt;set_editable( lv_editable ).
+
+  ENDMETHOD.                    &quot;_toggle
+
+  METHOD _save.
+
+*    DATA: lo_change_settings TYPE REF TO zcl_salv_change_settings
+*        .
+*
+*
+*    lo_change_settings = go_table-&gt;get_change_settings( ).
+*    lo_change_settings-&gt;check_changed_data( ).
+*    &quot; do something
+
+  ENDMETHOD.                    &quot;_save
+
+ENDCLASS.                    &quot;lcl_report IMPLEMENTATION
+
+
+
+START-OF-SELECTION.
+  lcl_report=&gt;main( ).</source>
+</PROG>

@@ -1,0 +1,28 @@
+New methods:
+RAISE_GRID_CREATED	Static Method	Public
+
+
+
+Method parameters RAISE_GRID_CREATED:
+I_CONTROLLER	Importing	Type Ref To	CL_SALV_CONTROLLER_MODEL
+I_GRID	Importing	Type Ref To	CL_GUI_ALV_GRID
+
+
+
+METHOD raise_grid_created .
+
+  DATA: lo_model TYPE REF TO cl_salv_table
+      , lo_events TYPE REF TO cl_salv_events_table
+      .
+
+
+  TRY.
+      lo_model ?= i_controller->r_model.
+      lo_events ?= lo_model->r_events.
+      lo_events->raise_grid_created( i_grid ).
+
+    CATCH cx_sy_move_cast_error cx_sy_ref_is_initial.
+      RETURN.
+  ENDTRY.
+
+ENDMETHOD.

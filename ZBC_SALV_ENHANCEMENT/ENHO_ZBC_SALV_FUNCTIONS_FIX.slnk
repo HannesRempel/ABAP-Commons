@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ENHO enhancement_id="ZBC_SALV_FUNCTIONS_FIX" shorttext="" tooltype_id="HOOK_IMPL" orig_object="R3TR-CL_SALV_FUNCTIONS-CLAS-CL_SALV_FUNCTIONS=============CP">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <IMPLS>
+    <ENH_HOOK_IMPL>
+     <SPOTNAME/>
+     <PROGRAMNAME>CL_SALV_FUNCTIONS=============CP</PROGRAMNAME>
+     <EXTID>1</EXTID>
+     <ID>1</ID>
+     <OVERWRITE/>
+     <METHOD/>
+     <ENHMODE>D</ENHMODE>
+     <FULL_NAME>\TY:CL_SALV_FUNCTIONS\ME:SET_ITEM\SE:BEGIN\EI</FULL_NAME>
+     <SOURCE>
+      <item/>
+      <item>DATA: ls_function_ref TYPE REF TO salv_s_function</item>
+      <item>.</item>
+      <item/>
+      <item/>
+      <item>LOOP AT t_function REFERENCE INTO ls_function_ref.</item>
+      <item>IF ls_function_ref-&gt;node-&gt;get_name( ) EQ function.</item>
+      <item>IF        ls_function_ref-&gt;node-&gt;get_visible( ) EQ visible</item>
+      <item>AND ls_function_ref-&gt;node-&gt;get_enable( ) EQ enable.</item>
+      <item>&quot; leave method to avoid wrong call of me-&gt;r_controller-&gt;set_changed</item>
+      <item>RETURN.</item>
+      <item>ENDIF.</item>
+      <item>EXIT.</item>
+      <item>ENDIF.</item>
+      <item>ENDLOOP.</item>
+      <item/>
+     </SOURCE>
+     <PARENT_FULL_NAME/>
+    </ENH_HOOK_IMPL>
+   </IMPLS>
+  </asx:values>
+ </asx:abap>
+</ENHO>

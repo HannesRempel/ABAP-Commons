@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ENHO enhancement_id="ZBC_SLVC_FULLSCREEN" shorttext="" tooltype_id="HOOK_IMPL" orig_object="R3TR-SLVC_FULLSCREEN-FUGR-SAPLSLVC_FULLSCREEN">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <IMPLS>
+    <ENH_HOOK_IMPL>
+     <SPOTNAME/>
+     <PROGRAMNAME>SAPLSLVC_FULLSCREEN</PROGRAMNAME>
+     <EXTID>1</EXTID>
+     <ID>1</ID>
+     <OVERWRITE/>
+     <METHOD/>
+     <ENHMODE>D</ENHMODE>
+     <FULL_NAME>\PR:SAPLSLVC_FULLSCREEN\FO:EVENT_RECEIVER\SE:END\EI</FULL_NAME>
+     <SOURCE>
+      <item/>
+      <item>IF gt_grid-r_salv_fullscreen_adapter IS BOUND.</item>
+      <item>CALL METHOD cl_salv_controller_events=&gt;raise_grid_created</item>
+      <item>EXPORTING</item>
+      <item>i_controller = gt_grid-r_salv_fullscreen_adapter-&gt;r_controller</item>
+      <item>i_grid       = gt_grid-grid.</item>
+      <item>ENDIF.</item>
+      <item/>
+     </SOURCE>
+     <PARENT_FULL_NAME/>
+    </ENH_HOOK_IMPL>
+   </IMPLS>
+  </asx:values>
+ </asx:abap>
+</ENHO>

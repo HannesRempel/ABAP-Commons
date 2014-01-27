@@ -1,0 +1,45 @@
+New attributes:
+GV_DETAIL_INITIAL	Instance Attribute	Private	Type	LVC_DETINI		TRUE
+
+
+
+New methods:
+GET_DETAIL_INITIAL	Instance Method	Public
+SET_DETAIL_INITIAL	Instance Method	Public
+
+
+
+Method parameters GET_DETAIL_INITIAL:
+RESULT	Returning	Type	LVC_DETINI
+
+
+
+Method parameters SET_DETAIL_INITIAL:
+I_DETINI	Importing	Type	LVC_DETINI
+
+
+
+METHOD get_detail_initial .
+
+  result = gv_detail_initial.
+
+ENDMETHOD.
+
+
+
+METHOD set_detail_initial .
+
+  IF gv_detail_initial NE i_detini.
+    gv_detail_initial = i_detini.
+
+    IF r_controller IS BOUND.
+      r_controller->set_changed(
+        name         = name
+        ref          = me
+        flavour      = if_salv_c_changelist_flavour=>setter
+        refresh_mode = if_salv_c_refresh=>soft
+        method       = 'SET_DETAIL_INITIAL' ).
+    ENDIF.
+  ENDIF.
+
+ENDMETHOD.

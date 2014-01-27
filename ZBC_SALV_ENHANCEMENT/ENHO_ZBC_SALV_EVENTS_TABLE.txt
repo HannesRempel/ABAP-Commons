@@ -1,0 +1,94 @@
+New interfaces:
+ZIF_SALV_EVENTS_TABLE
+
+
+
+New attributes:
+GO_CHANGES	Instance Attribute	Private	Type Ref To	ZCL_SALV_CHANGES
+
+
+
+New methods:
+RAISE_AFTER_DATA_CHANGE	Instance Method	Private (Event handler for CL_GUI_ALV_GRID->DATA_CHANGED_FINISHED)
+RAISE_BEFORE_DATA_CHANGE	Instance Method	Private (Event handler for CL_GUI_ALV_GRID->DATA_CHANGED)
+RAISE_GRID_CREATED	Instance Method	Private
+
+
+
+Method parameters RAISE_AFTER_DATA_CHANGE:
+ET_GOOD_CELLS	Importing	Type	LVC_T_MODI
+
+
+
+Method parameters RAISE_BEFORE_DATA_CHANGE:
+ER_DATA_CHANGED	Importing	Type Ref To	CL_ALV_CHANGED_DATA_PROTOCOL
+E_ONF4	Importing	Type	CHAR01
+E_ONF4_BEFORE	Importing	Type	CHAR01
+E_ONF4_AFTER	Importing	Type	CHAR01
+
+
+
+Method parameters RAISE_GRID_CREATED:
+I_GRID	Importing	Type Ref To	CL_GUI_ALV_GRID
+
+
+
+METHOD raise_after_data_change .
+
+  IF et_good_cells IS NOT INITIAL AND go_changes IS BOUND.
+    go_changes->_on_after_data_change( ).
+
+    IF go_changes->has_changes( ) EQ abap_true.
+      RAISE EVENT zif_salv_events_table~after_data_change
+        EXPORTING
+          i_changes = go_changes.
+    ENDIF.
+  ENDIF.
+
+  FREE go_changes.
+
+ENDMETHOD.
+
+
+
+METHOD raise_before_data_change .
+
+  IF er_data_changed->mt_mod_cells IS NOT INITIAL.
+    TRY.
+        IF go_changes IS INITIAL.
+          CREATE OBJECT go_changes
+            EXPORTING
+              i_events = me.
+        ENDIF.
+
+        CALL METHOD go_changes->_on_before_data_change
+          EXPORTING
+            i_protocol    = er_data_changed
+            i_onf4        = e_onf4
+            i_onf4_before = e_onf4_before
+            i_onf4_after  = e_onf4_after.
+
+        IF go_changes->has_changes( ) EQ abap_true.
+          RAISE EVENT zif_salv_events_table~before_data_change
+            EXPORTING
+              i_changes = go_changes.
+        ENDIF.
+
+      CATCH cx_sy_ref_is_initial.                       "#EC NO_HANDLER
+    ENDTRY.
+  ENDIF.
+
+ENDMETHOD.
+
+
+
+METHOD raise_grid_created .
+
+  SET HANDLER raise_after_data_change FOR i_grid.
+  SET HANDLER raise_before_data_change FOR i_grid.
+
+  RAISE EVENT zif_salv_events_table~grid_created
+    EXPORTING
+      i_grid = i_grid.
+
+ENDMETHOD.

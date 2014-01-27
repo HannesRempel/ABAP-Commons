@@ -1,0 +1,70 @@
+Post-Methods for:
+DESCRIBE_TABLE
+
+
+
+*----------------------------------------------------------------------*
+*       CLASS LCL_ZBC_CL_SALV_DATA_DESCR DEFINITION
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+CLASS lcl_ZBC_SALV_DATA_DESCR DEFINITION.
+
+  TYPE-POOLS: abap.
+
+  PUBLIC SECTION.
+    CLASS-DATA obj TYPE REF TO lcl_ZBC_SALV_DATA_DESCR.
+    DATA core_object TYPE REF TO cl_salv_data_descr .
+
+ INTERFACES  IPO_ZBC_SALV_DATA_DESCR.
+    METHODS:
+     constructor IMPORTING core_object
+       TYPE REF TO cl_salv_data_descr OPTIONAL.
+
+ENDCLASS.                    "LCL_ZBC_CL_SALV_DATA_DESCR DEFINITION
+*----------------------------------------------------------------------*
+*       CLASS LCL_ZBC_CL_SALV_DATA_DESCR IMPLEMENTATION
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+CLASS lcl_ZBC_SALV_DATA_DESCR IMPLEMENTATION.
+
+  METHOD constructor.
+    me->core_object = core_object.
+  ENDMETHOD.                    "CONSTRUCTOR
+
+  METHOD ipo_ZBC_SALV_DATA_DESCR~describe_table.
+*"------------------------------------------------------------------------*
+*" Declaration of POST-method, do not insert any comments here please!
+*"
+*"class-methods DESCRIBE_TABLE
+*"  importing
+*"    !R_COLUMNS type ref to CL_SALV_COLUMNS
+*"    !R_TABLE type ref to DATA .
+*"------------------------------------------------------------------------*
+
+    DATA: lo_columns TYPE REF TO cl_salv_columns_list
+        , lo_tabledescr TYPE REF TO cl_abap_tabledescr
+        .
+
+
+    IF r_table IS NOT BOUND OR r_columns IS NOT BOUND.
+      RETURN.
+    ENDIF.
+
+    TRY.
+        lo_columns ?= r_columns.
+        IF lo_columns->has_key( ) EQ abap_true.
+          RETURN.
+        ENDIF.
+
+        lo_tabledescr ?= cl_abap_typedescr=>describe_by_data_ref( r_table ).
+        lo_columns->set_key( lo_tabledescr ).
+
+      CATCH cx_sy_move_cast_error.
+        RETURN.
+    ENDTRY.
+
+  ENDMETHOD.                    "IPO_ZBC_CL_SALV_DATA_DESCR~DESCRIBE_TABLE
+
+ENDCLASS.

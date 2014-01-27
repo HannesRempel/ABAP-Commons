@@ -1,0 +1,179 @@
+Post-Methods for:
+COMPLETE_METADATA_SLIS_TO_LVC
+GET_LVC_FIELDCATALOG
+GET_LVC_LAYOUT
+GET_SLIS_FIELDCATALOG
+
+
+
+*----------------------------------------------------------------------*
+*       CLASS LCL_ZBC_CL_SALV_CONTROLLER_ME DEFINITION
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+CLASS lcl_zbc_salv_control_metadata DEFINITION FINAL.
+
+  PUBLIC SECTION.
+    CLASS-DATA obj TYPE REF TO lcl_zbc_salv_control_metadata. "#EC NEEDED
+    DATA core_object TYPE REF TO cl_salv_controller_metadata . "#EC NEEDED
+ INTERFACES  IPO_ZBC_SALV_CONTROL_METADATA.
+    METHODS:
+      constructor
+        IMPORTING
+          core_object TYPE REF TO cl_salv_controller_metadata OPTIONAL.
+
+ENDCLASS.                    "LCL_ZBC_CL_SALV_CONTROLLER_ME DEFINITION
+*----------------------------------------------------------------------*
+*       CLASS LCL_ZBC_CL_SALV_CONTROLLER_ME IMPLEMENTATION
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+CLASS lcl_zbc_salv_control_metadata IMPLEMENTATION.
+
+  METHOD constructor.
+    me->core_object = core_object.
+  ENDMETHOD.                    "CONSTRUCTOR
+
+  METHOD ipo_zbc_salv_control_metadata~complete_metadata_slis_to_lvc.
+*"------------------------------------------------------------------------*
+*" Declaration of POST-method, do not insert any comments here please!
+*"
+*"class-methods COMPLETE_METADATA_SLIS_TO_LVC
+*"  importing
+*"    !R_COLUMNS type ref to CL_SALV_COLUMNS_LIST
+*"    !R_DISPLAY_SETTINGS type ref to CL_SALV_DISPLAY_SETTINGS
+*"  changing
+*"    !T_FIELDCATALOG type LVC_T_FCAT optional
+*"    !S_LAYOUT type LVC_S_LAYO optional .
+*"------------------------------------------------------------------------*
+
+    DATA: lo_table TYPE REF TO cl_salv_table
+        , lo_settings TYPE REF TO zcl_salv_change_settings
+        .
+
+
+    lo_table = zcf_salv_table=>get_table_for_columns( r_columns ).
+    IF lo_table IS BOUND.
+      lo_settings = lo_table->get_change_settings( ).
+      s_layout-no_rowmove = lo_settings->get_no_row_move( ).
+      s_layout-no_rowins  = lo_settings->get_no_row_insert( ).
+    ENDIF.
+
+    IF r_display_settings IS BOUND.
+      s_layout-detailinit = r_display_settings->get_detail_initial( ).
+    ENDIF.
+
+  ENDMETHOD.                    "IPO_ZBC_CL_SALV_CONTROLLER_ME~COMPLETE_METADATA_SLIS_TO_LVC
+
+  METHOD ipo_zbc_salv_control_metadata~get_lvc_fieldcatalog.
+*"------------------------------------------------------------------------*
+*" Declaration of POST-method, do not insert any comments here please!
+*"
+*"class-methods GET_LVC_FIELDCATALOG
+*"  importing
+*"    !R_COLUMNS type ref to CL_SALV_COLUMNS_LIST
+*"    !R_AGGREGATIONS type ref to CL_SALV_AGGREGATIONS
+*"  changing
+*"    value(T_FIELDCATALOG) type LVC_T_FCAT . "#EC CI_VALPAR
+*"------------------------------------------------------------------------*
+
+    DATA: lo_container TYPE REF TO zif_gui_container
+        , ls_fieldcatalog TYPE REF TO lvc_s_fcat
+        , lo_column TYPE REF TO cl_salv_column_list
+        .
+
+
+    IF r_columns IS NOT BOUND.
+      RETURN.
+    ENDIF.
+
+    lo_container = zcf_salv_table=>get_container_for_columns( r_columns ).
+    IF lo_container IS BOUND.
+      IF r_columns->has_editable( ) EQ abap_true.
+        lo_container->activate_function( zit_gui_function=>ucomm_save ).
+      ELSE.
+        lo_container->deactivate_function( zit_gui_function=>ucomm_save ).
+      ENDIF.
+    ENDIF.
+
+    TRY.
+        LOOP AT t_fieldcatalog REFERENCE INTO ls_fieldcatalog.
+          lo_column = r_columns->get_column2( ls_fieldcatalog->fieldname ).
+          ls_fieldcatalog->edit = lo_column->get_editable( ).
+        ENDLOOP.
+
+      CATCH cx_salv_not_found.
+        RETURN.
+    ENDTRY.
+
+  ENDMETHOD.                    "IPO_ZBC_CL_SALV_CONTROLLER_ME~GET_LVC_FIELDCATALOG
+
+  METHOD ipo_zbc_salv_control_metadata~get_lvc_layout.
+*"------------------------------------------------------------------------*
+*" Declaration of POST-method, do not insert any comments here please!
+*"
+*"class-methods GET_LVC_LAYOUT
+*"  importing
+*"    !R_FUNCTIONAL_SETTINGS type ref to CL_SALV_FUNCTIONAL_SETTINGS optional
+*"    !R_DISPLAY_SETTINGS type ref to CL_SALV_DISPLAY_SETTINGS optional
+*"    !R_COLUMNS type ref to CL_SALV_COLUMNS_LIST optional
+*"    !R_AGGREGATIONS type ref to CL_SALV_AGGREGATIONS optional
+*"    !R_SELECTIONS type ref to CL_SALV_SELECTIONS optional
+*"  changing
+*"    !S_LAYOUT type LVC_S_LAYO .
+*"------------------------------------------------------------------------*
+
+    DATA: lo_table TYPE REF TO cl_salv_table
+        , lo_settings TYPE REF TO zcl_salv_change_settings
+        .
+
+
+    lo_table = zcf_salv_table=>get_table_for_columns( r_columns ).
+    IF lo_table IS BOUND.
+      lo_settings = lo_table->get_change_settings( ).
+      s_layout-no_rowmove = lo_settings->get_no_row_move( ).
+      s_layout-no_rowins  = lo_settings->get_no_row_insert( ).
+    ENDIF.
+
+    IF r_display_settings IS BOUND.
+      s_layout-detailinit = r_display_settings->get_detail_initial( ).
+    ENDIF.
+
+  ENDMETHOD.                    "IPO_ZBC_CL_SALV_CONTROLLER_ME~GET_LVC_LAYOUT
+
+  METHOD ipo_zbc_salv_control_metadata~get_slis_fieldcatalog.
+*"------------------------------------------------------------------------*
+*" Declaration of POST-method, do not insert any comments here please!
+*"
+*"class-methods GET_SLIS_FIELDCATALOG
+*"  importing
+*"    !R_COLUMNS type ref to CL_SALV_COLUMNS_LIST
+*"    !R_AGGREGATIONS type ref to CL_SALV_AGGREGATIONS
+*"    !R_COLUMNS_SLAVE type ref to CL_SALV_COLUMNS_LIST optional
+*"    !R_AGGREGATIONS_SLAVE type ref to CL_SALV_AGGREGATIONS optional
+*"  changing
+*"    value(T_FIELDCATALOG) type SLIS_T_FIELDCAT_ALV . "#EC CI_VALPAR
+*"------------------------------------------------------------------------*
+
+    DATA: ls_fieldcatalog TYPE REF TO slis_fieldcat_alv
+        , lo_column TYPE REF TO cl_salv_column_list
+        .
+
+
+    IF r_columns IS NOT BOUND.
+      RETURN.
+    ENDIF.
+
+    TRY.
+        LOOP AT t_fieldcatalog REFERENCE INTO ls_fieldcatalog.
+          lo_column = r_columns->get_column2( ls_fieldcatalog->fieldname ).
+          ls_fieldcatalog->input = ls_fieldcatalog->edit = lo_column->get_editable( ).
+        ENDLOOP.
+
+      CATCH cx_salv_not_found.
+        RETURN.
+    ENDTRY.
+
+  ENDMETHOD.                    "IPO_ZBC_CL_SALV_CONTROLLER_ME~GET_SLIS_FIELDCATALOG
+
+ENDCLASS.

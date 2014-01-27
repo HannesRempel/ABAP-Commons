@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CLAS CLSNAME="ZCF_SALV_TABLE" VERSION="1" LANGU="D" DESCRIPT="ALV: Fabrik für einfache Tabellen" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSABSTRCT="X" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+ <types CLSNAME="ZCF_SALV_TABLE" CMPNAME="TS_CACHE" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="1 " TYPTYPE="4" SRCROW1="6 " SRCCOLUMN1="4 " SRCROW2="9 " SRCCOLUMN2="18 " TYPESRC_LENG="129 " TYPESRC="BEGIN OF ts_cache,
+      table TYPE REF TO cl_salv_table,
+      container TYPE REF TO zif_gui_container,
+    END OF ts_cache
+"/>
+ <types CLSNAME="ZCF_SALV_TABLE" CMPNAME="TT_CACHE" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="2 " TYPTYPE="4" SRCROW1="11 " SRCCOLUMN1="4 " SRCROW2="11 " SRCCOLUMN2="63 " TYPESRC_LENG="62 " TYPESRC="tt_cache TYPE SORTED TABLE OF ts_cache WITH UNIQUE KEY table
+"/>
+ <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+ <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <attribute CLSNAME="ZCF_SALV_TABLE" CMPNAME="GT_CACHE" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="1 " ATTDECLTYP="1" ATTEXPVIRT="0" TYPTYPE="1" TYPE="TT_CACHE" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <method CLSNAME="ZCF_SALV_TABLE" CMPNAME="FACTORY" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZCF_SALV_TABLE" CMPNAME="FACTORY" SCONAME="R_SALV_TABLE" VERSION="1" LANGU="D" DESCRIPT="Basisklasse für einfache Tabellen" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_SALV_TABLE"/>
+  <parameter CLSNAME="ZCF_SALV_TABLE" CMPNAME="FACTORY" SCONAME="T_TABLE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="1" TYPE="STANDARD TABLE"/>
+  <exception CLSNAME="ZCF_SALV_TABLE" CMPNAME="FACTORY" SCONAME="CX_SALV_MSG" VERSION="1" LANGU="D" DESCRIPT="ALV: Allg. Fehlerklasse  mit Meldung" MTDTYPE="0" EDITORDER="1 "/>
+  <source>METHOD factory.
+
+  DATA: lo_container TYPE REF TO cl_gui_container
+      , ls_cache TYPE ts_cache
+      , lx_root TYPE REF TO cx_root
+      .
+
+
+  TRY.
+      ls_cache-container = zcf_gui_container=&gt;get_container( ).
+      lo_container = ls_cache-container-&gt;to_class( ).
+      CALL METHOD cl_salv_table=&gt;factory
+        EXPORTING
+          r_container  = lo_container
+        IMPORTING
+          r_salv_table = r_salv_table
+        CHANGING
+          t_table      = t_table.
+
+    CATCH cx_sy_create_object_error.
+      FREE ls_cache-container.
+      CALL METHOD cl_salv_table=&gt;factory
+        IMPORTING
+          r_salv_table = r_salv_table
+        CHANGING
+          t_table      = t_table.
+  ENDTRY.
+
+  ls_cache-table = r_salv_table.
+  INSERT ls_cache INTO TABLE gt_cache.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_CONTAINER_FOR_COLUMNS" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_CONTAINER_FOR_COLUMNS" SCONAME="I_COLUMNS" VERSION="1" LANGU="D" DESCRIPT="Alle Spaltenobjekte" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_SALV_COLUMNS"/>
+  <parameter CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_CONTAINER_FOR_COLUMNS" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="GUI Container" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="ZIF_GUI_CONTAINER"/>
+  <source>METHOD get_container_for_columns.
+
+  DATA: lo_table TYPE REF TO cl_salv_table
+      .
+
+
+  lo_table = get_table_for_columns( i_columns ).
+  IF lo_table IS BOUND.
+    result = get_container_for_table( lo_table ).
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_CONTAINER_FOR_TABLE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_CONTAINER_FOR_TABLE" SCONAME="I_TABLE" VERSION="1" LANGU="D" DESCRIPT="Basisklasse für einfache Tabellen" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_SALV_TABLE"/>
+  <parameter CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_CONTAINER_FOR_TABLE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="GUI Container" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="ZIF_GUI_CONTAINER"/>
+  <source>METHOD get_container_for_table.
+
+  DATA: ls_cache TYPE REF TO ts_cache
+      .
+
+
+  IF i_table IS NOT BOUND.
+    RETURN.
+  ENDIF.
+
+  READ TABLE gt_cache
+        WITH TABLE KEY  table = i_table
+        REFERENCE INTO ls_cache.
+
+  IF sy-subrc EQ 0.
+    result = ls_cache-&gt;container.
+
+  ELSE.
+    CREATE DATA ls_cache.
+    ls_cache-&gt;table = i_table.
+    INSERT ls_cache-&gt;* INTO TABLE gt_cache.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_TABLE_FOR_COLUMNS" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_TABLE_FOR_COLUMNS" SCONAME="I_COLUMNS" VERSION="1" LANGU="D" DESCRIPT="Alle Spaltenobjekte" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_SALV_COLUMNS"/>
+  <parameter CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_TABLE_FOR_COLUMNS" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Basisklasse für einfache Tabellen" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_SALV_TABLE"/>
+  <source>METHOD get_table_for_columns.
+
+  DATA: ls_cache TYPE REF TO ts_cache
+      .
+
+
+  LOOP AT gt_cache REFERENCE INTO ls_cache.
+    IF ls_cache-&gt;table-&gt;get_columns( ) EQ i_columns.
+      result = ls_cache-&gt;table.
+      RETURN.
+    ENDIF.
+  ENDLOOP.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_TABLE_FOR_EVENTS" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="5 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_TABLE_FOR_EVENTS" SCONAME="I_EVENTS" VERSION="1" LANGU="D" DESCRIPT="Ereignisse allgemein" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_SALV_EVENTS"/>
+  <parameter CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_TABLE_FOR_EVENTS" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Basisklasse für einfache Tabellen" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_SALV_TABLE"/>
+  <source>METHOD get_table_for_events.
+
+  DATA: ls_cache TYPE REF TO ts_cache
+      .
+
+
+  LOOP AT gt_cache REFERENCE INTO ls_cache.
+    IF ls_cache-&gt;table-&gt;get_event( ) EQ i_events.
+      result = ls_cache-&gt;table.
+      RETURN.
+    ENDIF.
+  ENDLOOP.
+
+ENDMETHOD.</source>
+ </method>
+</CLAS>
