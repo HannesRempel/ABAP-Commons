@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nugget name="ZBC_GUI">
+ <CLAS CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" VERSION="1" LANGU="D" DESCRIPT="Custom Control Container" CATEGORY="00" EXPOSURE="0" STATE="1" RELEASE="0" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="CL_GUI_CUSTOM_CONTAINER">
+  <friends CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" REFCLSNAME="ZCF_GUI_CONTAINER" FRIENDTYPE="0" VERSION="1" STATE="1"/>
+  <implementing CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" REFCLSNAME="ZIF_GUI_CONTAINER" VERSION="1" EXPOSURE="2" STATE="1" RELTYPE="1" EDITORDER="1 "/>
+  <events CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="FUNCTION_CODE" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="0" STATE="1" EDITORDER="0 " EVTDECLTYP="0" REFCLSNAME="ZIF_GUI_FUNCTION" REFCMPNAME="FUNCTION_CODE" BCEVTCAT="00">
+   <parameter CLSNAME="ZIF_GUI_FUNCTION" CMPNAME="FUNCTION_CODE" SCONAME="I_UCOMM" VERSION="1" LANGU="D" DESCRIPT="Funktionscode, der PAI ausgelöst hat" CMPTYPE="2" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="1" PARPASSTYP="0" TYPTYPE="1" TYPE="SY-UCOMM"/>
+  </events>
+  <localImplementation>*&quot;* local class implementation for public class
+*&quot;* use this source file for the implementation part of
+*&quot;* local helper classes</localImplementation>
+  <localTypes>*&quot;* use this source file for any type declarations (class
+*&quot;* definitions, interfaces or data types) you need for method
+*&quot;* implementation or private method&apos;s signature</localTypes>
+  <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+  <typeUsage CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+  <forwardDeclaration>ABAP</forwardDeclaration>
+  <attribute CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="CO_REPID" VERSION="1" LANGU="D" DESCRIPT="ABAP-Programm, aktuelles Rahmenprogramm" EXPOSURE="0" STATE="1" EDITORDER="1 " ATTDECLTYP="2" ATTVALUE="&apos;SAPLZBC_GUI_CUSTOM_CONTROL&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYREPID" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="GT_FCODE" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="3 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="RLB_T_EXCL" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="GV_CONTAINER" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="4 " ATTDECLTYP="0" ATTVALUE="&apos;A&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="C" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="GV_CPROG" VERSION="1" LANGU="D" DESCRIPT="Aufrufendes Programm" EXPOSURE="0" STATE="1" EDITORDER="5 " ATTDECLTYP="0" ATTVALUE="CO_REPID" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYCPROG" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="GV_DYNNR" VERSION="1" LANGU="D" DESCRIPT="Aktuelle Dynpro-Nummer" EXPOSURE="0" STATE="1" EDITORDER="6 " ATTDECLTYP="0" ATTVALUE="&apos;9999&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYDYNNR" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="GV_PFKEY" VERSION="1" LANGU="D" DESCRIPT="Aktueller GUI-Status" EXPOSURE="0" STATE="1" EDITORDER="7 " ATTDECLTYP="0" ATTVALUE="&apos;STANDARD&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYPFKEY" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="GV_TITLE" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="8 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="SR_CURRENT" VERSION="1" LANGU="D" DESCRIPT="Custom Control Container" EXPOSURE="0" STATE="1" EDITORDER="2 " ATTDECLTYP="1" ATTEXPVIRT="0" TYPTYPE="3" TYPE="ZCL_GUI_CUSTOM_CONTAINER" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="UCOMM_FIRST_PAGE" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="0" STATE="1" EDITORDER="0 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="0" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " REFCLSNAME="ZIT_GUI_FUNCTION" REFCMPNAME="UCOMM_FIRST_PAGE" TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="UCOMM_LAST_PAGE" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="0" STATE="1" EDITORDER="0 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="0" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " REFCLSNAME="ZIT_GUI_FUNCTION" REFCMPNAME="UCOMM_LAST_PAGE" TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="UCOMM_NEXT_PAGE" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="0" STATE="1" EDITORDER="0 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="0" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " REFCLSNAME="ZIT_GUI_FUNCTION" REFCMPNAME="UCOMM_NEXT_PAGE" TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="UCOMM_PREVIOUS_PAGE" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="0" STATE="1" EDITORDER="0 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="0" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " REFCLSNAME="ZIT_GUI_FUNCTION" REFCMPNAME="UCOMM_PREVIOUS_PAGE" TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="UCOMM_PRINT" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="0" STATE="1" EDITORDER="0 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="0" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " REFCLSNAME="ZIT_GUI_FUNCTION" REFCMPNAME="UCOMM_PRINT" TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="UCOMM_SAVE" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="0" STATE="1" EDITORDER="0 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="0" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " REFCLSNAME="ZIT_GUI_FUNCTION" REFCMPNAME="UCOMM_SAVE" TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="UCOMM_SEARCH" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="0" STATE="1" EDITORDER="0 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="0" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " REFCLSNAME="ZIT_GUI_FUNCTION" REFCMPNAME="UCOMM_SEARCH" TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="UCOMM_SEARCH_NEXT" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="0" STATE="1" EDITORDER="0 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="0" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " REFCLSNAME="ZIT_GUI_FUNCTION" REFCMPNAME="UCOMM_SEARCH_NEXT" TYPESRC_LENG="0 "/>
+  <inheritance CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" REFCLSNAME="CL_GUI_CUSTOM_CONTAINER" VERSION="1" STATE="1">
+   <redefinition CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" REFCLSNAME="CL_GUI_CUSTOM_CONTAINER" VERSION="1" MTDNAME="LINK" EXPOSURE="2"/>
+  </inheritance>
+  <interfaceMethod CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CPDNAME="ZIF_GUI_FUNCTION~ACTIVATE">
+   <source>METHOD zif_gui_function~activate.
+
+  READ TABLE gt_fcode
+        WITH KEY table_line = i_ucomm
+        BINARY SEARCH
+        TRANSPORTING NO FIELDS.
+
+  IF sy-subrc EQ 0.
+    DELETE gt_fcode INDEX sy-tabix.
+    IF gv_container EQ &apos;C&apos;.
+      SET PF-STATUS gv_pfkey OF PROGRAM gv_cprog EXCLUDING gt_fcode.
+    ENDIF.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </interfaceMethod>
+  <interfaceMethod CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CPDNAME="ZIF_GUI_FUNCTION~DEACTIVATE">
+   <source>METHOD zif_gui_function~deactivate .
+
+  READ TABLE gt_fcode
+        WITH KEY table_line = i_ucomm
+        BINARY SEARCH
+        TRANSPORTING NO FIELDS.
+
+  IF sy-subrc NE 0.
+    INSERT i_ucomm INTO gt_fcode INDEX sy-tabix.
+    IF gv_container EQ &apos;C&apos;.
+      SET PF-STATUS gv_pfkey OF PROGRAM gv_cprog EXCLUDING gt_fcode.
+    ENDIF.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </interfaceMethod>
+  <interfaceMethod CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CPDNAME="ZIF_GUI_FUNCTION~GET_EXCLUDED">
+   <source>METHOD zif_gui_function~get_excluded.
+
+  result = gt_fcode.
+
+ENDMETHOD.</source>
+  </interfaceMethod>
+  <interfaceMethod CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CPDNAME="ZIF_GUI_FUNCTION~IS_ACTIVE">
+   <source>METHOD zif_gui_function~is_active.
+
+  READ TABLE gt_fcode
+        WITH KEY table_line = i_fcode
+        BINARY SEARCH
+        TRANSPORTING NO FIELDS.
+  IF sy-subrc NE 0.
+    result = abap_true.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </interfaceMethod>
+  <interfaceMethod CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CPDNAME="ZIF_GUI_STATUS~GET_CPROG">
+   <source>METHOD zif_gui_status~get_cprog.
+
+  result = gv_cprog.
+
+ENDMETHOD.</source>
+  </interfaceMethod>
+  <interfaceMethod CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CPDNAME="ZIF_GUI_STATUS~GET_PFKEY">
+   <source>METHOD zif_gui_status~get_pfkey.
+
+  result = gv_pfkey.
+
+ENDMETHOD.</source>
+  </interfaceMethod>
+  <interfaceMethod CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CPDNAME="ZIF_GUI_STATUS~GET_TITLE">
+   <source>METHOD zif_gui_status~get_title.
+
+  result = gv_title.
+
+ENDMETHOD.</source>
+  </interfaceMethod>
+  <interfaceMethod CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CPDNAME="ZIF_GUI_STATUS~IS_TOOLBAR">
+   <source>METHOD zif_gui_status~is_toolbar.
+
+  IF gv_dynnr EQ &apos;9998&apos;.
+    result = abap_true.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </interfaceMethod>
+  <interfaceMethod CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CPDNAME="ZIF_GUI_STATUS~SET_STATUS">
+   <source>METHOD zif_gui_status~set_status.
+
+  gv_pfkey = i_pfkey.
+  gv_cprog = i_cprog.
+
+ENDMETHOD.</source>
+  </interfaceMethod>
+  <interfaceMethod CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CPDNAME="ZIF_GUI_STATUS~SET_TITLE">
+   <source>METHOD zif_gui_status~set_title.
+
+  gv_title = i_title.
+
+ENDMETHOD.</source>
+  </interfaceMethod>
+  <interfaceMethod CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CPDNAME="ZIF_GUI_STATUS~SET_TOOLBAR">
+   <source>METHOD zif_gui_status~set_toolbar.
+
+  IF i_toolbar EQ is_toolbar( ).
+    RETURN.
+  ENDIF.
+
+  IF i_toolbar EQ abap_true.
+    gv_dynnr = &apos;9998&apos;.
+
+  ELSE.
+    gv_dynnr = &apos;9999&apos;.
+  ENDIF.
+
+  IF gv_container EQ &apos;C&apos;.
+    CALL METHOD me-&gt;link
+      EXCEPTIONS
+        OTHERS = 0.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </interfaceMethod>
+  <interfaceMethod CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CPDNAME="ZIF_GUI_CONTAINER~DISPLAY">
+   <source>METHOD zif_gui_container~display.
+
+  DATA: lr_current TYPE REF TO zcl_gui_custom_container
+      .
+
+
+  IF parent IS BOUND.
+    lr_current = sr_current.
+    IF lr_current IS BOUND.
+      lr_current-&gt;gv_container = &apos;A&apos;.
+      CALL METHOD lr_current-&gt;link
+        EXCEPTIONS
+          OTHERS = 0.
+    ENDIF.
+
+    gv_container = &apos;C&apos;.
+    CALL METHOD link
+      EXCEPTIONS
+        OTHERS = 0.
+
+    sr_current = me.
+    CALL FUNCTION &apos;Z_GUI_CUSTOM_CONTROL&apos;.
+    sr_current = lr_current.
+
+    gv_container = &apos;A&apos;.
+    CALL METHOD link
+      EXCEPTIONS
+        OTHERS = 0.
+
+    IF lr_current IS BOUND.
+      lr_current-&gt;gv_container = &apos;C&apos;.
+      CALL METHOD lr_current-&gt;link
+        EXCEPTIONS
+          OTHERS = 0.
+    ENDIF.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </interfaceMethod>
+  <interfaceMethod CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CPDNAME="ZIF_GUI_CONTAINER~TO_CLASS">
+   <source>METHOD zif_gui_container~to_class.
+
+  result = me.
+
+ENDMETHOD.</source>
+  </interfaceMethod>
+  <method CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="CONSTRUCTOR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="2" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <exception CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="CONSTRUCTOR" SCONAME="CX_SY_CREATE_OBJECT_ERROR" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei Objekterzeugung" MTDTYPE="2" EDITORDER="1 "/>
+   <source>METHOD constructor.
+
+  CALL METHOD super-&gt;constructor
+    EXPORTING
+      container_name          = gv_container
+      repid                   = co_repid
+      dynnr                   = gv_dynnr
+      no_autodef_progid_dynnr = abap_true
+    EXCEPTIONS
+      OTHERS                  = 1.
+  IF sy-subrc NE 0.
+    RAISE EXCEPTION TYPE cx_sy_create_object_error
+      EXPORTING
+        classname = `ZCL_GUI_CUSTOM_CONTAINER`.
+  ENDIF.
+
+  SELECT SINGLE text
+        FROM trdirt
+        INTO gv_title
+        WHERE name  EQ sy-cprog
+          AND sprsl EQ sy-langu.
+
+  INSERT ucomm_first_page     INTO TABLE gt_fcode.
+  INSERT ucomm_last_page      INTO TABLE gt_fcode.
+  INSERT ucomm_next_page      INTO TABLE gt_fcode.
+  INSERT ucomm_previous_page  INTO TABLE gt_fcode.
+  INSERT ucomm_print          INTO TABLE gt_fcode.
+  INSERT ucomm_save           INTO TABLE gt_fcode.
+  INSERT ucomm_search         INTO TABLE gt_fcode.
+  INSERT ucomm_search_next    INTO TABLE gt_fcode.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="GET_CURRENT" VERSION="1" LANGU="D" DESCRIPT="Intern only" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="GET_CURRENT" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="GUI Container" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="ZCL_GUI_CUSTOM_CONTAINER"/>
+   <source>METHOD get_current.
+
+  result = sr_current.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="GET_DYNNR" VERSION="1" LANGU="D" DESCRIPT="Intern only" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="GET_DYNNR" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Aktuelle Dynpro-Nummer" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SYDYNNR"/>
+   <source>METHOD get_dynnr.
+
+  result = gv_dynnr.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="CL_GUI_CUSTOM_CONTAINER" CMPNAME="LINK" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <source>METHOD link.
+
+  CALL METHOD super-&gt;link
+    EXPORTING
+      repid                       = co_repid
+      dynnr                       = gv_dynnr
+      container                   = gv_container
+    EXCEPTIONS
+      cntl_error                  = 1
+      cntl_system_error           = 2
+      lifetime_dynpro_dynpro_link = 3.
+
+  CASE sy-subrc.
+    WHEN 1.
+      RAISE cntl_error.
+
+    WHEN 2.
+      RAISE cntl_system_error.
+
+    WHEN 3.
+      RAISE lifetime_dynpro_dynpro_link.
+  ENDCASE.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="RAISE_FUNCTION_CODE" VERSION="1" LANGU="D" DESCRIPT="Intern only" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="RAISE_FUNCTION_CODE" SCONAME="I_UCOMM" VERSION="1" LANGU="D" DESCRIPT="Funktionscode, der PAI ausgelöst hat" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SY-UCOMM"/>
+   <source>METHOD raise_function_code.
+
+  IF sr_current EQ me.
+    RAISE EVENT function_code
+      EXPORTING
+        i_ucomm = i_ucomm.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </method>
+  <aliasMethod CLSNAME="ZCL_GUI_CUSTOM_CONTAINER" CMPNAME="IS_TOOLBAR" VERSION="1" EXPOSURE="0" CMPTYPE="0" REFCLSNAME="ZIF_GUI_STATUS" REFCMPNAME="IS_TOOLBAR"/>
+ </CLAS>
+ <CLAS CLSNAME="ZCF_GUI_CONTAINER" VERSION="1" LANGU="D" DESCRIPT="Agent für GUI Container" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSABSTRCT="X" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+  <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+  <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+  <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+  <method CLSNAME="ZCF_GUI_CONTAINER" CMPNAME="GET_CONTAINER" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCF_GUI_CONTAINER" CMPNAME="GET_CONTAINER" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="GUI Container" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="ZIF_GUI_CONTAINER"/>
+   <exception CLSNAME="ZCF_GUI_CONTAINER" CMPNAME="GET_CONTAINER" SCONAME="CX_SY_CREATE_OBJECT_ERROR" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei Objekterzeugung" MTDTYPE="0" EDITORDER="1 "/>
+   <source>METHOD get_container.
+
+  CREATE OBJECT result TYPE zcl_gui_custom_container.
+
+ENDMETHOD.</source>
+  </method>
+ </CLAS>
+ <FUGR AREA="ZBC_GUI_CUSTOM_CONTROL" SPRAS="E" AREAT="Custom Control Container">
+  <functionGroupDocumentation/>
+  <mainprogram NAME="SAPLZBC_GUI_CUSTOM_CONTROL" VARCL="X" DBAPL="S" DBNA="D$" SUBC="F" APPL="S" RSTAT="P" RMAND="200" RLOAD="D" FIXPT="X" LDBNAME="D$S" UCCHECK="X">
+   <textPool>
+    <language SPRAS="D"/>
+    <language SPRAS="E"/>
+   </textPool>
+   <dynpros>
+    <dynpro PROG="SAPLZBC_GUI_CUSTOM_CONTROL" DNUM="9998" FNUM="0000" BZMX="200 " BZBR="255 " MILI="192 " MICO="37 " MALI="0 " MACO="0 " NOLI="200 " NOCO="255 " VALP="0 " CUAN="G" SPRA="D" DGEN="20140124" TGEN="125758" DTEXT="Custom Control mit Toolbar">
+     <dynprofield FNAM="C" DIDX="00C8" FLG1="00" FLG2="30" FLG3="00" FILL="U" FMB1="30" FMB2="00" LENG="FF" LINE="01" COLN="02" LANF="00" LBLK="00" LREP="00" AUTH="101" AGLT="01" ADEZ="01"/>
+     <dynprofield DIDX="0000" FLG1="80" FLG2="10" FLG3="00" FMB1="00" FMB2="00" LENG="14" LINE="FF" COLN="01" LTYP="O" LANF="00" LBLK="00" LREP="00" TYPE="CHAR" AGLT="00" ADEZ="00" STXT="____________________" RES1="                                       00"/>
+     <dynproflowsource>PROCESS BEFORE OUTPUT.
+  MODULE pbo.
+
+PROCESS AFTER INPUT.
+  MODULE exit AT EXIT-COMMAND.
+  MODULE pai.</dynproflowsource>
+    </dynpro>
+    <dynpro PROG="SAPLZBC_GUI_CUSTOM_CONTROL" DNUM="9999" FNUM="0000" BZMX="200 " BZBR="255 " MILI="196 " MICO="37 " MALI="0 " MACO="0 " NOLI="200 " NOCO="255 " VALP="0 " CUAN="G" SPRA="D" DGEN="20140124" TGEN="125806" DTEXT="Custom Control ohne Toolbar">
+     <dynprofield FNAM="C" DIDX="00C8" FLG1="00" FLG2="30" FLG3="00" FILL="U" FMB1="30" FMB2="00" LENG="FF" LINE="01" COLN="02" LANF="00" LBLK="00" LREP="00" AUTH="101" AGLT="01" ADEZ="01"/>
+     <dynprofield DIDX="0000" FLG1="80" FLG2="10" FLG3="00" FMB1="00" FMB2="00" LENG="14" LINE="FF" COLN="01" LTYP="O" LANF="00" LBLK="00" LREP="00" TYPE="CHAR" AGLT="00" ADEZ="00" STXT="____________________" RES1="                                       00"/>
+     <dynproflowsource>PROCESS BEFORE OUTPUT.
+  MODULE pbo.
+
+PROCESS AFTER INPUT.
+  MODULE exit AT EXIT-COMMAND.
+  MODULE pai.</dynproflowsource>
+    </dynpro>
+   </dynpros>
+   <pfstatus>
+    <pfstatus_sta CODE="STANDARD" MODAL="D" ACTCODE="000001" PFKCODE="000001" BUTCODE="0001" INT_NOTE="Standard"/>
+    <pfstatus_fun CODE="BACK" TEXTNO="001" TYPE="E" TEXT_TYPE="S" FUN_TEXT="Back"/>
+    <pfstatus_fun CODE="CANCEL" TEXTNO="001" TYPE="E" TEXT_TYPE="S" FUN_TEXT="Cancel"/>
+    <pfstatus_fun CODE="EXIT" TEXTNO="001" TYPE="E" TEXT_TYPE="S" FUN_TEXT="Exit"/>
+    <pfstatus_fun CODE="FIRST_PAGE" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_FIRST_PAGE" ICON_ID="@2Y@" FUN_TEXT="First page"/>
+    <pfstatus_fun CODE="LAST_PAGE" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_LAST_PAGE" ICON_ID="@31@" FUN_TEXT="Last page"/>
+    <pfstatus_fun CODE="NEXT_PAGE" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_NEXT_PAGE" ICON_ID="@30@" FUN_TEXT="Next page"/>
+    <pfstatus_fun CODE="PREVIOUS_PAGE" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_PREVIOUS_PAGE" ICON_ID="@2Z@" FUN_TEXT="Previous page"/>
+    <pfstatus_fun CODE="PRINT" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_PRINT" ICON_ID="@0X@" FUN_TEXT="Print"/>
+    <pfstatus_fun CODE="SAVE" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_SYSTEM_SAVE" ICON_ID="@2L@" FUN_TEXT="Save"/>
+    <pfstatus_fun CODE="SEARCH" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_SEARCH" ICON_ID="@13@" FUN_TEXT="Find"/>
+    <pfstatus_fun CODE="SEARCH_NEXT" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_SEARCH_NEXT" ICON_ID="@4E@" FUN_TEXT="Find next"/>
+    <pfstatus_pfk CODE="000001" PFNO="03" FUNCODE="BACK" FUNNO="001"/>
+    <pfstatus_pfk CODE="000001" PFNO="11" FUNCODE="SAVE" FUNNO="001"/>
+    <pfstatus_pfk CODE="000001" PFNO="12" FUNCODE="CANCEL" FUNNO="001"/>
+    <pfstatus_pfk CODE="000001" PFNO="15" FUNCODE="EXIT" FUNNO="001"/>
+    <pfstatus_pfk CODE="000001" PFNO="71" FUNCODE="SEARCH" FUNNO="001"/>
+    <pfstatus_pfk CODE="000001" PFNO="80" FUNCODE="FIRST_PAGE" FUNNO="001"/>
+    <pfstatus_pfk CODE="000001" PFNO="81" FUNCODE="PREVIOUS_PAGE" FUNNO="001"/>
+    <pfstatus_pfk CODE="000001" PFNO="82" FUNCODE="NEXT_PAGE" FUNNO="001"/>
+    <pfstatus_pfk CODE="000001" PFNO="83" FUNCODE="LAST_PAGE" FUNNO="001"/>
+    <pfstatus_pfk CODE="000001" PFNO="84" FUNCODE="SEARCH_NEXT" FUNNO="001"/>
+    <pfstatus_pfk CODE="000001" PFNO="86" FUNCODE="PRINT" FUNNO="001"/>
+    <pfstatus_set STATUS="STANDARD" FUNCTION="BACK"/>
+    <pfstatus_set STATUS="STANDARD" FUNCTION="CANCEL"/>
+    <pfstatus_set STATUS="STANDARD" FUNCTION="DETAILS"/>
+    <pfstatus_set STATUS="STANDARD" FUNCTION="EXIT"/>
+    <pfstatus_set STATUS="STANDARD" FUNCTION="FIRST_PAGE"/>
+    <pfstatus_set STATUS="STANDARD" FUNCTION="LAST_PAGE"/>
+    <pfstatus_set STATUS="STANDARD" FUNCTION="MARK"/>
+    <pfstatus_set STATUS="STANDARD" FUNCTION="NEXT_PAGE"/>
+    <pfstatus_set STATUS="STANDARD" FUNCTION="PREVIOUS_PAGE"/>
+    <pfstatus_set STATUS="STANDARD" FUNCTION="PRINT"/>
+    <pfstatus_set STATUS="STANDARD" FUNCTION="SAVE"/>
+    <pfstatus_set STATUS="STANDARD" FUNCTION="SAVE_WO"/>
+    <pfstatus_set STATUS="STANDARD" FUNCTION="SEARCH"/>
+    <pfstatus_set STATUS="STANDARD" FUNCTION="SEARCH_NEXT"/>
+    <pfstatus_set STATUS="STANDARD" FUNCTION="SELECT"/>
+    <pfstatus_doc OBJ_TYPE="A" OBJ_CODE="000001" MODAL="D" INT_NOTE="Standard"/>
+    <pfstatus_doc OBJ_TYPE="B" OBJ_CODE="000001" SUB_CODE="0001" MODAL="D" INT_NOTE="Standard"/>
+    <pfstatus_doc OBJ_TYPE="P" OBJ_CODE="000001" MODAL="D" INT_NOTE="Standard"/>
+    <pfstatus_tit CODE="TITLE" TEXT="&amp;1"/>
+   </pfstatus>
+   <source>*******************************************************************
+*   System-defined Include-files.                                 *
+*******************************************************************
+  INCLUDE lzbc_gui_custom_controltop.        &quot; Global Data
+  INCLUDE lzbc_gui_custom_controluxx.        &quot; Function Modules
+
+*******************************************************************
+*   User-defined Include-files (if necessary).                    *
+*******************************************************************
+  INCLUDE lzbc_gui_custom_controlf01.        &quot; Subprograms
+  INCLUDE lzbc_gui_custom_controlo01.        &quot; PBO-Modules
+  INCLUDE lzbc_gui_custom_controli01.        &quot; PAI-Modules</source>
+  </mainprogram>
+  <includeprograms>
+   <include NAME="LZBC_GUI_CUSTOM_CONTROLF01" VARCL="X" SUBC="I" APPL="S" RMAND="200" RLOAD="D" UCCHECK="X">
+    <include_source>*&amp;---------------------------------------------------------------------*
+*&amp;      Form  pbo
+*&amp;---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+FORM pbo.
+
+  DATA: lo_container TYPE REF TO zif_gui_container
+      , lv_pfkey TYPE sypfkey
+      , lv_cprog TYPE sycprog
+      , lt_fcode TYPE rlb_t_excl
+      , lv_title TYPE string
+      .
+
+
+  lo_container = zcl_gui_custom_container=&gt;get_current( ).
+
+  lv_pfkey = lo_container-&gt;get_pfkey( ).
+  lv_cprog = lo_container-&gt;get_cprog( ).
+  lt_fcode = lo_container-&gt;get_excluded_functions( ).
+  SET PF-STATUS lv_pfkey OF PROGRAM lv_cprog EXCLUDING lt_fcode.
+
+  lv_title = lo_container-&gt;get_title( ).
+  IF lv_title IS NOT INITIAL.
+    SET TITLEBAR &apos;TITLE&apos; WITH lv_title.
+  ENDIF.
+
+ENDFORM.                    &quot;pbo
+*&amp;---------------------------------------------------------------------*
+*&amp;      Form  pai
+*&amp;---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+FORM pai.
+
+  DATA: lo_container TYPE REF TO zcl_gui_custom_container
+      , lv_dynnr TYPE sydynnr
+      .
+
+
+  lo_container = zcl_gui_custom_container=&gt;get_current( ).
+  lo_container-&gt;raise_function_code( sy-ucomm ).
+  FREE sy-ucomm.
+
+  lv_dynnr = lo_container-&gt;get_dynnr( ).
+  SET SCREEN lv_dynnr.
+
+ENDFORM.                    &quot;pai
+*&amp;---------------------------------------------------------------------*
+*&amp;      Form  exit
+*&amp;---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+FORM exit.
+
+  LEAVE TO SCREEN 0.
+
+ENDFORM.                    &quot;exit</include_source>
+   </include>
+   <include NAME="LZBC_GUI_CUSTOM_CONTROLI01" VARCL="X" SUBC="I" APPL="S" RMAND="200" RLOAD="D" UCCHECK="X">
+    <include_source>*----------------------------------------------------------------------*
+*  MODULE pai INPUT
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+MODULE pai INPUT.
+
+  PERFORM pai.
+
+ENDMODULE.                    &quot;pai INPUT
+*----------------------------------------------------------------------*
+*  MODULE exit INPUT
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+MODULE exit INPUT.
+
+  PERFORM pai.
+  PERFORM exit.
+
+ENDMODULE.                    &quot;exit INPUT</include_source>
+   </include>
+   <include NAME="LZBC_GUI_CUSTOM_CONTROLO01" VARCL="X" SUBC="I" APPL="S" RMAND="200" RLOAD="D" UCCHECK="X">
+    <include_source>*----------------------------------------------------------------------*
+*  MODULE pbo OUTPUT
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+MODULE pbo OUTPUT.
+
+  PERFORM pbo.
+
+ENDMODULE.                    &quot;pbo OUTPUT</include_source>
+   </include>
+   <include NAME="LZBC_GUI_CUSTOM_CONTROLTOP" VARCL="X" DBAPL="S" DBNA="D$" SUBC="I" APPL="S" RMAND="200" FIXPT="X" LDBNAME="D$S" UCCHECK="X">
+    <include_source>FUNCTION-POOL zbc_gui_custom_control.       &quot;MESSAGE-ID ..</include_source>
+   </include>
+  </includeprograms>
+  <functionmodules>
+   <functionmodule NAME="Z_GUI_CUSTOM_CONTROL" STEXT="Show Custom Control">
+    <fm_source>DATA: lo_container TYPE REF TO zcl_gui_custom_container
+      , lv_dynnr TYPE sydynnr
+      .
+
+
+  lo_container = zcl_gui_custom_container=&gt;get_current( ).
+  IF lo_container IS BOUND.
+    lv_dynnr = lo_container-&gt;get_dynnr( ).
+    CALL SCREEN lv_dynnr.
+  ENDIF.</fm_source>
+    <functionModuleDocumentation/>
+   </functionmodule>
+  </functionmodules>
+ </FUGR>
+ <INTF CLSNAME="ZIF_GUI_STATUS" VERSION="1" LANGU="D" DESCRIPT="GUI Status" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" UNICODE="X">
+  <method CLSNAME="ZIF_GUI_STATUS" CMPNAME="GET_CPROG" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZIF_GUI_STATUS" CMPNAME="GET_CPROG" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Aufrufendes Programm" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SYCPROG"/>
+  </method>
+  <method CLSNAME="ZIF_GUI_STATUS" CMPNAME="GET_PFKEY" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="6 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZIF_GUI_STATUS" CMPNAME="GET_PFKEY" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Aktueller GUI-Status" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SYPFKEY"/>
+  </method>
+  <method CLSNAME="ZIF_GUI_STATUS" CMPNAME="GET_TITLE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZIF_GUI_STATUS" CMPNAME="GET_TITLE" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+  </method>
+  <method CLSNAME="ZIF_GUI_STATUS" CMPNAME="IS_TOOLBAR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZIF_GUI_STATUS" CMPNAME="IS_TOOLBAR" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+  </method>
+  <method CLSNAME="ZIF_GUI_STATUS" CMPNAME="SET_STATUS" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="10 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZIF_GUI_STATUS" CMPNAME="SET_STATUS" SCONAME="I_PFKEY" VERSION="1" LANGU="D" DESCRIPT="Aktueller GUI-Status" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SYPFKEY"/>
+   <parameter CLSNAME="ZIF_GUI_STATUS" CMPNAME="SET_STATUS" SCONAME="I_CPROG" VERSION="1" LANGU="D" DESCRIPT="Aufrufendes Programm" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SYCPROG" PARVALUE="SY-CPROG"/>
+  </method>
+  <method CLSNAME="ZIF_GUI_STATUS" CMPNAME="SET_TITLE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZIF_GUI_STATUS" CMPNAME="SET_TITLE" SCONAME="I_TITLE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CLIKE"/>
+  </method>
+  <method CLSNAME="ZIF_GUI_STATUS" CMPNAME="SET_TOOLBAR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="5 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZIF_GUI_STATUS" CMPNAME="SET_TOOLBAR" SCONAME="I_TOOLBAR" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SAP_BOOL"/>
+  </method>
+ </INTF>
+ <INTF CLSNAME="ZIF_GUI_CONTAINER" VERSION="1" LANGU="D" DESCRIPT="GUI Container" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" UNICODE="X">
+  <include CLSNAME="ZIF_GUI_CONTAINER" REFCLSNAME="ZIF_GUI_FUNCTION" VERSION="1" STATE="1"/>
+  <include CLSNAME="ZIF_GUI_CONTAINER" REFCLSNAME="ZIF_GUI_STATUS" VERSION="1" STATE="1"/>
+  <include CLSNAME="ZIF_GUI_CONTAINER" REFCLSNAME="ZIT_GUI_FUNCTION" VERSION="1" STATE="1"/>
+  <events CLSNAME="ZIF_GUI_CONTAINER" CMPNAME="FUNCTION_CODE" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="2" STATE="1" EDITORDER="0 " EVTDECLTYP="0" REFCLSNAME="ZIF_GUI_FUNCTION" REFCMPNAME="FUNCTION_CODE" BCEVTCAT="00">
+   <parameter CLSNAME="ZIF_GUI_FUNCTION" CMPNAME="FUNCTION_CODE" SCONAME="I_UCOMM" VERSION="1" LANGU="D" DESCRIPT="Funktionscode, der PAI ausgelöst hat" CMPTYPE="2" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="1" PARPASSTYP="0" TYPTYPE="1" TYPE="SY-UCOMM"/>
+  </events>
+  <method CLSNAME="ZIF_GUI_CONTAINER" CMPNAME="ACTIVATE_FUNCTION" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="2" STATE="1" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" REFCLSNAME="ZIF_GUI_FUNCTION" REFCMPNAME="ACTIVATE" BCMTDCAT="00" BCMTDSYN="0"/>
+  <method CLSNAME="ZIF_GUI_CONTAINER" CMPNAME="DEACTIVATE_FUNCTION" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="2" STATE="1" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" REFCLSNAME="ZIF_GUI_FUNCTION" REFCMPNAME="DEACTIVATE" BCMTDCAT="00" BCMTDSYN="0"/>
+  <method CLSNAME="ZIF_GUI_CONTAINER" CMPNAME="DISPLAY" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0"/>
+  <method CLSNAME="ZIF_GUI_CONTAINER" CMPNAME="GET_CPROG" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="2" STATE="1" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" REFCLSNAME="ZIF_GUI_STATUS" REFCMPNAME="GET_CPROG" BCMTDCAT="00" BCMTDSYN="0"/>
+  <method CLSNAME="ZIF_GUI_CONTAINER" CMPNAME="GET_EXCLUDED_FUNCTIONS" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="2" STATE="1" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" REFCLSNAME="ZIF_GUI_FUNCTION" REFCMPNAME="GET_EXCLUDED" BCMTDCAT="00" BCMTDSYN="0"/>
+  <method CLSNAME="ZIF_GUI_CONTAINER" CMPNAME="GET_PFKEY" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="2" STATE="1" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" REFCLSNAME="ZIF_GUI_STATUS" REFCMPNAME="GET_PFKEY" BCMTDCAT="00" BCMTDSYN="0"/>
+  <method CLSNAME="ZIF_GUI_CONTAINER" CMPNAME="GET_TITLE" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="2" STATE="1" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" REFCLSNAME="ZIF_GUI_STATUS" REFCMPNAME="GET_TITLE" BCMTDCAT="00" BCMTDSYN="0"/>
+  <method CLSNAME="ZIF_GUI_CONTAINER" CMPNAME="IS_FUNCTION_ACTIVE" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="2" STATE="1" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" REFCLSNAME="ZIF_GUI_FUNCTION" REFCMPNAME="IS_ACTIVE" BCMTDCAT="00" BCMTDSYN="0"/>
+  <method CLSNAME="ZIF_GUI_CONTAINER" CMPNAME="IS_TOOLBAR" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="2" STATE="1" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" REFCLSNAME="ZIF_GUI_STATUS" REFCMPNAME="IS_TOOLBAR" BCMTDCAT="00" BCMTDSYN="0"/>
+  <method CLSNAME="ZIF_GUI_CONTAINER" CMPNAME="SET_STATUS" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="2" STATE="1" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" REFCLSNAME="ZIF_GUI_STATUS" REFCMPNAME="SET_STATUS" BCMTDCAT="00" BCMTDSYN="0"/>
+  <method CLSNAME="ZIF_GUI_CONTAINER" CMPNAME="SET_TITLE" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="2" STATE="1" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" REFCLSNAME="ZIF_GUI_STATUS" REFCMPNAME="SET_TITLE" BCMTDCAT="00" BCMTDSYN="0"/>
+  <method CLSNAME="ZIF_GUI_CONTAINER" CMPNAME="SET_TOOLBAR" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="2" STATE="1" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" REFCLSNAME="ZIF_GUI_STATUS" REFCMPNAME="SET_TOOLBAR" BCMTDCAT="00" BCMTDSYN="0"/>
+  <method CLSNAME="ZIF_GUI_CONTAINER" CMPNAME="TO_CLASS" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="6 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZIF_GUI_CONTAINER" CMPNAME="TO_CLASS" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Abstracter Container fuer GUI Controls" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_GUI_CONTAINER"/>
+  </method>
+ </INTF>
+ <INTF CLSNAME="ZIF_GUI_FUNCTION" VERSION="1" LANGU="D" DESCRIPT="GUI Funktionen" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" UNICODE="X">
+  <events CLSNAME="ZIF_GUI_FUNCTION" CMPNAME="FUNCTION_CODE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " EVTDECLTYP="0" BCEVTCAT="00">
+   <parameter CLSNAME="ZIF_GUI_FUNCTION" CMPNAME="FUNCTION_CODE" SCONAME="I_UCOMM" VERSION="1" LANGU="D" DESCRIPT="Funktionscode, der PAI ausgelöst hat" CMPTYPE="2" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="1" PARPASSTYP="0" TYPTYPE="1" TYPE="SY-UCOMM"/>
+  </events>
+  <method CLSNAME="ZIF_GUI_FUNCTION" CMPNAME="ACTIVATE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZIF_GUI_FUNCTION" CMPNAME="ACTIVATE" SCONAME="I_UCOMM" VERSION="1" LANGU="D" DESCRIPT="Funktionscode, der PAI ausgelöst hat" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SYUCOMM"/>
+  </method>
+  <method CLSNAME="ZIF_GUI_FUNCTION" CMPNAME="DEACTIVATE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZIF_GUI_FUNCTION" CMPNAME="DEACTIVATE" SCONAME="I_UCOMM" VERSION="1" LANGU="D" DESCRIPT="Funktionscode, der PAI ausgelöst hat" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SYUCOMM"/>
+  </method>
+  <method CLSNAME="ZIF_GUI_FUNCTION" CMPNAME="GET_EXCLUDED" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="5 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZIF_GUI_FUNCTION" CMPNAME="GET_EXCLUDED" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="RLB_T_EXCL"/>
+  </method>
+  <method CLSNAME="ZIF_GUI_FUNCTION" CMPNAME="IS_ACTIVE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="8 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZIF_GUI_FUNCTION" CMPNAME="IS_ACTIVE" SCONAME="I_FCODE" VERSION="1" LANGU="D" DESCRIPT="Funktionscode, der PAI ausgelöst hat" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SYUCOMM"/>
+   <parameter CLSNAME="ZIF_GUI_FUNCTION" CMPNAME="IS_ACTIVE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+  </method>
+ </INTF>
+ <INTF CLSNAME="ZIT_GUI_FUNCTION" VERSION="1" LANGU="D" DESCRIPT="Typen für GUI Funktionen" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" UNICODE="X">
+  <attribute CLSNAME="ZIT_GUI_FUNCTION" CMPNAME="UCOMM_BACK" VERSION="1" LANGU="D" DESCRIPT="Funktionscode, der PAI ausgelöst hat" EXPOSURE="2" STATE="1" EDITORDER="1 " ATTDECLTYP="2" ATTVALUE="&apos;BACK&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYUCOMM" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZIT_GUI_FUNCTION" CMPNAME="UCOMM_CANCEL" VERSION="1" LANGU="D" DESCRIPT="Funktionscode, der PAI ausgelöst hat" EXPOSURE="2" STATE="1" EDITORDER="2 " ATTDECLTYP="2" ATTVALUE="&apos;CANCEL&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYUCOMM" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZIT_GUI_FUNCTION" CMPNAME="UCOMM_EXIT" VERSION="1" LANGU="D" DESCRIPT="Funktionscode, der PAI ausgelöst hat" EXPOSURE="2" STATE="1" EDITORDER="3 " ATTDECLTYP="2" ATTVALUE="&apos;EXIT&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYUCOMM" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZIT_GUI_FUNCTION" CMPNAME="UCOMM_FIRST_PAGE" VERSION="1" LANGU="D" DESCRIPT="Funktionscode, der PAI ausgelöst hat" EXPOSURE="2" STATE="1" EDITORDER="4 " ATTDECLTYP="2" ATTVALUE="&apos;FIRST_PAGE&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYUCOMM" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZIT_GUI_FUNCTION" CMPNAME="UCOMM_LAST_PAGE" VERSION="1" LANGU="D" DESCRIPT="Funktionscode, der PAI ausgelöst hat" EXPOSURE="2" STATE="1" EDITORDER="5 " ATTDECLTYP="2" ATTVALUE="&apos;LAST_PAGE&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYUCOMM" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZIT_GUI_FUNCTION" CMPNAME="UCOMM_NEXT_PAGE" VERSION="1" LANGU="D" DESCRIPT="Funktionscode, der PAI ausgelöst hat" EXPOSURE="2" STATE="1" EDITORDER="6 " ATTDECLTYP="2" ATTVALUE="&apos;NEXT_PAGE&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYUCOMM" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZIT_GUI_FUNCTION" CMPNAME="UCOMM_PREVIOUS_PAGE" VERSION="1" LANGU="D" DESCRIPT="Funktionscode, der PAI ausgelöst hat" EXPOSURE="2" STATE="1" EDITORDER="7 " ATTDECLTYP="2" ATTVALUE="&apos;PREVIOUS_PAGE&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYUCOMM" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZIT_GUI_FUNCTION" CMPNAME="UCOMM_PRINT" VERSION="1" LANGU="D" DESCRIPT="Funktionscode, der PAI ausgelöst hat" EXPOSURE="2" STATE="1" EDITORDER="8 " ATTDECLTYP="2" ATTVALUE="&apos;PRINT&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYUCOMM" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZIT_GUI_FUNCTION" CMPNAME="UCOMM_SAVE" VERSION="1" LANGU="D" DESCRIPT="Funktionscode, der PAI ausgelöst hat" EXPOSURE="2" STATE="1" EDITORDER="9 " ATTDECLTYP="2" ATTVALUE="&apos;SAVE&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYUCOMM" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZIT_GUI_FUNCTION" CMPNAME="UCOMM_SEARCH" VERSION="1" LANGU="D" DESCRIPT="Funktionscode, der PAI ausgelöst hat" EXPOSURE="2" STATE="1" EDITORDER="10 " ATTDECLTYP="2" ATTVALUE="&apos;SEARCH&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYUCOMM" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZIT_GUI_FUNCTION" CMPNAME="UCOMM_SEARCH_NEXT" VERSION="1" LANGU="D" DESCRIPT="Funktionscode, der PAI ausgelöst hat" EXPOSURE="2" STATE="1" EDITORDER="11 " ATTDECLTYP="2" ATTVALUE="&apos;SEARCH_NEXT&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYUCOMM" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ </INTF>
+</nugget>

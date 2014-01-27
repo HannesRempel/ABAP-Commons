@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CLAS CLSNAME="ZCF_GUI_CONTAINER" VERSION="1" LANGU="D" DESCRIPT="Agent für GUI Container" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSABSTRCT="X" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+ <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+ <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <method CLSNAME="ZCF_GUI_CONTAINER" CMPNAME="GET_CONTAINER" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZCF_GUI_CONTAINER" CMPNAME="GET_CONTAINER" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="GUI Container" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="ZIF_GUI_CONTAINER"/>
+  <exception CLSNAME="ZCF_GUI_CONTAINER" CMPNAME="GET_CONTAINER" SCONAME="CX_SY_CREATE_OBJECT_ERROR" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei Objekterzeugung" MTDTYPE="0" EDITORDER="1 "/>
+  <source>METHOD get_container.
+
+  CREATE OBJECT result TYPE zcl_gui_custom_container.
+
+ENDMETHOD.</source>
+ </method>
+</CLAS>
