@@ -1,5 +1,6 @@
 New methods:
 ADD_FUNCTION2	Instance Method	Public
+GET_FUNCTION	Instance Method	Public
 
 
 
@@ -15,6 +16,17 @@ I_POSITION	Importing	Type	SALV_DE_FUNCTION_POS	IF_SALV_C_FUNCTION_POSITION=>RIGH
 Method exceptions ADD_FUNCTION2:
 CX_SALV_EXISTING
 CX_SALV_WRONG_CALL
+
+
+
+Method parameters ADD_FUNCTION2:
+I_NAME	Importing	Type	SALV_DE_FUNCTION
+RESULT	Returning	Type Ref To	CL_SALV_FUNCTION
+
+
+
+Method exceptions ADD_FUNCTION2:
+CX_SALV_NOT_FOUND
 
 
 
@@ -76,5 +88,31 @@ METHOD add_function2 .
     CATCH cx_salv_method_not_supported.                 "#EC NO_HANDLER
       " suppress exception for fullscreen grid and list
   ENDTRY.
+
+ENDMETHOD.
+
+
+
+METHOD get_function .
+
+  DATA: ls_function TYPE REF TO salv_s_function
+      , lv_name TYPE string
+      .
+
+
+  LOOP AT t_function REFERENCE INTO ls_function.
+    IF ls_function->node->get_name( ) EQ i_name.
+      result = ls_function->node.
+      RETURN.
+    ENDIF.
+  ENDLOOP.
+
+  lv_name = i_name.
+  RAISE EXCEPTION TYPE cx_salv_not_found
+    EXPORTING
+      object = 'Function'
+      key    = lv_name
+      class  = 'CL_SALV_FUNCTIONS'
+      method = 'REMOVE_FUNCTION'.
 
 ENDMETHOD.
