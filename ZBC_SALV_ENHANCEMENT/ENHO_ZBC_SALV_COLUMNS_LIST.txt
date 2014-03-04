@@ -144,7 +144,7 @@ METHOD set_key .
 
     lo_column ?= ls_column->r_column.
     IF lo_column->is_key( ) EQ false.
-      lo_column->set_key( ).
+      lo_column->set_key( true ).
     ENDIF.
   ENDLOOP.
 
