@@ -1,0 +1,30 @@
+New methods:
+SET_TEXT	Instance Method	Public
+
+
+
+Method parameters SET_TEXT:
+VALUE	Importing	Type	CSEQUENCE
+
+
+
+METHOD set_text .
+
+  DATA: lv_text_s TYPE scrtext_s
+      , lv_text_m TYPE scrtext_m
+      , lv_text_l TYPE scrtext_l
+      .
+
+
+  lv_text_s = lv_text_m = lv_text_l = value.
+  IF get_short_text( ) NE lv_text_s.
+    set_short_text( lv_text_s ).
+  ENDIF.
+  IF get_medium_text( ) NE lv_text_m.
+    set_medium_text( lv_text_m ).
+  ENDIF.
+  IF get_long_text( ) NE lv_text_l.
+    set_long_text( lv_text_l ).
+  ENDIF.
+
+ENDMETHOD.

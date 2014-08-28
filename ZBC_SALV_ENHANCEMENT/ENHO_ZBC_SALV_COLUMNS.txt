@@ -1,0 +1,16 @@
+New Methods:
+SET_TECHNICAL_TEXTS	Instance Method	Public
+
+
+
+METHOD set_technical_texts .
+
+  DATA: ls_column TYPE REF TO salv_s_column_ref
+      .
+
+
+  LOOP AT t_columns REFERENCE INTO ls_column.
+    ls_column->r_column->set_text( ls_column->columnname ).
+  ENDLOOP.
+
+ENDMETHOD.
