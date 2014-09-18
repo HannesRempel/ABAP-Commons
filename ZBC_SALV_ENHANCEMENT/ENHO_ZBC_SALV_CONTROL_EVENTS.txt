@@ -1,11 +1,48 @@
 New methods:
+INIT_UIFUNCTION	Static Method	Public
 RAISE_GRID_CREATED	Static Method	Public
+
+
+
+Method parameters INIT_UIFUNCTION:
+I_TABLE	Importing	Type Ref To	CL_SALV_TABLE
 
 
 
 Method parameters RAISE_GRID_CREATED:
 I_CONTROLLER	Importing	Type Ref To	CL_SALV_CONTROLLER_MODEL
 I_GRID	Importing	Type Ref To	CL_GUI_ALV_GRID
+
+
+
+METHOD init_uifunction .
+
+  DATA: lo_functions TYPE REF TO cl_salv_functions
+      , lo_selections TYPE REF TO cl_salv_selections
+      , lv_mode TYPE salv_de_constant
+      .
+
+
+  " initialize before RAISE_BUILD_UIFUNCTION is called
+  lo_functions = i_table->get_functions( ).
+  lo_selections = i_table->get_selections( ).
+  lv_mode = lo_selections->get_selection_mode( ).
+
+  CASE lv_mode.
+    WHEN if_salv_c_selection_mode=>none OR if_salv_c_selection_mode=>single.
+      lo_functions->set_mode_select( if_salv_c_bool_sap=>false ).
+      lo_functions->set_mode_deselect( if_salv_c_bool_sap=>false ).
+    WHEN OTHERS.
+      lo_functions->set_mode_select( if_salv_c_bool_sap=>true ).
+      lo_functions->set_mode_deselect( if_salv_c_bool_sap=>true ).
+  ENDCASE.
+
+  lo_functions->set_column_invisible( if_salv_c_bool_sap=>true ).
+  lo_functions->set_column_optimize( if_salv_c_bool_sap=>true ).
+  lo_functions->set_columns_fixed( if_salv_c_bool_sap=>true ).
+  lo_functions->set_columns_unfixed( if_salv_c_bool_sap=>true ).
+
+ENDMETHOD.
 
 
 

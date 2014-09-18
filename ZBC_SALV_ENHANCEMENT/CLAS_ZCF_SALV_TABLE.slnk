@@ -19,18 +19,23 @@
  <method CLSNAME="ZCF_SALV_TABLE" CMPNAME="FACTORY" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
   <parameter CLSNAME="ZCF_SALV_TABLE" CMPNAME="FACTORY" SCONAME="R_SALV_TABLE" VERSION="1" LANGU="D" DESCRIPT="Basisklasse für einfache Tabellen" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_SALV_TABLE"/>
   <parameter CLSNAME="ZCF_SALV_TABLE" CMPNAME="FACTORY" SCONAME="T_TABLE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="1" TYPE="STANDARD TABLE"/>
-  <exception CLSNAME="ZCF_SALV_TABLE" CMPNAME="FACTORY" SCONAME="CX_SALV_MSG" VERSION="1" LANGU="D" DESCRIPT="ALV: Allg. Fehlerklasse  mit Meldung" MTDTYPE="0" EDITORDER="1 "/>
   <source>METHOD factory.
 
-  DATA: lo_container TYPE REF TO cl_gui_container
-      , ls_cache TYPE ts_cache
-      , lx_root TYPE REF TO cx_root
+  DATA: ls_cache TYPE ts_cache
+      , lo_container TYPE REF TO cl_gui_container
       .
 
 
+  IF cl_salv_model=&gt;is_offline( ) NE if_salv_c_bool_sap=&gt;true.
+    TRY.
+        ls_cache-container = zcf_gui_container=&gt;get_container( ).
+        lo_container = ls_cache-container-&gt;to_class( ).
+
+      CATCH cx_sy_create_object_error.
+    ENDTRY.
+  ENDIF.
+
   TRY.
-      ls_cache-container = zcf_gui_container=&gt;get_container( ).
-      lo_container = ls_cache-container-&gt;to_class( ).
       CALL METHOD cl_salv_table=&gt;factory
         EXPORTING
           r_container  = lo_container
@@ -39,13 +44,7 @@
         CHANGING
           t_table      = t_table.
 
-    CATCH cx_sy_create_object_error.
-      FREE ls_cache-container.
-      CALL METHOD cl_salv_table=&gt;factory
-        IMPORTING
-          r_salv_table = r_salv_table
-        CHANGING
-          t_table      = t_table.
+    CATCH cx_salv_msg.
   ENDTRY.
 
   ls_cache-table = r_salv_table.
@@ -53,7 +52,7 @@
 
 ENDMETHOD.</source>
  </method>
- <method CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_CONTAINER_FOR_COLUMNS" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+ <method CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_CONTAINER_FOR_COLUMNS" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
   <parameter CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_CONTAINER_FOR_COLUMNS" SCONAME="I_COLUMNS" VERSION="1" LANGU="D" DESCRIPT="Alle Spaltenobjekte" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_SALV_COLUMNS"/>
   <parameter CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_CONTAINER_FOR_COLUMNS" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="GUI Container" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="ZIF_GUI_CONTAINER"/>
   <source>METHOD get_container_for_columns.
@@ -69,7 +68,7 @@ ENDMETHOD.</source>
 
 ENDMETHOD.</source>
  </method>
- <method CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_CONTAINER_FOR_TABLE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+ <method CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_CONTAINER_FOR_TABLE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
   <parameter CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_CONTAINER_FOR_TABLE" SCONAME="I_TABLE" VERSION="1" LANGU="D" DESCRIPT="Basisklasse für einfache Tabellen" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_SALV_TABLE"/>
   <parameter CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_CONTAINER_FOR_TABLE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="GUI Container" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="ZIF_GUI_CONTAINER"/>
   <source>METHOD get_container_for_table.
@@ -97,7 +96,7 @@ ENDMETHOD.</source>
 
 ENDMETHOD.</source>
  </method>
- <method CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_TABLE_FOR_COLUMNS" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+ <method CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_TABLE_FOR_COLUMNS" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
   <parameter CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_TABLE_FOR_COLUMNS" SCONAME="I_COLUMNS" VERSION="1" LANGU="D" DESCRIPT="Alle Spaltenobjekte" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_SALV_COLUMNS"/>
   <parameter CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_TABLE_FOR_COLUMNS" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Basisklasse für einfache Tabellen" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_SALV_TABLE"/>
   <source>METHOD get_table_for_columns.
@@ -115,8 +114,8 @@ ENDMETHOD.</source>
 
 ENDMETHOD.</source>
  </method>
- <method CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_TABLE_FOR_EVENTS" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="5 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_TABLE_FOR_EVENTS" SCONAME="I_EVENTS" VERSION="1" LANGU="D" DESCRIPT="Ereignisse allgemein" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_SALV_EVENTS"/>
+ <method CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_TABLE_FOR_EVENTS" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="5 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_TABLE_FOR_EVENTS" SCONAME="I_EVENTS" VERSION="1" LANGU="D" DESCRIPT="Ereignisse in einfachen, zweidimensionalen Tabellen" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_SALV_EVENTS_TABLE"/>
   <parameter CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_TABLE_FOR_EVENTS" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Basisklasse für einfache Tabellen" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_SALV_TABLE"/>
   <source>METHOD get_table_for_events.
 
@@ -130,6 +129,32 @@ ENDMETHOD.</source>
       RETURN.
     ENDIF.
   ENDLOOP.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_TABLE_FOR_OBJECT" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="6 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_TABLE_FOR_OBJECT" SCONAME="I_OBJECT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="OBJECT"/>
+  <parameter CLSNAME="ZCF_SALV_TABLE" CMPNAME="GET_TABLE_FOR_OBJECT" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Basisklasse für einfache Tabellen" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_SALV_TABLE"/>
+  <source>METHOD get_table_for_object.
+
+  DATA: lo_events TYPE REF TO cl_salv_events_table
+      , lo_columns TYPE REF TO cl_salv_columns
+      .
+
+
+  TRY.
+      lo_events ?= i_object.
+      result = get_table_for_events( lo_events ).
+
+    CATCH cx_sy_move_cast_error.
+      TRY.
+          lo_columns ?= i_object.
+          result = get_table_for_columns( lo_columns ).
+
+        CATCH cx_sy_move_cast_error.
+          RETURN.
+      ENDTRY.
+  ENDTRY.
 
 ENDMETHOD.</source>
  </method>

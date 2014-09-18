@@ -30,6 +30,22 @@
    <textElement ID="S" KEY="PA_SPLIT" ENTRY="        CL_GUI_SPLITTER_CONTAINER" LENGTH="33 "/>
    <textElement ID="S" KEY="PA_MAX" ENTRY="D       ." LENGTH="9 "/>
   </language>
+  <language SPRAS="T">
+   <textElement ID="I" KEY="T01" ENTRY="Settings" LENGTH="132 "/>
+   <textElement ID="I" KEY="T02" ENTRY="Event" LENGTH="132 "/>
+   <textElement ID="I" KEY="T03" ENTRY="Adapter" LENGTH="132 "/>
+   <textElement ID="I" KEY="T04" ENTRY="Container" LENGTH="132 "/>
+   <textElement ID="R" ENTRY="Testing of SALV Enhancement" LENGTH="70 "/>
+   <textElement ID="S" KEY="PA_CUST" ENTRY="        ZCL_GUI_CUSTOM_CONTAINER" LENGTH="32 "/>
+   <textElement ID="S" KEY="PA_EDIT" ENTRY="        SET_EDITABLE" LENGTH="20 "/>
+   <textElement ID="S" KEY="PA_ENTE" ENTRY="        REGISTER_EDIT_EVENT_ENTER" LENGTH="33 "/>
+   <textElement ID="S" KEY="PA_FULL" ENTRY="        CL_SALV_FULLSCREEN_ADAPTER" LENGTH="34 "/>
+   <textElement ID="S" KEY="PA_GRID" ENTRY="        CL_SALV_GRID_ADAPTER" LENGTH="28 "/>
+   <textElement ID="S" KEY="PA_LIST" ENTRY="        CL_SALV_LIST_ADAPTER" LENGTH="28 "/>
+   <textElement ID="S" KEY="PA_MAX" ENTRY="D       ." LENGTH="9 "/>
+   <textElement ID="S" KEY="PA_MODI" ENTRY="        REGISTER_EDIT_EVENT_MODIFIED" LENGTH="36 "/>
+   <textElement ID="S" KEY="PA_SPLIT" ENTRY="        CL_GUI_SPLITTER_CONTAINER" LENGTH="33 "/>
+  </language>
  </textPool>
  <source>*&amp;---------------------------------------------------------------------*
 *&amp; Report ZBC_SALV_ENHANCEMENT_DEMO
@@ -78,27 +94,25 @@ CLASS lcl_report DEFINITION FINAL.
             INCLUDE TYPE sflights.
     TYPES color TYPE lvc_t_scol.
     TYPES END OF ts_sflights.
+    TYPES tt_sflights TYPE STANDARD TABLE OF ts_sflights WITH DEFAULT KEY.
 
-
-    CLASS-DATA: gt_data TYPE STANDARD TABLE OF ts_sflights
-              , go_table TYPE REF TO cl_salv_table
-              .
+    CLASS-DATA gt_data TYPE tt_sflights.
 
     CLASS-METHODS:
       _select_data,
-      _display
+      _display_data
         RAISING
           cx_salv_access_error
           cx_salv_error,
-      _create_table
-        RAISING
-          cx_salv_msg,
       _on_added_function
         FOR EVENT added_function OF if_salv_events_functions
         IMPORTING
+          sender
           e_salv_function,
       _on_double_click
-        FOR EVENT double_click OF if_salv_events_actions_table,
+        FOR EVENT double_click OF if_salv_events_actions_table
+        IMPORTING
+          sender,
       _on_before_data_change
         FOR EVENT before_data_change OF zif_salv_events_table
         IMPORTING
@@ -106,8 +120,11 @@ CLASS lcl_report DEFINITION FINAL.
       _on_after_data_change
         FOR EVENT after_data_change OF zif_salv_events_table
         IMPORTING
+          sender
           i_changes,
-      _toggle.
+      _toggle
+        IMPORTING
+          i_table TYPE REF TO cl_salv_table.
 
 ENDCLASS.                    &quot;lcl_report DEFINITION
 *----------------------------------------------------------------------*
@@ -125,14 +142,7 @@ CLASS lcl_report IMPLEMENTATION.
 
     TRY.
         _select_data( ).
-        IF gt_data IS INITIAL.
-          SUBMIT sapbc_data_generator
-                EXPORTING LIST TO MEMORY
-                AND RETURN.                              &quot;#EC CI_SUBMIT
-          _select_data( ).
-        ENDIF.
-        _create_table( ).
-        _display( ).
+        _display_data( ).
 
       CATCH cx_static_check cx_dynamic_check INTO lx_root.
         MESSAGE lx_root TYPE &apos;I&apos; DISPLAY LIKE &apos;E&apos;.
@@ -146,32 +156,22 @@ CLASS lcl_report IMPLEMENTATION.
           FROM sflights UP TO pa_max ROWS
           INTO CORRESPONDING FIELDS OF TABLE gt_data.
 
-  ENDMETHOD.                    &quot;_select_data
+    IF sy-subrc NE 0.
+      SUBMIT sapbc_data_generator
+            EXPORTING LIST TO MEMORY
+            AND RETURN.                                  &quot;#EC CI_SUBMIT
 
-  METHOD _create_table.
-
-    IF pa_grid EQ abap_true.
-      CALL METHOD zcf_salv_table=&gt;factory
-        IMPORTING
-          r_salv_table = go_table
-        CHANGING
-          t_table      = gt_data.
-
-    ELSE.
-      CALL METHOD cl_salv_table=&gt;factory
-        EXPORTING
-          list_display = pa_list
-        IMPORTING
-          r_salv_table = go_table
-        CHANGING
-          t_table      = gt_data.
+      SELECT *                                          &quot;#EC CI_NOWHERE
+            FROM sflights UP TO pa_max ROWS
+            INTO CORRESPONDING FIELDS OF TABLE gt_data.
     ENDIF.
 
-  ENDMETHOD.                    &quot;_create_table
+  ENDMETHOD.                    &quot;_select_data
 
-  METHOD _display.
+  METHOD _display_data.
 
-    DATA: lo_columns TYPE REF TO cl_salv_columns_table
+    DATA: lo_table TYPE REF TO cl_salv_table
+        , lo_columns TYPE REF TO cl_salv_columns_table
         , lo_column TYPE REF TO cl_salv_column_table
         , lo_events TYPE REF TO cl_salv_events_table
         , lo_events2 TYPE REF TO zif_salv_events_table
@@ -182,17 +182,34 @@ CLASS lcl_report IMPLEMENTATION.
         .
 
 
-    lo_columns = go_table-&gt;get_columns( ).
+    IF pa_grid EQ abap_true.
+      CALL METHOD zcf_salv_table=&gt;factory
+        IMPORTING
+          r_salv_table = lo_table
+        CHANGING
+          t_table      = gt_data.
+
+    ELSE.
+      CALL METHOD cl_salv_table=&gt;factory
+        EXPORTING
+          list_display = pa_list
+        IMPORTING
+          r_salv_table = lo_table
+        CHANGING
+          t_table      = gt_data.
+    ENDIF.
+
+    lo_columns = lo_table-&gt;get_columns( ).
     lo_columns-&gt;set_optimize( ).
     lo_columns-&gt;set_color_column( &apos;COLOR&apos; ).
     lo_column ?= lo_columns-&gt;get_column( &apos;MANDT&apos; ).
     lo_column-&gt;set_technical( ).
 
     IF pa_edit EQ abap_true.
-      _toggle( ).
+      _toggle( lo_table ).
     ENDIF.
 
-    lo_events = go_table-&gt;get_event( ).
+    lo_events = lo_table-&gt;get_event( ).
     SET HANDLER _on_double_click
                 _on_added_function
                 FOR lo_events.
@@ -208,7 +225,7 @@ CLASS lcl_report IMPLEMENTATION.
         MESSAGE lx_root TYPE &apos;I&apos; DISPLAY LIKE &apos;E&apos;.
     ENDTRY.
 
-    lo_functions = go_table-&gt;get_functions( ).
+    lo_functions = lo_table-&gt;get_functions( ).
     lo_functions-&gt;set_all( ).
 
     TRY.
@@ -221,11 +238,11 @@ CLASS lcl_report IMPLEMENTATION.
         MESSAGE lx_root TYPE &apos;I&apos; DISPLAY LIKE &apos;E&apos;.
     ENDTRY.
 
-    lo_selections = go_table-&gt;get_selections( ).
+    lo_selections = lo_table-&gt;get_selections( ).
     lo_selections-&gt;set_selection_mode( if_salv_c_selection_mode=&gt;cell ).
 
     TRY.
-        CALL METHOD go_table-&gt;(&apos;GET_CHANGE_SETTINGS&apos;)
+        CALL METHOD lo_table-&gt;(&apos;GET_CHANGE_SETTINGS&apos;)
           RECEIVING
             result = lo_change_settings.
         IF pa_ente EQ abap_true.
@@ -240,22 +257,46 @@ CLASS lcl_report IMPLEMENTATION.
         MESSAGE lx_root TYPE &apos;I&apos; DISPLAY LIKE &apos;E&apos;.
     ENDTRY.
 
-    go_table-&gt;display( ).
+    lo_table-&gt;display( ).
 
-  ENDMETHOD.                    &quot;_display
+  ENDMETHOD.                    &quot;_display_data
 
   METHOD _on_added_function.
 
+    DATA: lo_table TYPE REF TO cl_salv_table
+        , lx_root TYPE REF TO cx_root
+        .
+
+
     CASE e_salv_function.
       WHEN &apos;TOGGLE&apos; OR icon_toggle_display_change.
-        _toggle( ).
+        TRY.
+            lo_table = zcf_salv_table=&gt;get_table_for_object( sender ).
+            _toggle( lo_table ).
+
+          CATCH cx_sy_ref_is_initial INTO lx_root.
+            &quot; message in case of inactive enhancement
+            MESSAGE lx_root TYPE &apos;I&apos; DISPLAY LIKE &apos;E&apos;.
+        ENDTRY.
     ENDCASE.
 
   ENDMETHOD.                    &quot;_on_ADDED_FUNCTION
 
   METHOD _on_double_click.
 
-    go_table-&gt;set_function( cl_gui_alv_grid=&gt;mc_fc_detail ).
+    DATA: lo_table TYPE REF TO cl_salv_table
+        , lx_root TYPE REF TO cx_root
+        .
+
+
+    TRY.
+        lo_table = zcf_salv_table=&gt;get_table_for_object( sender ).
+        lo_table-&gt;set_function( cl_gui_alv_grid=&gt;mc_fc_detail ).
+
+      CATCH cx_sy_ref_is_initial INTO lx_root.
+        &quot; message in case of inactive enhancement
+        MESSAGE lx_root TYPE &apos;I&apos; DISPLAY LIKE &apos;E&apos;.
+    ENDTRY.
 
   ENDMETHOD.                    &quot;_on_DOUBLE_CLICK
 
@@ -309,6 +350,7 @@ CLASS lcl_report IMPLEMENTATION.
         , ls_change TYPE REF TO zbc_salv_s_change
         , ls_sflights TYPE REF TO ts_sflights
         , ls_color TYPE REF TO lvc_s_scol
+        , lo_table TYPE REF TO cl_salv_table
         , lo_grid TYPE REF TO cl_gui_alv_grid
         , ls_stable TYPE lvc_s_stbl
         , lx_root TYPE REF TO cx_root
@@ -356,13 +398,21 @@ CLASS lcl_report IMPLEMENTATION.
       ls_color-&gt;color-col = col_total.
     ENDLOOP.
 
-    go_table-&gt;refresh( ).
+    TRY.
+        lo_table = zcf_salv_table=&gt;get_table_for_object( sender ).
+        lo_table-&gt;refresh( ).
+
+      CATCH cx_sy_ref_is_initial INTO lx_root.
+        &quot; message in case of inactive enhancement
+        MESSAGE lx_root TYPE &apos;I&apos; DISPLAY LIKE &apos;E&apos;.
+    ENDTRY.
+
     IF pa_full EQ abap_true.
       &quot; During this event, method REFRESH does not work with fullscreen adapter.
       &quot; So we have to use a workaround in this demo.
       &quot; You shoud use a custom container for real reports.
       TRY.
-          CALL METHOD go_table-&gt;(&apos;GET_GRID&apos;)
+          CALL METHOD lo_table-&gt;(&apos;GET_GRID&apos;)
             RECEIVING
               result = lo_grid.
           ls_stable-row = abap_true.
@@ -392,7 +442,7 @@ CLASS lcl_report IMPLEMENTATION.
 
 
     TRY.
-        lo_columns = go_table-&gt;get_columns( ).
+        lo_columns = i_table-&gt;get_columns( ).
         CALL METHOD lo_columns-&gt;(&apos;HAS_EDITABLE&apos;)
           RECEIVING
             result = lv_editable.

@@ -13,6 +13,11 @@ _TO_READ_ONLY_REF	Instance Method	Private
 
 
 
+Pre-Methods for:
+DISPLAY
+
+
+
 Post-Methods for:
 DISPLAY
 
@@ -209,7 +214,7 @@ ENDMETHOD.
 CLASS lcl_zbc_salv_table DEFINITION DEFERRED.
 CLASS cl_salv_table DEFINITION LOCAL FRIENDS lcl_zbc_salv_table.
 *----------------------------------------------------------------------*
-*       CLASS LCL_ZBC_CL_SALV_TABLE DEFINITION
+*       CLASS lcl_zbc_salv_table DEFINITION
 *----------------------------------------------------------------------*
 *
 *----------------------------------------------------------------------*
@@ -219,15 +224,15 @@ CLASS lcl_zbc_salv_table DEFINITION.
     CLASS-DATA obj TYPE REF TO lcl_zbc_salv_table.          "#EC NEEDED
     DATA core_object TYPE REF TO cl_salv_table .            "#EC NEEDED
 
- INTERFACES  IPO_ZBC_SALV_TABLE.
+ INTERFACES: IPR_ZBC_SALV_TABLE, IPO_ZBC_SALV_TABLE.
     METHODS:
       constructor
         IMPORTING core_object TYPE REF TO cl_salv_table OPTIONAL.
 
 
-ENDCLASS.                    "LCL_ZBC_CL_SALV_TABLE DEFINITION
+ENDCLASS.                    "lcl_zbc_salv_table DEFINITION
 *----------------------------------------------------------------------*
-*       CLASS LCL_ZBC_CL_SALV_TABLE IMPLEMENTATION
+*       CLASS lcl_zbc_salv_table IMPLEMENTATION
 *----------------------------------------------------------------------*
 *
 *----------------------------------------------------------------------*
@@ -235,8 +240,19 @@ CLASS lcl_zbc_salv_table IMPLEMENTATION.
 
   METHOD constructor.
     me->core_object = core_object.
-  ENDMETHOD.                    "CONSTRUCTOR
+  ENDMETHOD.                    "constructor
 
+
+  METHOD ipr_zbc_salv_table~display.
+*"------------------------------------------------------------------------*
+*" Declaration of PRE-method, do not insert any comments here please!
+*"
+*"methods DISPLAY .
+*"------------------------------------------------------------------------*
+
+    cl_salv_controller_events=>init_uifunction( core_object ).
+
+  ENDMETHOD.                    "ipr_zbc_salv_table~display
 
   METHOD ipo_zbc_salv_table~display.
 *"------------------------------------------------------------------------*
@@ -254,6 +270,6 @@ CLASS lcl_zbc_salv_table IMPLEMENTATION.
       lo_container->display( ).
     ENDIF.
 
-  ENDMETHOD.                    "IPO_ZBC_SALV_TABLE~DISPLAY
+  ENDMETHOD.                    "ipo_zbc_salv_table~display
 
 ENDCLASS.

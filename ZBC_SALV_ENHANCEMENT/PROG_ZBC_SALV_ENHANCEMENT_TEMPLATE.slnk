@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PROG NAME="ZBC_SALV_ENHANCEMENT_TEMPLATE" VARCL="X" SUBC="I" RSTAT="T" RMAND="200" RLOAD="D" UCCHECK="X">
+<PROG NAME="ZBC_SALV_ENHANCEMENT_TEMPLATE" VARCL="X" SUBC="1" RSTAT="T" RMAND="200" RLOAD="D" UCCHECK="X">
  <textPool>
   <language SPRAS="D">
    <textElement ID="R" ENTRY="Testen der SALV Erweiterung" LENGTH="27 "/>
@@ -29,25 +29,23 @@ CLASS lcl_report DEFINITION FINAL.
     CLASS-METHODS main.
 
   PRIVATE SECTION.
-    CLASS-DATA: gt_data TYPE STANDARD TABLE OF t005
-              , go_table TYPE REF TO cl_salv_table
-              .
+    CLASS-DATA gt_data TYPE STANDARD TABLE OF t005.
 
     CLASS-METHODS:
       _select_data,
-      _display
+      _display_data
         RAISING
           cx_salv_access_error
           cx_salv_error,
-      _create_table
-        RAISING
-          cx_salv_msg,
       _on_added_function
         FOR EVENT added_function OF if_salv_events_functions
         IMPORTING
+          sender
           e_salv_function,
       _on_double_click
-        FOR EVENT double_click OF if_salv_events_actions_table,
+        FOR EVENT double_click OF if_salv_events_actions_table
+        IMPORTING
+          sender,
       _on_before_data_change
         FOR EVENT before_data_change OF zif_salv_events_table
         IMPORTING
@@ -55,9 +53,14 @@ CLASS lcl_report DEFINITION FINAL.
       _on_after_data_change
         FOR EVENT after_data_change OF zif_salv_events_table
         IMPORTING
+          sender
           i_changes,
-      _toggle,
-      _save.
+      _toggle
+        IMPORTING
+          i_table TYPE REF TO cl_salv_table,
+      _save
+        IMPORTING
+          i_table TYPE REF TO cl_salv_table.
 
 ENDCLASS.                    &quot;lcl_report DEFINITION
 *----------------------------------------------------------------------*
@@ -75,9 +78,7 @@ CLASS lcl_report IMPLEMENTATION.
 
     TRY.
         _select_data( ).
-        _create_table( ).
-        _display( ).
-        _save( ).
+        _display_data( ).
 
       CATCH cx_static_check cx_dynamic_check INTO lx_root.
         MESSAGE lx_root TYPE &apos;I&apos; DISPLAY LIKE &apos;E&apos;.
@@ -93,19 +94,10 @@ CLASS lcl_report IMPLEMENTATION.
 
   ENDMETHOD.                    &quot;_select_data
 
-  METHOD _create_table.
+  METHOD _display_data.
 
-    CALL METHOD zcf_salv_table=&gt;factory
-      IMPORTING
-        r_salv_table = go_table
-      CHANGING
-        t_table      = gt_data.
-
-  ENDMETHOD.                    &quot;_create_table
-
-  METHOD _display.
-
-    DATA: lo_columns TYPE REF TO cl_salv_columns_table
+    DATA: lo_table TYPE REF TO cl_salv_table
+        , lo_columns TYPE REF TO cl_salv_columns_table
         , lo_column TYPE REF TO cl_salv_column_list
         , lo_events TYPE REF TO cl_salv_events_table
         , lo_functions TYPE REF TO cl_salv_functions_list
@@ -114,7 +106,13 @@ CLASS lcl_report IMPLEMENTATION.
         .
 
 
-    lo_columns = go_table-&gt;get_columns( ).
+    CALL METHOD zcf_salv_table=&gt;factory
+      IMPORTING
+        r_salv_table = lo_table
+      CHANGING
+        t_table      = gt_data.
+
+    lo_columns = lo_table-&gt;get_columns( ).
     lo_columns-&gt;set_optimize( ).
     lo_columns-&gt;set_editable( ).
     lo_column = lo_columns-&gt;get_column2( &apos;MANDT&apos; ).
@@ -122,42 +120,53 @@ CLASS lcl_report IMPLEMENTATION.
     lo_column = lo_columns-&gt;get_column2( &apos;LAND1&apos; ).
     lo_column-&gt;set_editable( abap_false ).
 
-    lo_events = go_table-&gt;get_event( ).
+    lo_events = lo_table-&gt;get_event( ).
     SET HANDLER _on_double_click
                 _on_added_function
                 _on_before_data_change
                 _on_after_data_change
                 FOR lo_events.
 
-    lo_functions = go_table-&gt;get_functions( ).
+    lo_functions = lo_table-&gt;get_functions( ).
     lo_functions-&gt;set_all( ).
     lo_functions-&gt;add_function2( icon_toggle_display_change ).
 
-    lo_selections = go_table-&gt;get_selections( ).
+    lo_selections = lo_table-&gt;get_selections( ).
     lo_selections-&gt;set_selection_mode( if_salv_c_selection_mode=&gt;cell ).
 
-    lo_change_settings = go_table-&gt;get_change_settings( ).
+    lo_change_settings = lo_table-&gt;get_change_settings( ).
     lo_change_settings-&gt;register_edit_event_enter( ).
 
-    go_table-&gt;display( ).
+    lo_table-&gt;display( ).
 
-  ENDMETHOD.                    &quot;_display
+  ENDMETHOD.                    &quot;_display_data
 
   METHOD _on_added_function.
 
+    DATA: lo_table TYPE REF TO cl_salv_table
+        .
+
+
     CASE e_salv_function.
       WHEN icon_toggle_display_change.
-        _toggle( ).
+        lo_table = zcf_salv_table=&gt;get_table_for_object( sender ).
+        _toggle( lo_table ).
 
       WHEN cl_gui_alv_grid=&gt;mc_fc_data_save.
-        _save( ).
+        lo_table = zcf_salv_table=&gt;get_table_for_object( sender ).
+        _save( lo_table ).
     ENDCASE.
 
   ENDMETHOD.                    &quot;_on_ADDED_FUNCTION
 
   METHOD _on_double_click.
 
-    go_table-&gt;set_function( cl_gui_alv_grid=&gt;mc_fc_detail ).
+    DATA: lo_table TYPE REF TO cl_salv_table
+        .
+
+
+    lo_table = zcf_salv_table=&gt;get_table_for_object( sender ).
+    lo_table-&gt;set_function( cl_gui_alv_grid=&gt;mc_fc_detail ).
 
   ENDMETHOD.                    &quot;_on_DOUBLE_CLICK
 
@@ -177,8 +186,13 @@ CLASS lcl_report IMPLEMENTATION.
 
   METHOD _on_after_data_change.
 
+*    DATA: lo_table TYPE REF TO cl_salv_table
+*        .
+*
+*
 *    &quot; do something and refresh if needed
-*    go_table-&gt;refresh( ).
+*    lo_table = zcf_salv_table=&gt;get_table_for_object( sender ).
+*    lo_table-&gt;refresh( ).
 
   ENDMETHOD.                    &quot;_on_after_data_change
 
@@ -189,7 +203,7 @@ CLASS lcl_report IMPLEMENTATION.
         .
 
 
-    lo_columns = go_table-&gt;get_columns( ).
+    lo_columns = i_table-&gt;get_columns( ).
     lv_editable = lo_columns-&gt;has_editable( ).
     TRANSLATE lv_editable USING &apos;X  X&apos;.
     lo_columns-&gt;set_editable( lv_editable ).
@@ -202,7 +216,7 @@ CLASS lcl_report IMPLEMENTATION.
 *        .
 *
 *
-*    lo_change_settings = go_table-&gt;get_change_settings( ).
+*    lo_change_settings = i_table-&gt;get_change_settings( ).
 *    lo_change_settings-&gt;check_changed_data( ).
 *    &quot; do something
 
