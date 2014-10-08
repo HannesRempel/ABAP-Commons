@@ -1,8 +1,6 @@
 New Methods:
 GET_COLUMN2	Instance Method	Public
-HAS_EDITABLE	Instance Method	Public
 HAS_KEY	Instance Method	Public
-SET_EDITABLE	Instance Method	Public
 SET_KEY	Instance Method	Public
 
 
@@ -18,18 +16,8 @@ CX_SALV_NOT_FOUND
 
 
 
-Method parameters HAS_EDITABLE:
-RESULT	Returning	Type	SAP_BOOL
-
-
-
 Method parameters HAS_KEY:
 RESULT	Returning	Type	SAP_BOOL
-
-
-
-Method parameters SET_EDITABLE:
-I_EDITABLE	Importing	Type	SAP_BOOL	TRUE
 
 
 
@@ -46,54 +34,19 @@ ENDMETHOD.
 
 
 
-METHOD has_editable .
-
-  DATA: ls_column TYPE REF TO salv_s_column_ref
-      , lr_column TYPE REF TO cl_salv_column_list
-      .
-
-
-  LOOP AT t_columns REFERENCE INTO ls_column.
-    lr_column ?= ls_column->r_column.
-    result = lr_column->get_editable( ).
-    IF result EQ true.
-      RETURN.
-    ENDIF.
-  ENDLOOP.
-
-ENDMETHOD.
-
-
-
 METHOD has_key .
 
   DATA: ls_column TYPE REF TO salv_s_column_ref
-      , lr_column TYPE REF TO cl_salv_column_list
+      , lo_column TYPE REF TO cl_salv_column_list
       .
 
 
   LOOP AT t_columns REFERENCE INTO ls_column.
-    lr_column ?= ls_column->r_column.
-    result = lr_column->is_key( ).
+    lo_column ?= ls_column->r_column.
+    result = lo_column->is_key( ).
     IF result EQ true.
       RETURN.
     ENDIF.
-  ENDLOOP.
-
-ENDMETHOD.
-
-
-
-METHOD set_editable .
-
-  DATA: ls_column TYPE REF TO salv_s_column_ref
-      , lr_column TYPE REF TO cl_salv_column_list
-      .
-
-
-  LOOP AT t_columns REFERENCE INTO ls_column.
-    lr_column ?= ls_column->r_column.
-    lr_column->set_editable( i_editable ).
   ENDLOOP.
 
 ENDMETHOD.

@@ -1,10 +1,55 @@
+New attributes:
+GV_EDITABLE	Instance Attribute	Protected	Type	SAP_BOOL
+
+
+
 New methods:
+GET_EDITABLE	Instance Method	Public
+SET_EDITABLE	Instance Method	Public
 SET_TEXT	Instance Method	Public
+
+
+
+Method parameters GET_EDITABLE:
+RESULT	Returning	Type	SAP_BOOL
+
+
+
+Method parameters SET_EDITABLE:
+I_EDITABLE	Importing	Type	SAP_BOOL	TRUE
 
 
 
 Method parameters SET_TEXT:
 VALUE	Importing	Type	CSEQUENCE
+
+
+
+METHOD get_editable .
+
+  result = gv_editable.
+
+ENDMETHOD.
+
+
+
+METHOD set_editable .
+
+  IF gv_editable NE i_editable.
+    gv_editable = i_editable.
+
+    IF r_controller IS BOUND.
+      r_controller->set_changed(
+        name         = name
+        ref          = me
+        flavour      = if_salv_c_changelist_flavour=>setter
+        refresh_mode = if_salv_c_refresh=>soft
+        method       = 'SET_EDITABLE'
+        object       = columnname ).
+    ENDIF.
+  ENDIF.
+
+ENDMETHOD.
 
 
 
@@ -16,15 +61,17 @@ METHOD set_text .
       .
 
 
-  lv_text_s = lv_text_m = lv_text_l = value.
-  IF get_short_text( ) NE lv_text_s.
-    set_short_text( lv_text_s ).
-  ENDIF.
-  IF get_medium_text( ) NE lv_text_m.
-    set_medium_text( lv_text_m ).
-  ENDIF.
-  IF get_long_text( ) NE lv_text_l.
-    set_long_text( lv_text_l ).
+  IF value IS NOT INITIAL.
+    lv_text_s = lv_text_m = lv_text_l = value.
+    IF get_short_text( ) NE lv_text_s.
+      set_short_text( lv_text_s ).
+    ENDIF.
+    IF get_medium_text( ) NE lv_text_m.
+      set_medium_text( lv_text_m ).
+    ENDIF.
+    IF get_long_text( ) NE lv_text_l.
+      set_long_text( lv_text_l ).
+    ENDIF.
   ENDIF.
 
 ENDMETHOD.
