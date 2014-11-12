@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PROG NAME="ZBC_SALV_ENHANCEMENT_TEMPLATE" VARCL="X" SUBC="1" RSTAT="T" RMAND="200" RLOAD="D" UCCHECK="X">
+<PROG NAME="YBC_SALV_ENHANCEMENT_TEMPLATE" VARCL="X" SUBC="I" RSTAT="T" RMAND="200" RLOAD="D" UCCHECK="X">
  <textPool>
   <language SPRAS="D">
    <textElement ID="R" ENTRY="Testen der SALV Erweiterung" LENGTH="27 "/>
@@ -47,11 +47,11 @@ CLASS lcl_report DEFINITION FINAL.
         IMPORTING
           sender,
       _on_before_data_change
-        FOR EVENT before_data_change OF zif_salv_events_table
+        FOR EVENT before_data_change OF yif_salv_events_table
         IMPORTING
           i_changes,
       _on_after_data_change
-        FOR EVENT after_data_change OF zif_salv_events_table
+        FOR EVENT after_data_change OF yif_salv_events_table
         IMPORTING
           sender
           i_changes,
@@ -102,11 +102,11 @@ CLASS lcl_report IMPLEMENTATION.
         , lo_events TYPE REF TO cl_salv_events_table
         , lo_functions TYPE REF TO cl_salv_functions_list
         , lo_selections TYPE REF TO cl_salv_selections
-        , lo_change_settings TYPE REF TO zcl_salv_change_settings
+        , lo_change_settings TYPE REF TO ycl_salv_change_settings
         .
 
 
-    CALL METHOD zcf_salv_table=&gt;factory
+    CALL METHOD cl_salv_table=&gt;factory2
       IMPORTING
         r_salv_table = lo_table
       CHANGING
@@ -149,11 +149,11 @@ CLASS lcl_report IMPLEMENTATION.
 
     CASE e_salv_function.
       WHEN icon_toggle_display_change.
-        lo_table = zcf_salv_table=&gt;get_table_for_object( sender ).
+        lo_table = cl_salv_table=&gt;get_table_by_object( sender ).
         _toggle( lo_table ).
 
       WHEN cl_gui_alv_grid=&gt;mc_fc_data_save.
-        lo_table = zcf_salv_table=&gt;get_table_for_object( sender ).
+        lo_table = cl_salv_table=&gt;get_table_by_object( sender ).
         _save( lo_table ).
     ENDCASE.
 
@@ -165,7 +165,7 @@ CLASS lcl_report IMPLEMENTATION.
         .
 
 
-    lo_table = zcf_salv_table=&gt;get_table_for_object( sender ).
+    lo_table = cl_salv_table=&gt;get_table_by_object( sender ).
     lo_table-&gt;set_function( cl_gui_alv_grid=&gt;mc_fc_detail ).
 
   ENDMETHOD.                    &quot;_on_DOUBLE_CLICK

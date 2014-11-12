@@ -5,10 +5,10 @@ GET_FUNCTION	Instance Method	Public
 
 
 Method parameters ADD_FUNCTION2:
-I_NAME	Importing	Type	CSEQUENCE
-I_ICON	Importing	Type	CSEQUENCE
-I_TEXT	Importing	Type	CSEQUENCE
-I_TOOLTIP	Importing	Type	CSEQUENCE
+I_NAME	Importing	Type	CSEQUENCE	                                                                                                                                    
+I_ICON	Importing	Type	CSEQUENCE	SPACE
+I_TEXT	Importing	Type	CSEQUENCE	SPACE
+I_TOOLTIP	Importing	Type	CSEQUENCE	SPACE
 I_POSITION	Importing	Type	SALV_DE_FUNCTION_POS	IF_SALV_C_FUNCTION_POSITION=>RIGHT_OF_SALV_FUNCTIONS
 
 
@@ -19,13 +19,13 @@ CX_SALV_WRONG_CALL
 
 
 
-Method parameters ADD_FUNCTION2:
+Method parameters GET_FUNCTION:
 I_NAME	Importing	Type	SALV_DE_FUNCTION
 RESULT	Returning	Type Ref To	CL_SALV_FUNCTION
 
 
 
-Method exceptions ADD_FUNCTION2:
+Method exceptions GET_FUNCTION:
 CX_SALV_NOT_FOUND
 
 

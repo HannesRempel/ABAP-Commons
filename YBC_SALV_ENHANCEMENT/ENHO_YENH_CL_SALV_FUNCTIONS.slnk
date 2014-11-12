@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ENHO enhancement_id="ZBC_SALV_FUNCTIONS_FIX" shorttext="" tooltype_id="HOOK_IMPL" orig_object="R3TR-CL_SALV_FUNCTIONS-CLAS-CL_SALV_FUNCTIONS=============CP">
+<ENHO enhancement_id="YENH_CL_SALV_FUNCTIONS" shorttext="ALV: Generische und selbstdefinierte Funktionen" tooltype_id="HOOK_IMPL" orig_object="R3TR-CL_SALV_FUNCTIONS-CLAS-CL_SALV_FUNCTIONS=============CP">
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <IMPLS>

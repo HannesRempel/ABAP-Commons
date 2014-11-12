@@ -1,16 +1,16 @@
 New interfaces:
-ZIF_SALV_EVENTS_TABLE
+YIF_SALV_EVENTS_TABLE
 
 
 
 New attributes:
-GO_CHANGES	Instance Attribute	Private	Type Ref To	ZCL_SALV_CHANGES
+GO_CHANGES	Instance Attribute	Private	Type Ref To	YCL_SALV_CHANGES
 
 
 
 New methods:
-RAISE_AFTER_DATA_CHANGE	Instance Method	Private (Event handler for CL_GUI_ALV_GRID->DATA_CHANGED_FINISHED)
-RAISE_BEFORE_DATA_CHANGE	Instance Method	Private (Event handler for CL_GUI_ALV_GRID->DATA_CHANGED)
+RAISE_AFTER_DATA_CHANGE	Instance Method	Private
+RAISE_BEFORE_DATA_CHANGE	Instance Method	Private
 RAISE_GRID_CREATED	Instance Method	Private
 
 
@@ -39,7 +39,7 @@ METHOD raise_after_data_change .
     go_changes->_on_after_data_change( ).
 
     IF go_changes->has_changes( ) EQ abap_true.
-      RAISE EVENT zif_salv_events_table~after_data_change
+      RAISE EVENT yif_salv_events_table~after_data_change
         EXPORTING
           i_changes = go_changes.
     ENDIF.
@@ -69,7 +69,7 @@ METHOD raise_before_data_change .
             i_onf4_after  = e_onf4_after.
 
         IF go_changes->has_changes( ) EQ abap_true.
-          RAISE EVENT zif_salv_events_table~before_data_change
+          RAISE EVENT yif_salv_events_table~before_data_change
             EXPORTING
               i_changes = go_changes.
         ENDIF.
@@ -87,7 +87,7 @@ METHOD raise_grid_created .
   SET HANDLER raise_after_data_change FOR i_grid.
   SET HANDLER raise_before_data_change FOR i_grid.
 
-  RAISE EVENT zif_salv_events_table~grid_created
+  RAISE EVENT yif_salv_events_table~grid_created
     EXPORTING
       i_grid = i_grid.
 

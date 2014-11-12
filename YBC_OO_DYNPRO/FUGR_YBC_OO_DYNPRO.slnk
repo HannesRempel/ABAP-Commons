@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FUGR AREA="ZBC_GUI_CUSTOM_CONTROL" SPRAS="E" AREAT="Custom Control Container">
+<FUGR AREA="YBC_OO_DYNPRO" SPRAS="D" AREAT="Dynpro mit Custom Control Container">
  <functionGroupDocumentation/>
- <mainprogram NAME="SAPLZBC_GUI_CUSTOM_CONTROL" VARCL="X" DBAPL="S" DBNA="D$" SUBC="F" APPL="S" RSTAT="P" RMAND="200" RLOAD="D" FIXPT="X" LDBNAME="D$S" UCCHECK="X">
+ <mainprogram NAME="SAPLYBC_OO_DYNPRO" VARCL="X" DBAPL="S" DBNA="D$" SUBC="F" APPL="S" RSTAT="P" RMAND="200" RLOAD="D" FIXPT="X" LDBNAME="D$S" UCCHECK="X">
   <textPool>
    <language SPRAS="D"/>
    <language SPRAS="E"/>
   </textPool>
   <dynpros>
-   <dynpro PROG="SAPLZBC_GUI_CUSTOM_CONTROL" DNUM="9998" FNUM="0000" BZMX="200 " BZBR="255 " MILI="192 " MICO="37 " MALI="0 " MACO="0 " NOLI="200 " NOCO="255 " VALP="0 " CUAN="G" SPRA="D" DGEN="20140124" TGEN="125758" DTEXT="Custom Control mit Toolbar">
+   <dynpro PROG="SAPLYBC_OO_DYNPRO" DNUM="9998" FNUM="0000" BZMX="200 " BZBR="255 " MILI="192 " MICO="37 " MALI="0 " MACO="0 " NOLI="200 " NOCO="255 " VALP="0 " CUAN="G" SPRA="D" DTEXT="Custom Control mit Toolbar">
     <dynprofield FNAM="C" DIDX="00C8" FLG1="00" FLG2="30" FLG3="00" FILL="U" FMB1="30" FMB2="00" LENG="FF" LINE="01" COLN="02" LANF="00" LBLK="00" LREP="00" AUTH="101" AGLT="01" ADEZ="01"/>
     <dynprofield DIDX="0000" FLG1="80" FLG2="10" FLG3="00" FMB1="00" FMB2="00" LENG="14" LINE="FF" COLN="01" LTYP="O" LANF="00" LBLK="00" LREP="00" TYPE="CHAR" AGLT="00" ADEZ="00" STXT="____________________" RES1="                                       00"/>
     <dynproflowsource>PROCESS BEFORE OUTPUT.
@@ -17,7 +17,7 @@ PROCESS AFTER INPUT.
   MODULE exit AT EXIT-COMMAND.
   MODULE pai.</dynproflowsource>
    </dynpro>
-   <dynpro PROG="SAPLZBC_GUI_CUSTOM_CONTROL" DNUM="9999" FNUM="0000" BZMX="200 " BZBR="255 " MILI="196 " MICO="37 " MALI="0 " MACO="0 " NOLI="200 " NOCO="255 " VALP="0 " CUAN="G" SPRA="D" DGEN="20140124" TGEN="125806" DTEXT="Custom Control ohne Toolbar">
+   <dynpro PROG="SAPLYBC_OO_DYNPRO" DNUM="9999" FNUM="0000" BZMX="200 " BZBR="255 " MILI="196 " MICO="37 " MALI="0 " MACO="0 " NOLI="200 " NOCO="255 " VALP="0 " CUAN="G" SPRA="D" DTEXT="Custom Control ohne Toolbar">
     <dynprofield FNAM="C" DIDX="00C8" FLG1="00" FLG2="30" FLG3="00" FILL="U" FMB1="30" FMB2="00" LENG="FF" LINE="01" COLN="02" LANF="00" LBLK="00" LREP="00" AUTH="101" AGLT="01" ADEZ="01"/>
     <dynprofield DIDX="0000" FLG1="80" FLG2="10" FLG3="00" FMB1="00" FMB2="00" LENG="14" LINE="FF" COLN="01" LTYP="O" LANF="00" LBLK="00" LREP="00" TYPE="CHAR" AGLT="00" ADEZ="00" STXT="____________________" RES1="                                       00"/>
     <dynproflowsource>PROCESS BEFORE OUTPUT.
@@ -30,17 +30,17 @@ PROCESS AFTER INPUT.
   </dynpros>
   <pfstatus>
    <pfstatus_sta CODE="STANDARD" MODAL="D" ACTCODE="000001" PFKCODE="000001" BUTCODE="0001" INT_NOTE="Standard"/>
-   <pfstatus_fun CODE="BACK" TEXTNO="001" TYPE="E" TEXT_TYPE="S" FUN_TEXT="Back"/>
-   <pfstatus_fun CODE="CANCEL" TEXTNO="001" TYPE="E" TEXT_TYPE="S" FUN_TEXT="Cancel"/>
-   <pfstatus_fun CODE="EXIT" TEXTNO="001" TYPE="E" TEXT_TYPE="S" FUN_TEXT="Exit"/>
-   <pfstatus_fun CODE="FIRST_PAGE" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_FIRST_PAGE" ICON_ID="@2Y@" FUN_TEXT="First page"/>
-   <pfstatus_fun CODE="LAST_PAGE" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_LAST_PAGE" ICON_ID="@31@" FUN_TEXT="Last page"/>
-   <pfstatus_fun CODE="NEXT_PAGE" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_NEXT_PAGE" ICON_ID="@30@" FUN_TEXT="Next page"/>
-   <pfstatus_fun CODE="PREVIOUS_PAGE" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_PREVIOUS_PAGE" ICON_ID="@2Z@" FUN_TEXT="Previous page"/>
-   <pfstatus_fun CODE="PRINT" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_PRINT" ICON_ID="@0X@" FUN_TEXT="Print"/>
-   <pfstatus_fun CODE="SAVE" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_SYSTEM_SAVE" ICON_ID="@2L@" FUN_TEXT="Save"/>
-   <pfstatus_fun CODE="SEARCH" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_SEARCH" ICON_ID="@13@" FUN_TEXT="Find"/>
-   <pfstatus_fun CODE="SEARCH_NEXT" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_SEARCH_NEXT" ICON_ID="@4E@" FUN_TEXT="Find next"/>
+   <pfstatus_fun CODE="BACK" TEXTNO="001" TYPE="E" TEXT_TYPE="S" FUN_TEXT="Zurück"/>
+   <pfstatus_fun CODE="CANCEL" TEXTNO="001" TYPE="E" TEXT_TYPE="S" FUN_TEXT="Abbrechen"/>
+   <pfstatus_fun CODE="EXIT" TEXTNO="001" TYPE="E" TEXT_TYPE="S" FUN_TEXT="Beenden"/>
+   <pfstatus_fun CODE="FIRST_PAGE" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_FIRST_PAGE" ICON_ID="@2Y@" FUN_TEXT="Erste Seite"/>
+   <pfstatus_fun CODE="LAST_PAGE" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_LAST_PAGE" ICON_ID="@31@" FUN_TEXT="Letzte Seite"/>
+   <pfstatus_fun CODE="NEXT_PAGE" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_NEXT_PAGE" ICON_ID="@30@" FUN_TEXT="Nächste Seite"/>
+   <pfstatus_fun CODE="PREVIOUS_PAGE" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_PREVIOUS_PAGE" ICON_ID="@2Z@" FUN_TEXT="Vorige Seite"/>
+   <pfstatus_fun CODE="PRINT" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_PRINT" ICON_ID="@0X@" FUN_TEXT="Drucken"/>
+   <pfstatus_fun CODE="SAVE" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_SYSTEM_SAVE" ICON_ID="@2L@" FUN_TEXT="Sichern"/>
+   <pfstatus_fun CODE="SEARCH" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_SEARCH" ICON_ID="@13@" FUN_TEXT="Suchen"/>
+   <pfstatus_fun CODE="SEARCH_NEXT" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_SEARCH_NEXT" ICON_ID="@4E@" FUN_TEXT="Weiter suchen"/>
    <pfstatus_pfk CODE="000001" PFNO="03" FUNCODE="BACK" FUNNO="001"/>
    <pfstatus_pfk CODE="000001" PFNO="11" FUNCODE="SAVE" FUNNO="001"/>
    <pfstatus_pfk CODE="000001" PFNO="12" FUNCODE="CANCEL" FUNNO="001"/>
@@ -75,18 +75,18 @@ PROCESS AFTER INPUT.
   <source>*******************************************************************
 *   System-defined Include-files.                                 *
 *******************************************************************
-  INCLUDE lzbc_gui_custom_controltop.        &quot; Global Data
-  INCLUDE lzbc_gui_custom_controluxx.        &quot; Function Modules
+  INCLUDE lybc_oo_dynprotop.        &quot; Global Data
+  INCLUDE lybc_oo_dynprouxx.        &quot; Function Modules
 
 *******************************************************************
 *   User-defined Include-files (if necessary).                    *
 *******************************************************************
-  INCLUDE lzbc_gui_custom_controlf01.        &quot; Subprograms
-  INCLUDE lzbc_gui_custom_controlo01.        &quot; PBO-Modules
-  INCLUDE lzbc_gui_custom_controli01.        &quot; PAI-Modules</source>
+  INCLUDE lybc_oo_dynprof01.
+  INCLUDE lybc_oo_dynproo01.
+  INCLUDE lybc_oo_dynproi01.</source>
  </mainprogram>
  <includeprograms>
-  <include NAME="LZBC_GUI_CUSTOM_CONTROLF01" VARCL="X" SUBC="I" APPL="S" RMAND="200" RLOAD="D" UCCHECK="X">
+  <include NAME="LYBC_OO_DYNPROF01" VARCL="X" SUBC="I" APPL="S" LEVL="702" RMAND="200" RLOAD="D" UCCHECK="X">
    <include_source>*&amp;---------------------------------------------------------------------*
 *&amp;      Form  pbo
 *&amp;---------------------------------------------------------------------*
@@ -94,7 +94,7 @@ PROCESS AFTER INPUT.
 *----------------------------------------------------------------------*
 FORM pbo.
 
-  DATA: lo_container TYPE REF TO zif_gui_container
+  DATA: lo_dynpro TYPE REF TO yif_oo_dynpro
       , lv_pfkey TYPE sypfkey
       , lv_cprog TYPE sycprog
       , lt_fcode TYPE rlb_t_excl
@@ -102,14 +102,14 @@ FORM pbo.
       .
 
 
-  lo_container = zcl_gui_custom_container=&gt;get_current( ).
+  lo_dynpro = ycl_oo_dynpro=&gt;get_current( ).
 
-  lv_pfkey = lo_container-&gt;get_pfkey( ).
-  lv_cprog = lo_container-&gt;get_cprog( ).
-  lt_fcode = lo_container-&gt;get_excluded_functions( ).
+  lv_pfkey = lo_dynpro-&gt;get_pfkey( ).
+  lv_cprog = lo_dynpro-&gt;get_cprog( ).
+  lt_fcode = lo_dynpro-&gt;get_excluded_functions( ).
   SET PF-STATUS lv_pfkey OF PROGRAM lv_cprog EXCLUDING lt_fcode.
 
-  lv_title = lo_container-&gt;get_title( ).
+  lv_title = lo_dynpro-&gt;get_title( ).
   IF lv_title IS NOT INITIAL.
     SET TITLEBAR &apos;TITLE&apos; WITH lv_title.
   ENDIF.
@@ -122,16 +122,16 @@ ENDFORM.                    &quot;pbo
 *----------------------------------------------------------------------*
 FORM pai.
 
-  DATA: lo_container TYPE REF TO zcl_gui_custom_container
+  DATA: lo_dynpro TYPE REF TO ycl_oo_dynpro
       , lv_dynnr TYPE sydynnr
       .
 
 
-  lo_container = zcl_gui_custom_container=&gt;get_current( ).
-  lo_container-&gt;raise_function_code( sy-ucomm ).
+  lo_dynpro = ycl_oo_dynpro=&gt;get_current( ).
+  lo_dynpro-&gt;raise_function_code( sy-ucomm ).
   FREE sy-ucomm.
 
-  lv_dynnr = lo_container-&gt;get_dynnr( ).
+  lv_dynnr = lo_dynpro-&gt;get_dynnr( ).
   SET SCREEN lv_dynnr.
 
 ENDFORM.                    &quot;pai
@@ -146,7 +146,7 @@ FORM exit.
 
 ENDFORM.                    &quot;exit</include_source>
   </include>
-  <include NAME="LZBC_GUI_CUSTOM_CONTROLI01" VARCL="X" SUBC="I" APPL="S" RMAND="200" RLOAD="D" UCCHECK="X">
+  <include NAME="LYBC_OO_DYNPROI01" VARCL="X" SUBC="I" APPL="S" LEVL="702" RMAND="200" RLOAD="D" UCCHECK="X">
    <include_source>*----------------------------------------------------------------------*
 *  MODULE pai INPUT
 *----------------------------------------------------------------------*
@@ -169,7 +169,7 @@ MODULE exit INPUT.
 
 ENDMODULE.                    &quot;exit INPUT</include_source>
   </include>
-  <include NAME="LZBC_GUI_CUSTOM_CONTROLO01" VARCL="X" SUBC="I" APPL="S" RMAND="200" RLOAD="D" UCCHECK="X">
+  <include NAME="LYBC_OO_DYNPROO01" VARCL="X" SUBC="I" APPL="S" LEVL="702" RMAND="200" RLOAD="D" UCCHECK="X">
    <include_source>*----------------------------------------------------------------------*
 *  MODULE pbo OUTPUT
 *----------------------------------------------------------------------*
@@ -181,20 +181,20 @@ MODULE pbo OUTPUT.
 
 ENDMODULE.                    &quot;pbo OUTPUT</include_source>
   </include>
-  <include NAME="LZBC_GUI_CUSTOM_CONTROLTOP" VARCL="X" DBAPL="S" DBNA="D$" SUBC="I" APPL="S" RMAND="200" FIXPT="X" LDBNAME="D$S" UCCHECK="X">
-   <include_source>FUNCTION-POOL zbc_gui_custom_control.       &quot;MESSAGE-ID ..</include_source>
+  <include NAME="LYBC_OO_DYNPROTOP" VARCL="X" DBAPL="S" DBNA="D$" SUBC="I" APPL="S" RMAND="200" FIXPT="X" LDBNAME="D$S" UCCHECK="X">
+   <include_source>FUNCTION-POOL YBC_OO_DYNPRO.       &quot;MESSAGE-ID ..</include_source>
   </include>
  </includeprograms>
  <functionmodules>
-  <functionmodule NAME="Z_GUI_CUSTOM_CONTROL" STEXT="Show Custom Control">
-   <fm_source>DATA: lo_container TYPE REF TO zcl_gui_custom_container
+  <functionmodule NAME="Y_OO_DYNPRO_CALL" STEXT="Dynpro mit Custom Control Container aufrufen">
+   <fm_source>DATA: lo_dynpro TYPE REF TO ycl_oo_dynpro
       , lv_dynnr TYPE sydynnr
       .
 
 
-  lo_container = zcl_gui_custom_container=&gt;get_current( ).
-  IF lo_container IS BOUND.
-    lv_dynnr = lo_container-&gt;get_dynnr( ).
+  lo_dynpro = ycl_oo_dynpro=&gt;get_current( ).
+  IF lo_dynpro IS BOUND.
+    lv_dynnr = lo_dynpro-&gt;get_dynnr( ).
     CALL SCREEN lv_dynnr.
   ENDIF.</fm_source>
    <functionModuleDocumentation/>

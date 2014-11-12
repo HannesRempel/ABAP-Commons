@@ -7,34 +7,34 @@ GET_SLIS_FIELDCATALOG
 
 
 *----------------------------------------------------------------------*
-*       CLASS LCL_ZBC_CL_SALV_CONTROLLER_ME DEFINITION
+*       CLASS lcl_yecl_salv_cntr_metadata DEFINITION
 *----------------------------------------------------------------------*
 *
 *----------------------------------------------------------------------*
-CLASS lcl_zbc_salv_control_metadata DEFINITION FINAL.
+CLASS lcl_yecl_salv_cntr_metadata DEFINITION FINAL.
 
   PUBLIC SECTION.
-    CLASS-DATA obj TYPE REF TO lcl_zbc_salv_control_metadata. "#EC NEEDED
+    CLASS-DATA obj TYPE REF TO lcl_yecl_salv_cntr_metadata. "#EC NEEDED
     DATA core_object TYPE REF TO cl_salv_controller_metadata . "#EC NEEDED
- INTERFACES  IPO_ZBC_SALV_CONTROL_METADATA.
+    INTERFACES  ipo_yecl_salv_cntr_metadata.
     METHODS:
       constructor
         IMPORTING
           core_object TYPE REF TO cl_salv_controller_metadata OPTIONAL.
 
-ENDCLASS.                    "LCL_ZBC_CL_SALV_CONTROLLER_ME DEFINITION
+ENDCLASS.                    "lcl_yecl_salv_cntr_metadata DEFINITION
 *----------------------------------------------------------------------*
-*       CLASS LCL_ZBC_CL_SALV_CONTROLLER_ME IMPLEMENTATION
+*       CLASS lcl_yecl_salv_cntr_metadata IMPLEMENTATION
 *----------------------------------------------------------------------*
 *
 *----------------------------------------------------------------------*
-CLASS lcl_zbc_salv_control_metadata IMPLEMENTATION.
+CLASS lcl_yecl_salv_cntr_metadata IMPLEMENTATION.
 
   METHOD constructor.
     me->core_object = core_object.
-  ENDMETHOD.                    "CONSTRUCTOR
+  ENDMETHOD.                    "constructor
 
-  METHOD ipo_zbc_salv_control_metadata~complete_metadata_slis_to_lvc.
+  METHOD ipo_yecl_salv_cntr_metadata~complete_metadata_slis_to_lvc.
 *"------------------------------------------------------------------------*
 *" Declaration of POST-method, do not insert any comments here please!
 *"
@@ -47,25 +47,38 @@ CLASS lcl_zbc_salv_control_metadata IMPLEMENTATION.
 *"    !S_LAYOUT type LVC_S_LAYO optional .
 *"------------------------------------------------------------------------*
 
-    DATA: lo_table TYPE REF TO cl_salv_table
-        , lo_settings TYPE REF TO zcl_salv_change_settings
+    DATA: lo_settings TYPE REF TO ycl_salv_change_settings
+        , lo_table TYPE REF TO cl_salv_table
+        , lx_root TYPE REF TO cx_root
         .
 
 
-    lo_table = zcf_salv_table=>get_table_for_columns( r_columns ).
-    IF lo_table IS BOUND.
-      lo_settings = lo_table->get_change_settings( ).
-      s_layout-no_rowmove = lo_settings->get_no_row_move( ).
-      s_layout-no_rowins  = lo_settings->get_no_row_insert( ).
-    ENDIF.
 
     IF r_display_settings IS BOUND.
       s_layout-detailinit = r_display_settings->get_detail_initial( ).
     ENDIF.
 
-  ENDMETHOD.                    "IPO_ZBC_CL_SALV_CONTROLLER_ME~COMPLETE_METADATA_SLIS_TO_LVC
+    TRY.
+        CALL METHOD cl_salv_table=>('GET_TABLE_BY_OBJECT')
+          EXPORTING
+            i_object = r_columns
+          RECEIVING
+            result   = lo_table.
 
-  METHOD ipo_zbc_salv_control_metadata~get_lvc_fieldcatalog.
+        IF lo_table IS BOUND.
+          lo_settings = lo_table->get_change_settings( ).
+          s_layout-no_rowmove = lo_settings->get_no_row_move( ).
+          s_layout-no_rowins  = lo_settings->get_no_row_insert( ).
+        ENDIF.
+
+      CATCH cx_sy_dyn_call_error INTO lx_root.
+        " message in case of inactive enhancement
+        MESSAGE lx_root TYPE 'E'.
+    ENDTRY.
+
+  ENDMETHOD.                    "ipo_yecl_salv_cntr_metadata~complete_metadata_slis_to_lvc
+
+  METHOD ipo_yecl_salv_cntr_metadata~get_lvc_fieldcatalog.
 *"------------------------------------------------------------------------*
 *" Declaration of POST-method, do not insert any comments here please!
 *"
@@ -77,23 +90,13 @@ CLASS lcl_zbc_salv_control_metadata IMPLEMENTATION.
 *"    value(T_FIELDCATALOG) type LVC_T_FCAT . "#EC CI_VALPAR
 *"------------------------------------------------------------------------*
 
-    DATA: lo_container TYPE REF TO zif_gui_container
-        , ls_fieldcatalog TYPE REF TO lvc_s_fcat
+    DATA: ls_fieldcatalog TYPE REF TO lvc_s_fcat
         , lo_column TYPE REF TO cl_salv_column_list
         .
 
 
     IF r_columns IS NOT BOUND.
       RETURN.
-    ENDIF.
-
-    lo_container = zcf_salv_table=>get_container_for_columns( r_columns ).
-    IF lo_container IS BOUND.
-      IF r_columns->has_editable( ) EQ abap_true.
-        lo_container->activate_function( zit_gui_function=>ucomm_save ).
-      ELSE.
-        lo_container->deactivate_function( zit_gui_function=>ucomm_save ).
-      ENDIF.
     ENDIF.
 
     TRY.
@@ -106,9 +109,9 @@ CLASS lcl_zbc_salv_control_metadata IMPLEMENTATION.
         RETURN.
     ENDTRY.
 
-  ENDMETHOD.                    "IPO_ZBC_CL_SALV_CONTROLLER_ME~GET_LVC_FIELDCATALOG
+  ENDMETHOD.                    "ipo_yecl_salv_cntr_metadata~get_lvc_fieldcatalog
 
-  METHOD ipo_zbc_salv_control_metadata~get_lvc_layout.
+  METHOD ipo_yecl_salv_cntr_metadata~get_lvc_layout.
 *"------------------------------------------------------------------------*
 *" Declaration of POST-method, do not insert any comments here please!
 *"
@@ -123,25 +126,38 @@ CLASS lcl_zbc_salv_control_metadata IMPLEMENTATION.
 *"    !S_LAYOUT type LVC_S_LAYO .
 *"------------------------------------------------------------------------*
 
-    DATA: lo_table TYPE REF TO cl_salv_table
-        , lo_settings TYPE REF TO zcl_salv_change_settings
+    DATA: lo_settings TYPE REF TO ycl_salv_change_settings
+        , lo_table TYPE REF TO cl_salv_table
+        , lx_root TYPE REF TO cx_root
         .
 
 
-    lo_table = zcf_salv_table=>get_table_for_columns( r_columns ).
-    IF lo_table IS BOUND.
-      lo_settings = lo_table->get_change_settings( ).
-      s_layout-no_rowmove = lo_settings->get_no_row_move( ).
-      s_layout-no_rowins  = lo_settings->get_no_row_insert( ).
-    ENDIF.
 
     IF r_display_settings IS BOUND.
       s_layout-detailinit = r_display_settings->get_detail_initial( ).
     ENDIF.
 
-  ENDMETHOD.                    "IPO_ZBC_CL_SALV_CONTROLLER_ME~GET_LVC_LAYOUT
+    TRY.
+        CALL METHOD cl_salv_table=>('GET_TABLE_BY_OBJECT')
+          EXPORTING
+            i_object = r_columns
+          RECEIVING
+            result   = lo_table.
 
-  METHOD ipo_zbc_salv_control_metadata~get_slis_fieldcatalog.
+        IF lo_table IS BOUND.
+          lo_settings = lo_table->get_change_settings( ).
+          s_layout-no_rowmove = lo_settings->get_no_row_move( ).
+          s_layout-no_rowins  = lo_settings->get_no_row_insert( ).
+        ENDIF.
+
+      CATCH cx_sy_dyn_call_error INTO lx_root.
+        " message in case of inactive enhancement
+        MESSAGE lx_root TYPE 'E'.
+    ENDTRY.
+
+  ENDMETHOD.                    "ipo_yecl_salv_cntr_metadata~get_lvc_layout
+
+  METHOD ipo_yecl_salv_cntr_metadata~get_slis_fieldcatalog.
 *"------------------------------------------------------------------------*
 *" Declaration of POST-method, do not insert any comments here please!
 *"
@@ -174,6 +190,6 @@ CLASS lcl_zbc_salv_control_metadata IMPLEMENTATION.
         RETURN.
     ENDTRY.
 
-  ENDMETHOD.                    "IPO_ZBC_CL_SALV_CONTROLLER_ME~GET_SLIS_FIELDCATALOG
+  ENDMETHOD.                    "ipo_yecl_salv_cntr_metadata~get_slis_fieldcatalog
 
-ENDCLASS.
+ENDCLASS.                    "lcl_yecl_salv_cntr_metadata IMPLEMENTATION

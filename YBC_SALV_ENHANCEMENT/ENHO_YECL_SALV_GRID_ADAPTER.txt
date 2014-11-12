@@ -3,21 +3,21 @@ IF_SALV_ADAPTER~SET_METADATA
 
 
 
-CLASS lcl_zbc_salv_grid_adapter DEFINITION DEFERRED.
-CLASS cl_salv_grid_adapter DEFINITION LOCAL FRIENDS lcl_zbc_salv_grid_adapter.
+CLASS lcl_yecl_salv_grid_adapter DEFINITION DEFERRED.
+CLASS cl_salv_grid_adapter DEFINITION LOCAL FRIENDS lcl_yecl_salv_grid_adapter.
 *----------------------------------------------------------------------*
-*       CLASS LCL_ZBC_SALV_GRID_ADAPTER DEFINITION
+*       CLASS lcl_yecl_salv_grid_adapter DEFINITION
 *----------------------------------------------------------------------*
 *
 *----------------------------------------------------------------------*
-CLASS lcl_zbc_salv_grid_adapter DEFINITION.
+CLASS lcl_yecl_salv_grid_adapter DEFINITION.
 
   PUBLIC SECTION.
-    CLASS-DATA obj TYPE REF TO lcl_zbc_salv_grid_adapter.   "#EC NEEDED
+    CLASS-DATA obj TYPE REF TO lcl_yecl_salv_grid_adapter.  "#EC NEEDED
     DATA core_object TYPE REF TO cl_salv_grid_adapter .     "#EC NEEDED
 
 
- INTERFACES  IPO_ZBC_SALV_GRID_ADAPTER.
+    INTERFACES  ipo_yecl_salv_grid_adapter.
     METHODS:
      constructor IMPORTING core_object
        TYPE REF TO cl_salv_grid_adapter OPTIONAL.
@@ -25,19 +25,19 @@ CLASS lcl_zbc_salv_grid_adapter DEFINITION.
   PRIVATE SECTION.
     DATA gv_flag TYPE sap_bool.
 
-ENDCLASS.                    "LCL_ZBC_CL_SALV_GRID_ADAPTER DEFINITION
+ENDCLASS.                    "lcl_yecl_salv_grid_adapter DEFINITION
 *----------------------------------------------------------------------*
-*       CLASS LCL_ZBC_CL_SALV_GRID_ADAPTER IMPLEMENTATION
+*       CLASS lcl_yecl_salv_grid_adapter IMPLEMENTATION
 *----------------------------------------------------------------------*
 *
 *----------------------------------------------------------------------*
-CLASS lcl_zbc_salv_grid_adapter IMPLEMENTATION.
+CLASS lcl_yecl_salv_grid_adapter IMPLEMENTATION.
 
   METHOD constructor.
     me->core_object = core_object.
-  ENDMETHOD.                    "CONSTRUCTOR
+  ENDMETHOD.                    "constructor
 
-  METHOD ipo_zbc_salv_grid_adapter~set_metadata.
+  METHOD ipo_yecl_salv_grid_adapter~set_metadata.
 *"------------------------------------------------------------------------*
 *" Declaration of POST-method, do not insert any comments here please!
 *"
@@ -56,6 +56,6 @@ CLASS lcl_zbc_salv_grid_adapter IMPLEMENTATION.
           i_grid       = core_object->r_grid.
     ENDIF.
 
-  ENDMETHOD.                    "IPO_ZBC_CL_SALV_GRID_ADAPTER~SET_METADATA
+  ENDMETHOD.                    "ipo_yecl_salv_grid_adapter~set_metadata
 
-ENDCLASS.
+ENDCLASS.                    "lcl_yecl_salv_grid_adapter IMPLEMENTATION                 

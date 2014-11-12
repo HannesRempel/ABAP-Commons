@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CLAS CLSNAME="YCL_SALV_CHANGE" VERSION="1" LANGU="D" DESCRIPT="ALV: Änderung" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+ <friends CLSNAME="YCL_SALV_CHANGE" REFCLSNAME="YCL_SALV_CHANGES" FRIENDTYPE="0" VERSION="1" STATE="1"/>
+ <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+ <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <typeUsage CLSNAME="YCL_SALV_CHANGE" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+ <forwardDeclaration>ABAP</forwardDeclaration>
+ <attribute CLSNAME="YCL_SALV_CHANGE" CMPNAME="GO_PROTOCOL" VERSION="1" LANGU="D" DESCRIPT="Message Protokoll für Dataentry" EXPOSURE="0" STATE="1" EDITORDER="1 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="CL_ALV_CHANGED_DATA_PROTOCOL" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_SALV_CHANGE" CMPNAME="GO_TABLE" VERSION="1" LANGU="D" DESCRIPT="Basisklasse für einfache Tabellen" EXPOSURE="0" STATE="1" EDITORDER="2 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="CL_SALV_TABLE" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_SALV_CHANGE" CMPNAME="GR_MOD_CELL" VERSION="1" LANGU="D" DESCRIPT="ALV Control: Geänderte Zellen für Anwendung" EXPOSURE="0" STATE="1" EDITORDER="3 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="LVC_S_MODI" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_SALV_CHANGE" CMPNAME="GR_ROW_DATA" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="4 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="DATA" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_SALV_CHANGE" CMPNAME="GV_OLD_VALUE" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="5 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <method CLSNAME="YCL_SALV_CHANGE" CMPNAME="CONSTRUCTOR" VERSION="1" LANGU="D" DESCRIPT="CONSTRUCTOR" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="2" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_SALV_CHANGE" CMPNAME="CONSTRUCTOR" SCONAME="I_OLD_VALUE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="2" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="YCL_SALV_CHANGE" CMPNAME="CONSTRUCTOR" SCONAME="I_MOD_CELL" VERSION="1" LANGU="D" DESCRIPT="ALV Control: Geänderte Zellen für Anwendung" CMPTYPE="1" MTDTYPE="2" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="LVC_S_MODI"/>
+  <parameter CLSNAME="YCL_SALV_CHANGE" CMPNAME="CONSTRUCTOR" SCONAME="I_ROW_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="2" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="DATA" PAROPTIONL="X"/>
+  <parameter CLSNAME="YCL_SALV_CHANGE" CMPNAME="CONSTRUCTOR" SCONAME="I_TABLE" VERSION="1" LANGU="D" DESCRIPT="Basisklasse für einfache Tabellen" CMPTYPE="1" MTDTYPE="2" EDITORDER="4 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_SALV_TABLE"/>
+  <parameter CLSNAME="YCL_SALV_CHANGE" CMPNAME="CONSTRUCTOR" SCONAME="I_PROTOCOL" VERSION="1" LANGU="D" DESCRIPT="Message Protokoll für Dataentry" CMPTYPE="1" MTDTYPE="2" EDITORDER="5 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_ALV_CHANGED_DATA_PROTOCOL" PAROPTIONL="X"/>
+  <exception CLSNAME="YCL_SALV_CHANGE" CMPNAME="CONSTRUCTOR" SCONAME="CX_SY_REF_IS_INITIAL" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei ASSIGN" MTDTYPE="2" EDITORDER="1 "/>
+  <source>METHOD constructor.
+
+  gv_old_value = i_old_value.
+  gr_mod_cell = i_mod_cell.
+  gr_row_data = i_row_data.
+  go_table = i_table.
+  go_protocol = i_protocol.
+
+  IF gr_mod_cell IS NOT BOUND.
+    RAISE EXCEPTION TYPE cx_sy_ref_is_initial.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_SALV_CHANGE" CMPNAME="GET_COLUMN" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_SALV_CHANGE" CMPNAME="GET_COLUMN" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="ALV-Control: Feldname internes Tabellenfeld" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="LVC_FNAME"/>
+  <source>METHOD get_column.
+
+  result = gr_mod_cell-&gt;fieldname.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_SALV_CHANGE" CMPNAME="GET_ROW_ID" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_SALV_CHANGE" CMPNAME="GET_ROW_ID" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="ALV-Control: Zeilen-ID" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="LVC_ROID"/>
+  <source>METHOD get_row_id.
+
+  result = gr_mod_cell-&gt;row_id.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_SALV_CHANGE" CMPNAME="GET_VALUE_NEW" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_SALV_CHANGE" CMPNAME="GET_VALUE_NEW" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+  <source>METHOD get_value_new.
+
+  IF gr_mod_cell-&gt;error EQ abap_false.
+    result = gr_mod_cell-&gt;value.
+
+  ELSE.
+    result = gv_old_value.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_SALV_CHANGE" CMPNAME="GET_VALUE_OLD" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="5 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_SALV_CHANGE" CMPNAME="GET_VALUE_OLD" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+  <source>METHOD get_value_old.
+
+  result = gv_old_value.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_SALV_CHANGE" CMPNAME="GET_VALUE_REQUESTED" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="6 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_SALV_CHANGE" CMPNAME="GET_VALUE_REQUESTED" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+  <source>METHOD get_value_requested.
+
+  result = gr_mod_cell-&gt;value.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_SALV_CHANGE" CMPNAME="HAS_ERROR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="7 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_SALV_CHANGE" CMPNAME="HAS_ERROR" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+  <source>METHOD has_error.
+
+  result = gr_mod_cell-&gt;error.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_SALV_CHANGE" CMPNAME="IS_CHANGED" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="8 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_SALV_CHANGE" CMPNAME="IS_CHANGED" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+  <source>METHOD is_changed.
+
+  IF gv_old_value NE gr_mod_cell-&gt;value.
+    result = abap_true.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_SALV_CHANGE" CMPNAME="SET_ERROR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="9 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <exception CLSNAME="YCL_SALV_CHANGE" CMPNAME="SET_ERROR" SCONAME="CX_SY_DYN_CALL_ILLEGAL_METHOD" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei dynamischen Methoden-Aufrufen aller Art" MTDTYPE="0" EDITORDER="1 "/>
+  <source>METHOD set_error.
+
+  IF go_protocol IS BOUND.
+    gr_mod_cell-&gt;error = abap_true.
+    go_protocol-&gt;add_protocol_entry(
+        i_msgid     = sy-msgid
+        i_msgty     = sy-msgty
+        i_msgno     = sy-msgno
+        i_msgv1     = sy-msgv1
+        i_msgv2     = sy-msgv2
+        i_msgv3     = sy-msgv3
+        i_msgv4     = sy-msgv4
+        i_fieldname = gr_mod_cell-&gt;fieldname
+        i_row_id    = gr_mod_cell-&gt;row_id
+           ).
+
+  ELSE.
+    RAISE EXCEPTION TYPE cx_sy_dyn_call_illegal_method.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_SALV_CHANGE" CMPNAME="SET_VALUE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="10 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_SALV_CHANGE" CMPNAME="SET_VALUE" SCONAME="I_VALUE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE"/>
+  <exception CLSNAME="YCL_SALV_CHANGE" CMPNAME="SET_VALUE" SCONAME="CX_SY_CONVERSION_ERROR" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei Konvertierungsfehlern" MTDTYPE="0" EDITORDER="1 "/>
+  <source>METHOD set_value.
+
+  DATA: lv_value TYPE lvc_value
+      .
+
+
+  WRITE i_value TO lv_value LEFT-JUSTIFIED. &quot; intermediate variable is needed to avoid dump in IF clause
+  IF gr_mod_cell-&gt;value EQ lv_value.
+    RETURN.
+  ELSE.
+    gr_mod_cell-&gt;value = lv_value.
+  ENDIF.
+
+  _set_row_value( i_value ).
+  _set_cell_value( i_value ).
+  _update_protocol_value( ).
+  _delete_protocol_error( ).
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_SALV_CHANGE" CMPNAME="_DELETE_PROTOCOL_ERROR" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="11 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD _delete_protocol_error.
+
+  DATA: lt_msg TYPE lvc_t_msg1
+      , ls_msg TYPE REF TO lvc_s_msg1
+      .
+
+
+  IF gr_mod_cell-&gt;error EQ abap_false.
+    RETURN.
+  ELSE.
+    gr_mod_cell-&gt;error = abap_false.
+  ENDIF.
+
+  IF go_protocol IS BOUND.
+    lt_msg = go_protocol-&gt;mt_protocol.
+    LOOP AT lt_msg REFERENCE INTO ls_msg.
+      IF ls_msg-&gt;fieldname EQ gr_mod_cell-&gt;fieldname AND ls_msg-&gt;row_id EQ gr_mod_cell-&gt;row_id.
+        DELETE lt_msg.
+      ENDIF.
+    ENDLOOP.
+
+    IF lt_msg NE go_protocol-&gt;mt_protocol.
+      go_protocol-&gt;refresh_protocol( ).
+      LOOP AT lt_msg REFERENCE INTO ls_msg.
+        go_protocol-&gt;add_protocol_entry(
+            i_msgid     = ls_msg-&gt;msgid
+            i_msgty     = ls_msg-&gt;msgty
+            i_msgno     = ls_msg-&gt;msgno
+            i_msgv1     = ls_msg-&gt;msgv1
+            i_msgv2     = ls_msg-&gt;msgv2
+            i_msgv3     = ls_msg-&gt;msgv3
+            i_msgv4     = ls_msg-&gt;msgv4
+            i_fieldname = ls_msg-&gt;fieldname
+            i_row_id    = ls_msg-&gt;row_id
+               ).
+      ENDLOOP.
+    ENDIF.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_SALV_CHANGE" CMPNAME="_SET_CELL_VALUE" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="12 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_SALV_CHANGE" CMPNAME="_SET_CELL_VALUE" SCONAME="I_VALUE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE"/>
+  <exception CLSNAME="YCL_SALV_CHANGE" CMPNAME="_SET_CELL_VALUE" SCONAME="CX_SY_CONVERSION_ERROR" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei Konvertierungsfehlern" MTDTYPE="0" EDITORDER="1 "/>
+  <source>METHOD _set_cell_value.
+
+  DATA: lx_root TYPE REF TO cx_root
+      .
+
+
+  IF go_protocol IS NOT BOUND.
+    TRY.
+        CALL METHOD go_table-&gt;(&apos;SET_CELL_VALUE&apos;)
+          EXPORTING
+            i_row_id = gr_mod_cell-&gt;row_id
+            i_column = gr_mod_cell-&gt;fieldname
+            i_value  = i_value.
+
+      CATCH cx_sy_dyn_call_error INTO lx_root.
+        &quot; message in case of inactive enhancement
+        MESSAGE lx_root TYPE &apos;E&apos;.
+    ENDTRY.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_SALV_CHANGE" CMPNAME="_SET_ROW_VALUE" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="13 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_SALV_CHANGE" CMPNAME="_SET_ROW_VALUE" SCONAME="I_VALUE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE"/>
+  <exception CLSNAME="YCL_SALV_CHANGE" CMPNAME="_SET_ROW_VALUE" SCONAME="CX_SY_CONVERSION_ERROR" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei Konvertierungsfehlern" MTDTYPE="0" EDITORDER="1 "/>
+  <source>METHOD _set_row_value.
+
+  FIELD-SYMBOLS: &lt;ls_data&gt; TYPE data
+               , &lt;lv_data&gt; TYPE data
+               .
+
+
+  IF gr_row_data IS BOUND.
+    ASSIGN gr_row_data-&gt;* TO &lt;ls_data&gt;.
+    IF sy-subrc NE 0.
+      RETURN.
+    ENDIF.
+
+    ASSIGN COMPONENT gr_mod_cell-&gt;fieldname OF STRUCTURE &lt;ls_data&gt; TO &lt;lv_data&gt;.
+    IF sy-subrc NE 0.
+      RETURN.
+    ENDIF.
+
+    &lt;lv_data&gt; = i_value.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_SALV_CHANGE" CMPNAME="_UPDATE_PROTOCOL_VALUE" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="14 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD _update_protocol_value.
+
+  DATA: ls_modi TYPE REF TO lvc_s_modi
+      .
+
+  IF go_protocol IS BOUND.
+    READ TABLE go_protocol-&gt;mt_good_cells
+          WITH KEY  row_id = gr_mod_cell-&gt;row_id         &quot;#EC CI_STDSEQ
+                    fieldname = gr_mod_cell-&gt;fieldname
+          REFERENCE INTO ls_modi.
+
+    IF sy-subrc EQ 0.
+      ls_modi-&gt;value = gr_mod_cell-&gt;value.
+
+    ELSE.
+      INSERT gr_mod_cell-&gt;* INTO TABLE go_protocol-&gt;mt_good_cells.
+    ENDIF.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+</CLAS>

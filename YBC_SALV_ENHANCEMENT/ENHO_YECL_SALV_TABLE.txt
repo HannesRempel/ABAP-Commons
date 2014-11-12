@@ -1,0 +1,404 @@
+New attributes:
+T_TABLES	Static Attribute	Private	Type	YBC_SALV_T_TABLE
+R_CHANGE_SETTINGS	Instance Attribute	Private	Type Ref To	YCL_SALV_CHANGE_SETTINGS
+
+
+
+New methods:
+FACTORY2	Static Method	Public
+GET_TABLE_BY_OBJECT	Static Method	Public
+GET_CELL_VALUE	Instance Method	Public
+GET_CHANGE_SETTINGS	Instance Method	Public
+GET_DATA	Instance Method	Public
+GET_GRID	Instance Method	Public
+SET_CELL_VALUE	Instance Method	Public
+_TO_READ_ONLY_REF	Instance Method	Private
+
+
+
+Pre-Methods for:
+DISPLAY
+
+
+
+Post-Methods for:
+FACTORY
+DISPLAY
+
+
+
+Method parameters FACTORY2:
+R_SALV_TABLE	Exporting	Type Ref To	CL_SALV_TABLE
+T_TABLE	Changing	Type	TABLE
+
+
+
+Method parameters GET_TABLE_BY_OBJECT:
+I_OBJECT	Importing	Type Ref To	OBJECT
+RESULT	Returning	Type Ref To	CL_SALV_TABLE
+
+
+
+Method parameters GET_CELL_VALUE:
+I_ROW_ID	Importing	Type	I
+I_COLUMN	Importing	Type	CSEQUENCE
+RESULT	Returning	Type	STRING
+
+
+
+Method parameters GET_CHANGE_SETTINGS:
+RESULT	Returning	Type Ref To	YCL_SALV_CHANGE_SETTINGS
+
+
+
+Method parameters GET_DATA:
+RESULT	Returning	Type Ref To	DATA
+
+
+
+Method parameters GET_GRID:
+RESULT	Returning	Type Ref To	CL_GUI_ALV_GRID
+
+
+
+Method parameters SET_CELL_VALUE:
+I_ROW_ID	Importing	Type	I
+I_COLUMN	Importing	Type	CSEQUENCE
+I_VALUE	Importing	Type	SIMPLE
+
+
+
+Method exceptions SET_CELL_VALUE:
+CX_SY_CONVERSION_ERROR
+
+
+
+Method parameters _TO_READ_ONLY_REF:
+I_DATA	Importing	Type	DATA
+RESULT	Returning	Type Ref To	DATA
+
+
+
+METHOD factory2 .
+
+  DATA: lo_object TYPE REF TO object
+      , lo_container TYPE REF TO cl_gui_container
+      .
+
+
+  IF cl_salv_model=>is_offline( ) NE if_salv_c_bool_sap=>true.
+    TRY.
+        CALL METHOD ('YCF_OO_DYNPRO')=>create_dynpro
+          RECEIVING
+            result = lo_object.
+        lo_container ?= lo_object.
+
+      CATCH cx_sy_dyn_call_error cx_sy_move_cast_error.
+        lo_container = cl_gui_container=>default_screen.
+    ENDTRY.
+  ENDIF.
+
+  TRY.
+      IF lo_container IS BOUND.
+        CALL METHOD factory
+          EXPORTING
+            r_container  = lo_container
+          IMPORTING
+            r_salv_table = r_salv_table
+          CHANGING
+            t_table      = t_table.
+
+      ELSE.
+        CALL METHOD factory
+          IMPORTING
+            r_salv_table = r_salv_table
+          CHANGING
+            t_table      = t_table.
+      ENDIF.
+
+    CATCH cx_salv_msg.                                  "#EC NO_HANDLER
+  ENDTRY.
+
+ENDMETHOD.
+
+
+
+METHOD get_table_by_object .
+
+  DATA: lo_ref TYPE REF TO cl_abap_weak_reference
+      , lo_table TYPE REF TO cl_salv_table
+      .
+
+
+  IF i_object IS BOUND.
+    LOOP AT t_tables INTO lo_ref.
+      lo_table ?= lo_ref->get( ).
+      IF lo_table IS NOT BOUND.
+        DELETE t_tables.
+        CONTINUE.
+      ENDIF.
+
+      CASE i_object.
+        WHEN lo_table->r_aggregations
+          OR lo_table->r_change_settings
+          OR lo_table->r_columns
+          OR lo_table->r_container
+          OR lo_table->r_controller
+          OR lo_table->r_display_settings
+          OR lo_table->r_events
+          OR lo_table->r_filters
+          OR lo_table->r_footer
+          OR lo_table->r_functional_settings
+          OR lo_table->r_functions
+          OR lo_table->r_header
+          OR lo_table->r_layout
+          OR lo_table->r_print
+          OR lo_table->r_selections
+          OR lo_table->r_sorts
+          OR lo_table->get_grid( ).
+          result = lo_table.
+          RETURN.
+      ENDCASE.
+    ENDLOOP.
+  ENDIF.
+
+ENDMETHOD.
+
+
+
+METHOD get_cell_value .
+
+  DATA: lr_data TYPE REF TO data
+      .
+
+  FIELD-SYMBOLS: <lt_data> TYPE STANDARD TABLE
+               , <lv_data> TYPE data
+               .
+
+
+  IF r_table IS NOT BOUND.
+    RETURN.
+  ENDIF.
+
+  ASSIGN r_table->* TO <lt_data>.
+  IF sy-subrc NE 0.
+    RETURN.
+  ENDIF.
+
+  READ TABLE <lt_data>
+        INDEX i_row_id
+        REFERENCE INTO lr_data.
+  IF sy-subrc NE 0.
+    RETURN.
+  ENDIF.
+
+  ASSIGN lr_data->* TO <lv_data>.
+  IF sy-subrc NE 0.
+    RETURN.
+  ENDIF.
+
+  ASSIGN COMPONENT i_column OF STRUCTURE <lv_data> TO <lv_data>.
+  IF sy-subrc NE 0.
+    RETURN.
+  ENDIF.
+
+  result = <lv_data>.
+
+ENDMETHOD.
+
+
+
+METHOD get_change_settings .
+
+  IF r_change_settings IS INITIAL.
+    CREATE OBJECT r_change_settings
+      EXPORTING
+        i_controller = r_controller.
+  ENDIF.
+
+  result = r_change_settings.
+
+ENDMETHOD.
+
+
+
+METHOD get_data .
+
+  FIELD-SYMBOLS: <lt_data> TYPE STANDARD TABLE
+               .
+
+
+  IF r_table IS BOUND.
+    ASSIGN r_table->* TO <lt_data>.
+    IF sy-subrc EQ 0.
+      result ?= _to_read_only_ref( <lt_data> ).
+    ENDIF.
+  ENDIF.
+
+ENDMETHOD.
+
+
+
+METHOD get_grid .
+
+  DATA: lo_adapter_grid TYPE REF TO cl_salv_grid_adapter
+      , lo_adapter_full TYPE REF TO cl_salv_fullscreen_adapter
+      .
+
+
+  IF r_controller->r_adapter IS BOUND.
+    CASE r_controller->r_adapter->type.
+      WHEN if_salv_adapter=>c_adapter_type_fullscreen.
+        lo_adapter_full ?= r_controller->r_adapter.
+        result = lo_adapter_full->get_grid( ).
+
+      WHEN if_salv_adapter=>c_adapter_type_grid.
+        lo_adapter_grid ?= r_controller->r_adapter.
+        result = lo_adapter_grid->get_grid( ).
+    ENDCASE.
+  ENDIF.
+
+ENDMETHOD.
+
+
+
+METHOD set_cell_value .
+
+  DATA: lr_data TYPE REF TO data
+      .
+
+  FIELD-SYMBOLS: <lt_data> TYPE STANDARD TABLE
+               , <lv_data> TYPE data
+               .
+
+
+  IF r_table IS NOT BOUND.
+    RETURN.
+  ENDIF.
+
+  ASSIGN r_table->* TO <lt_data>.
+  IF sy-subrc NE 0.
+    RETURN.
+  ENDIF.
+
+  READ TABLE <lt_data>
+        INDEX i_row_id
+        REFERENCE INTO lr_data.
+  IF sy-subrc NE 0.
+    RETURN.
+  ENDIF.
+
+  ASSIGN lr_data->* TO <lv_data>.
+  IF sy-subrc NE 0.
+    RETURN.
+  ENDIF.
+
+  ASSIGN COMPONENT i_column OF STRUCTURE <lv_data> TO <lv_data>.
+  IF sy-subrc NE 0.
+    RETURN.
+  ENDIF.
+
+  <lv_data> = i_value.
+
+ENDMETHOD.
+
+
+
+METHOD _to_read_only_ref .
+
+  " as i_DATA is an importing parameter, the reference is protected against changes
+  GET REFERENCE OF i_data INTO result.
+
+ENDMETHOD.
+
+
+
+CLASS lcl_yecl_salv_table DEFINITION DEFERRED.
+CLASS cl_salv_table DEFINITION LOCAL FRIENDS lcl_yecl_salv_table.
+*----------------------------------------------------------------------*
+*       CLASS lcl_yecl_salv_table DEFINITION
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+CLASS lcl_yecl_salv_table DEFINITION.
+
+  PUBLIC SECTION.
+    CLASS-DATA obj TYPE REF TO lcl_yecl_salv_table.         "#EC NEEDED
+    DATA core_object TYPE REF TO cl_salv_table .            "#EC NEEDED
+
+    INTERFACES: ipr_yecl_salv_table, ipo_yecl_salv_table.
+    METHODS:
+      constructor
+        IMPORTING core_object TYPE REF TO cl_salv_table OPTIONAL.
+
+
+ENDCLASS.                    "lcl_yecl_salv_table DEFINITION
+*----------------------------------------------------------------------*
+*       CLASS lcl_yecl_salv_table IMPLEMENTATION
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+CLASS lcl_yecl_salv_table IMPLEMENTATION.
+
+  METHOD constructor.
+    me->core_object = core_object.
+  ENDMETHOD.                    "constructor
+
+
+  METHOD ipo_yecl_salv_table~factory.
+*"------------------------------------------------------------------------*
+*" Declaration of POST-method, do not insert any comments here please!
+*"
+*"class-methods FACTORY
+*"  importing
+*"    !LIST_DISPLAY type SAP_BOOL optional
+*"    !R_CONTAINER type ref to CL_GUI_CONTAINER optional
+*"    !CONTAINER_NAME type STRING optional
+*"  changing
+*"    !R_SALV_TABLE type ref to CL_SALV_TABLE
+*"    !T_TABLE type TABLE
+*"  raising
+*"    CX_SALV_MSG .
+*"------------------------------------------------------------------------*
+
+    DATA lo_ref TYPE REF TO cl_abap_weak_reference.
+
+    CREATE OBJECT lo_ref
+      EXPORTING
+        oref = r_salv_table.
+    INSERT lo_ref INTO TABLE cl_salv_table=>t_tables.
+
+  ENDMETHOD.                    "ipo_yecl_salv_table~factory
+
+  METHOD ipr_yecl_salv_table~display.
+*"------------------------------------------------------------------------*
+*" Declaration of PRE-method, do not insert any comments here please!
+*"
+*"methods DISPLAY .
+*"------------------------------------------------------------------------*
+
+    IF core_object->r_container IS BOUND.
+      cl_salv_controller_events=>init_uifunction( core_object ).
+    ENDIF.
+
+  ENDMETHOD.                    "ipr_yecl_salv_table~display
+
+  METHOD ipo_yecl_salv_table~display.
+*"------------------------------------------------------------------------*
+*" Declaration of POST-method, do not insert any comments here please!
+*"
+*"methods DISPLAY .
+*"------------------------------------------------------------------------*
+
+    IF core_object->r_container IS BOUND.
+      TRY.
+          CALL METHOD core_object->r_container->('YIF_OO_DYNPRO~CALL_DYNPRO').
+
+        CATCH cx_sy_dyn_call_error.
+          WRITE /.
+      ENDTRY.
+    ENDIF.
+
+  ENDMETHOD.                    "ipo_yecl_salv_table~display
+
+ENDCLASS.                    "lcl_yecl_salv_table IMPLEMENTATION
