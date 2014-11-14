@@ -145,7 +145,11 @@ CLASS lcl_report IMPLEMENTATION.
         _display_data( ).
 
       CATCH cx_static_check cx_dynamic_check INTO lx_root.
-        MESSAGE lx_root TYPE &apos;I&apos; DISPLAY LIKE &apos;E&apos;.
+        IF sy-batch EQ abap_true.
+          MESSAGE lx_root TYPE &apos;E&apos;.
+        ELSE.
+          MESSAGE lx_root TYPE &apos;I&apos; DISPLAY LIKE &apos;E&apos;.
+        ENDIF.
     ENDTRY.
 
   ENDMETHOD.                    &quot;main
