@@ -10,6 +10,7 @@ GET_TABLE_BY_OBJECT	Static Method	Public
 GET_CELL_VALUE	Instance Method	Public
 GET_CHANGE_SETTINGS	Instance Method	Public
 GET_DATA	Instance Method	Public
+GET_DATA_ROW	Instance Method	Public
 GET_GRID	Instance Method	Public
 SET_CELL_VALUE	Instance Method	Public
 _TO_READ_ONLY_REF	Instance Method	Private
@@ -52,6 +53,12 @@ RESULT	Returning	Type Ref To	YCL_SALV_CHANGE_SETTINGS
 
 
 Method parameters GET_DATA:
+RESULT	Returning	Type Ref To	DATA
+
+
+
+Method parameters GET_DATA:
+ROW	Importing	Type	I
 RESULT	Returning	Type Ref To	DATA
 
 
@@ -231,7 +238,32 @@ METHOD get_data .
   IF r_table IS BOUND.
     ASSIGN r_table->* TO <lt_data>.
     IF sy-subrc EQ 0.
-      result ?= _to_read_only_ref( <lt_data> ).
+      result = _to_read_only_ref( <lt_data> ).
+    ENDIF.
+  ENDIF.
+
+ENDMETHOD.
+
+
+
+METHOD get_data_row .
+
+  DATA: lr_data TYPE REF TO data.
+
+  FIELD-SYMBOLS: <lt_data> TYPE STANDARD TABLE,
+                 <ls_data> TYPE data.
+
+
+  IF r_table IS BOUND.
+    ASSIGN r_table->* TO <lt_data>.
+    IF sy-subrc EQ 0.
+      READ TABLE <lt_data>
+            REFERENCE INTO lr_data
+            INDEX row.
+      IF lr_data IS BOUND.
+        ASSIGN lr_data->* TO <ls_data>.
+        result = _to_read_only_ref( <ls_data> ).
+      ENDIF.
     ENDIF.
   ENDIF.
 
@@ -326,7 +358,7 @@ CLASS lcl_yecl_salv_table DEFINITION.
     CLASS-DATA obj TYPE REF TO lcl_yecl_salv_table.         "#EC NEEDED
     DATA core_object TYPE REF TO cl_salv_table .            "#EC NEEDED
 
-    INTERFACES: ipr_yecl_salv_table, ipo_yecl_salv_table.
+ INTERFACES: IPR_YECL_SALV_TABLE, IPO_YECL_SALV_TABLE.
     METHODS:
       constructor
         IMPORTING core_object TYPE REF TO cl_salv_table OPTIONAL.
@@ -395,10 +427,11 @@ CLASS lcl_yecl_salv_table IMPLEMENTATION.
           CALL METHOD core_object->r_container->('YIF_OO_DYNPRO~CALL_DYNPRO').
 
         CATCH cx_sy_dyn_call_error.
-          WRITE /.
+          cl_abap_list_layout=>suppress_toolbar( ).
+		  WRITE /.
       ENDTRY.
     ENDIF.
 
   ENDMETHOD.                    "ipo_yecl_salv_table~display
 
-ENDCLASS.                    "lcl_yecl_salv_table IMPLEMENTATION
+ENDCLASS.

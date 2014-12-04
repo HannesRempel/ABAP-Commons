@@ -17,7 +17,7 @@ CLASS lcl_yecl_salv_grid_adapter DEFINITION.
     DATA core_object TYPE REF TO cl_salv_grid_adapter .     "#EC NEEDED
 
 
-    INTERFACES  ipo_yecl_salv_grid_adapter.
+ INTERFACES  IPO_YECL_SALV_GRID_ADAPTER.
     METHODS:
      constructor IMPORTING core_object
        TYPE REF TO cl_salv_grid_adapter OPTIONAL.
@@ -58,4 +58,4 @@ CLASS lcl_yecl_salv_grid_adapter IMPLEMENTATION.
 
   ENDMETHOD.                    "ipo_yecl_salv_grid_adapter~set_metadata
 
-ENDCLASS.                    "lcl_yecl_salv_grid_adapter IMPLEMENTATION                 
+ENDCLASS.               

@@ -16,7 +16,7 @@ CLASS lcl_yecl_salv_cntr_metadata DEFINITION FINAL.
   PUBLIC SECTION.
     CLASS-DATA obj TYPE REF TO lcl_yecl_salv_cntr_metadata. "#EC NEEDED
     DATA core_object TYPE REF TO cl_salv_controller_metadata . "#EC NEEDED
-    INTERFACES  ipo_yecl_salv_cntr_metadata.
+ INTERFACES  IPO_YECL_SALV_CNTR_METADATA.
     METHODS:
       constructor
         IMPORTING
@@ -192,4 +192,4 @@ CLASS lcl_yecl_salv_cntr_metadata IMPLEMENTATION.
 
   ENDMETHOD.                    "ipo_yecl_salv_cntr_metadata~get_slis_fieldcatalog
 
-ENDCLASS.                    "lcl_yecl_salv_cntr_metadata IMPLEMENTATION
+ENDCLASS.

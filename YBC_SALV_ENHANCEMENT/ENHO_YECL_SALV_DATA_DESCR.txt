@@ -4,36 +4,37 @@ DESCRIBE_TABLE
 
 
 *----------------------------------------------------------------------*
-*       CLASS LCL_ZBC_CL_SALV_DATA_DESCR DEFINITION
+*       CLASS lcl_yecl_salv_data_descr DEFINITION
 *----------------------------------------------------------------------*
 *
 *----------------------------------------------------------------------*
-CLASS lcl_ZBC_SALV_DATA_DESCR DEFINITION.
+CLASS lcl_yecl_salv_data_descr DEFINITION.
 
   TYPE-POOLS: abap.
 
   PUBLIC SECTION.
-    CLASS-DATA obj TYPE REF TO lcl_ZBC_SALV_DATA_DESCR.
+    CLASS-DATA obj TYPE REF TO lcl_yecl_salv_data_descr.
     DATA core_object TYPE REF TO cl_salv_data_descr .
 
- INTERFACES  IPO_ZBC_SALV_DATA_DESCR.
+ INTERFACES  IPO_YECL_SALV_DATA_DESCR.
     METHODS:
      constructor IMPORTING core_object
        TYPE REF TO cl_salv_data_descr OPTIONAL.
 
-ENDCLASS.                    "LCL_ZBC_CL_SALV_DATA_DESCR DEFINITION
+ENDCLASS.                    "lcl_yecl_salv_data_descr DEFINITION
+
 *----------------------------------------------------------------------*
-*       CLASS LCL_ZBC_CL_SALV_DATA_DESCR IMPLEMENTATION
+*       CLASS lcl_yecl_salv_data_descr IMPLEMENTATION
 *----------------------------------------------------------------------*
 *
 *----------------------------------------------------------------------*
-CLASS lcl_ZBC_SALV_DATA_DESCR IMPLEMENTATION.
+CLASS lcl_yecl_salv_data_descr IMPLEMENTATION.
 
   METHOD constructor.
     me->core_object = core_object.
-  ENDMETHOD.                    "CONSTRUCTOR
+  ENDMETHOD.                    "constructor
 
-  METHOD ipo_ZBC_SALV_DATA_DESCR~describe_table.
+  METHOD ipo_yecl_salv_data_descr~describe_table.
 *"------------------------------------------------------------------------*
 *" Declaration of POST-method, do not insert any comments here please!
 *"
@@ -65,6 +66,6 @@ CLASS lcl_ZBC_SALV_DATA_DESCR IMPLEMENTATION.
         RETURN.
     ENDTRY.
 
-  ENDMETHOD.                    "IPO_ZBC_CL_SALV_DATA_DESCR~DESCRIBE_TABLE
+  ENDMETHOD.                    "ipo_yecl_salv_data_descr~describe_table
 
 ENDCLASS.
