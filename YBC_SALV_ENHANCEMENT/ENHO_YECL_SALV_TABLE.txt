@@ -1,6 +1,7 @@
 New attributes:
 T_TABLES	Static Attribute	Private	Type	YBC_SALV_T_TABLE
 R_CHANGE_SETTINGS	Instance Attribute	Private	Type Ref To	YCL_SALV_CHANGE_SETTINGS
+R_DYNPRO	Instance Attribute	Private	Type Ref To	OBJECT
 
 
 
@@ -88,7 +89,7 @@ RESULT	Returning	Type Ref To	DATA
 
 METHOD factory2 .
 
-  DATA: lo_object TYPE REF TO object
+  DATA: lo_dynpro TYPE REF TO object
       , lo_container TYPE REF TO cl_gui_container
       .
 
@@ -97,8 +98,8 @@ METHOD factory2 .
     TRY.
         CALL METHOD ('YCF_OO_DYNPRO')=>create_dynpro
           RECEIVING
-            result = lo_object.
-        lo_container ?= lo_object.
+            result = lo_dynpro.
+        lo_container ?= lo_dynpro.
 
       CATCH cx_sy_dyn_call_error cx_sy_move_cast_error.
         lo_container = cl_gui_container=>default_screen.
@@ -122,6 +123,8 @@ METHOD factory2 .
           CHANGING
             t_table      = t_table.
       ENDIF.
+
+      r_salv_table->r_dynpro = lo_dynpro.
 
     CATCH cx_salv_msg.                                  "#EC NO_HANDLER
   ENDTRY.
@@ -422,13 +425,21 @@ CLASS lcl_yecl_salv_table IMPLEMENTATION.
 *"methods DISPLAY .
 *"------------------------------------------------------------------------*
 
-    IF core_object->r_container IS BOUND.
+    IF core_object->r_dynpro IS BOUND.
       TRY.
-          CALL METHOD core_object->r_container->('YIF_OO_DYNPRO~CALL_DYNPRO').
+          CALL METHOD core_object->r_dynpro->('YIF_OO_DYNPRO~CALL_DYNPRO').
 
         CATCH cx_sy_dyn_call_error.
+          RETURN.
+      ENDTRY.
+
+    ELSEIF core_object->r_container EQ cl_gui_container=>default_screen.
+      TRY.
           cl_abap_list_layout=>suppress_toolbar( ).
-		  WRITE /.
+          WRITE /.
+
+        CATCH cx_list_already_active.
+          RETURN.
       ENDTRY.
     ENDIF.
 
