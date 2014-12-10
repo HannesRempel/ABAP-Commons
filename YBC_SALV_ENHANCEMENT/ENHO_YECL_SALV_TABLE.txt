@@ -1,7 +1,7 @@
 New attributes:
 T_TABLES	Static Attribute	Private	Type	YBC_SALV_T_TABLE
 R_CHANGE_SETTINGS	Instance Attribute	Private	Type Ref To	YCL_SALV_CHANGE_SETTINGS
-R_DYNPRO	Instance Attribute	Private	Type Ref To	OBJECT
+R_DYNPRO	Instance Attribute	Private	Type Ref To	CL_GUI_CONTAINER
 
 
 
@@ -124,7 +124,7 @@ METHOD factory2 .
             t_table      = t_table.
       ENDIF.
 
-      r_salv_table->r_dynpro = lo_dynpro.
+      r_salv_table->r_dynpro = lo_container.
 
     CATCH cx_salv_msg.                                  "#EC NO_HANDLER
   ENDTRY.
@@ -427,18 +427,15 @@ CLASS lcl_yecl_salv_table IMPLEMENTATION.
 
     IF core_object->r_dynpro IS BOUND.
       TRY.
-          CALL METHOD core_object->r_dynpro->('YIF_OO_DYNPRO~CALL_DYNPRO').
+          IF core_object->r_dynpro EQ cl_gui_container=>default_screen.
+            cl_abap_list_layout=>suppress_toolbar( ).
+            WRITE /.
 
-        CATCH cx_sy_dyn_call_error.
-          RETURN.
-      ENDTRY.
+          ELSE.
+            CALL METHOD core_object->r_dynpro->('YIF_OO_DYNPRO~CALL_DYNPRO').
+          ENDIF.
 
-    ELSEIF core_object->r_container EQ cl_gui_container=>default_screen.
-      TRY.
-          cl_abap_list_layout=>suppress_toolbar( ).
-          WRITE /.
-
-        CATCH cx_list_already_active.
+        CATCH cx_list_already_active cx_sy_dyn_call_error.
           RETURN.
       ENDTRY.
     ENDIF.
