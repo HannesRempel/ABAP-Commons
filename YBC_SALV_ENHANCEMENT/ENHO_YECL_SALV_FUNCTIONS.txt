@@ -113,6 +113,6 @@ METHOD get_function .
       object = 'Function'
       key    = lv_name
       class  = 'CL_SALV_FUNCTIONS'
-      method = 'REMOVE_FUNCTION'.
+      method = 'GET_FUNCTION'.
 
 ENDMETHOD.
