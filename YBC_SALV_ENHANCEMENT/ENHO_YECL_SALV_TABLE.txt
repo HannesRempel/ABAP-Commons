@@ -440,6 +440,10 @@ CLASS lcl_yecl_salv_table IMPLEMENTATION.
       ENDTRY.
     ENDIF.
 
+    IF core_object->r_change_settings IS BOUND AND core_object->r_columns->has_editable( ) EQ abap_true.
+      core_object->r_change_settings->check_changed_data( ).
+    ENDIF.
+
   ENDMETHOD.                    "ipo_yecl_salv_table~display
 
 ENDCLASS.

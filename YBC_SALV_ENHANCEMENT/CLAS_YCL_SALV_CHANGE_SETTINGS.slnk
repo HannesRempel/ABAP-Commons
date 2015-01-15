@@ -38,7 +38,6 @@ ENDMETHOD.</source>
 
   lo_controller ?= r_controller.
   go_table = lo_controller-&gt;r_table.
-  _on_grid_created( ).
 
 ENDMETHOD.</source>
  </method>
@@ -163,36 +162,6 @@ ENDMETHOD.</source>
 
   IF go_grid IS BOUND.
     result = abap_true.
-  ENDIF.
-
-ENDMETHOD.</source>
- </method>
- <method CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="_ON_BEFORE_USER_COMMAND" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="1" MTDDECLTYP="0" REFCLSNAME="CL_GUI_ALV_GRID" REFCMPNAME="BEFORE_USER_COMMAND" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="_ON_BEFORE_USER_COMMAND" SCONAME="E_UCOMM" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="1" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="0"/>
-  <source>METHOD _ON_BEFORE_USER_COMMAND.
-
-  CASE e_ucomm.
-    WHEN cl_gui_alv_grid=&gt;mc_fc_back_classic
-      OR &apos;&amp;F12&apos;
-      OR &apos;&amp;F15&apos;.
-
-      check_changed_data( ).
-  ENDCASE.
-
-ENDMETHOD.</source>
- </method>
- <method CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="_ON_GRID_CREATED" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="4 " DISPID="0 " MTDTYPE="1" MTDDECLTYP="0" REFCLSNAME="YIF_SALV_EVENTS_TABLE" REFCMPNAME="GRID_CREATED" BCMTDCAT="00" BCMTDSYN="0">
-  <source>METHOD _ON_GRID_CREATED.
-
-  IF _is_grid_bound( ) EQ abap_true.
-    SET HANDLER _on_before_user_command FOR go_grid.
-
-    IF _is_events_bound( ) EQ abap_true.
-      SET HANDLER _on_grid_created FOR go_events ACTIVATION abap_false.
-    ENDIF.
-
-  ELSEIF _is_events_bound( ) EQ abap_true.
-    SET HANDLER _on_grid_created FOR go_events.
   ENDIF.
 
 ENDMETHOD.</source>
