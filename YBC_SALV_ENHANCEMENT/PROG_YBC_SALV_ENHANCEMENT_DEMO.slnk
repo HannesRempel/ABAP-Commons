@@ -262,7 +262,6 @@ CLASS lcl_report IMPLEMENTATION.
     ENDTRY.
 
     lo_table-&gt;display( ).
-*    lo_table-&gt;display( ).
 
   ENDMETHOD.                    &quot;_display_data
 

@@ -1,5 +1,4 @@
 New attributes:
-T_TABLES	Static Attribute	Private	Type	YBC_SALV_T_TABLE
 R_CHANGE_SETTINGS	Instance Attribute	Private	Type Ref To	YCL_SALV_CHANGE_SETTINGS
 R_DYNPRO	Instance Attribute	Private	Type Ref To	CL_GUI_CONTAINER
 
@@ -10,16 +9,13 @@ FACTORY2	Static Method	Public
 GET_TABLE_BY_OBJECT	Static Method	Public
 GET_CELL_VALUE	Instance Method	Public
 GET_CHANGE_SETTINGS	Instance Method	Public
+GET_CONTAINER	Instance Method	Public
 GET_DATA	Instance Method	Public
 GET_DATA_ROW	Instance Method	Public
 GET_GRID	Instance Method	Public
 SET_CELL_VALUE	Instance Method	Public
+_CACHE_TABLES	Static Method	Private
 _TO_READ_ONLY_REF	Instance Method	Private
-
-
-
-Pre-Methods for:
-DISPLAY
 
 
 
@@ -53,6 +49,11 @@ RESULT	Returning	Type Ref To	YCL_SALV_CHANGE_SETTINGS
 
 
 
+Method parameters GET_CONTAINER:
+RESULT	Returning	Type Ref To	CL_GUI_CONTAINER
+
+
+
 Method parameters GET_DATA:
 RESULT	Returning	Type Ref To	DATA
 
@@ -81,6 +82,13 @@ CX_SY_CONVERSION_ERROR
 
 
 
+Method parameters _CACHE_TABLES:
+I_TABLE	Importing	Type Ref To	CL_SALV_TABLE		(Optional)
+I_OBJECT	Importing	Type Ref To	OBJECT		(Optional)
+RESULT	Returning	Type Ref To	CL_SALV_TABLE
+
+
+
 Method parameters _TO_READ_ONLY_REF:
 I_DATA	Importing	Type	DATA
 RESULT	Returning	Type Ref To	DATA
@@ -91,6 +99,7 @@ METHOD factory2 .
 
   DATA: lo_dynpro TYPE REF TO object
       , lo_container TYPE REF TO cl_gui_container
+      , lx_root TYPE REF TO cx_root
       .
 
 
@@ -101,8 +110,9 @@ METHOD factory2 .
             result = lo_dynpro.
         lo_container ?= lo_dynpro.
 
-      CATCH cx_sy_dyn_call_error cx_sy_move_cast_error.
-        lo_container = cl_gui_container=>default_screen.
+      CATCH cx_sy_dyn_call_error cx_sy_move_cast_error INTO lx_root.
+        " message in case of missing objects
+        MESSAGE lx_root TYPE 'E'.
     ENDTRY.
   ENDIF.
 
@@ -135,42 +145,7 @@ ENDMETHOD.
 
 METHOD get_table_by_object .
 
-  DATA: lo_ref TYPE REF TO cl_abap_weak_reference
-      , lo_table TYPE REF TO cl_salv_table
-      .
-
-
-  IF i_object IS BOUND.
-    LOOP AT t_tables INTO lo_ref.
-      lo_table ?= lo_ref->get( ).
-      IF lo_table IS NOT BOUND.
-        DELETE t_tables.
-        CONTINUE.
-      ENDIF.
-
-      CASE i_object.
-        WHEN lo_table->r_aggregations
-          OR lo_table->r_change_settings
-          OR lo_table->r_columns
-          OR lo_table->r_container
-          OR lo_table->r_controller
-          OR lo_table->r_display_settings
-          OR lo_table->r_events
-          OR lo_table->r_filters
-          OR lo_table->r_footer
-          OR lo_table->r_functional_settings
-          OR lo_table->r_functions
-          OR lo_table->r_header
-          OR lo_table->r_layout
-          OR lo_table->r_print
-          OR lo_table->r_selections
-          OR lo_table->r_sorts
-          OR lo_table->get_grid( ).
-          result = lo_table.
-          RETURN.
-      ENDCASE.
-    ENDLOOP.
-  ENDIF.
+  result = _cache_tables( i_object = i_object ).
 
 ENDMETHOD.
 
@@ -224,9 +199,21 @@ METHOD get_change_settings .
     CREATE OBJECT r_change_settings
       EXPORTING
         i_controller = r_controller.
+
+    IF r_container IS NOT BOUND.
+      r_change_settings->_on_grid_created( ).
+    ENDIF.
   ENDIF.
 
   result = r_change_settings.
+
+ENDMETHOD.
+
+
+
+METHOD get_container .
+
+  result = r_container.
 
 ENDMETHOD.
 
@@ -293,6 +280,10 @@ METHOD get_grid .
     ENDCASE.
   ENDIF.
 
+  IF result IS BOUND AND result->is_alive( ) EQ cl_gui_control=>state_dead.
+    FREE result.
+  ENDIF.
+
 ENDMETHOD.
 
 
@@ -339,6 +330,58 @@ ENDMETHOD.
 
 
 
+METHOD _cache_tables .
+
+  STATICS: st_tables TYPE STANDARD TABLE OF REF TO cl_abap_weak_reference.
+
+  DATA: lo_ref TYPE REF TO cl_abap_weak_reference
+      , lo_table TYPE REF TO cl_salv_table
+      .
+
+
+  IF i_table IS BOUND.
+    CREATE OBJECT lo_ref
+      EXPORTING
+        oref = i_table.
+    INSERT lo_ref INTO TABLE st_tables.
+
+  ELSEIF i_object IS BOUND.
+    LOOP AT st_tables INTO lo_ref.
+      lo_table ?= lo_ref->get( ).
+
+      IF lo_table IS BOUND.
+        CASE i_object.
+          WHEN lo_table->r_aggregations
+            OR lo_table->r_change_settings
+            OR lo_table->r_columns
+            OR lo_table->r_container
+            OR lo_table->r_controller
+            OR lo_table->r_display_settings
+            OR lo_table->r_events
+            OR lo_table->r_filters
+            OR lo_table->r_footer
+            OR lo_table->r_functional_settings
+            OR lo_table->r_functions
+            OR lo_table->r_header
+            OR lo_table->r_layout
+            OR lo_table->r_print
+            OR lo_table->r_selections
+            OR lo_table->r_sorts
+            OR lo_table->get_grid( ).
+            result = lo_table.
+            RETURN.
+        ENDCASE.
+
+      ELSE.
+        DELETE st_tables.
+      ENDIF.
+    ENDLOOP.
+  ENDIF.
+
+ENDMETHOD.
+
+
+
 METHOD _to_read_only_ref .
 
   " as i_DATA is an importing parameter, the reference is protected against changes
@@ -361,11 +404,10 @@ CLASS lcl_yecl_salv_table DEFINITION.
     CLASS-DATA obj TYPE REF TO lcl_yecl_salv_table.         "#EC NEEDED
     DATA core_object TYPE REF TO cl_salv_table .            "#EC NEEDED
 
- INTERFACES: IPR_YECL_SALV_TABLE, IPO_YECL_SALV_TABLE.
+ INTERFACES  IPO_YECL_SALV_TABLE.
     METHODS:
       constructor
         IMPORTING core_object TYPE REF TO cl_salv_table OPTIONAL.
-
 
 ENDCLASS.                    "lcl_yecl_salv_table DEFINITION
 *----------------------------------------------------------------------*
@@ -378,7 +420,6 @@ CLASS lcl_yecl_salv_table IMPLEMENTATION.
   METHOD constructor.
     me->core_object = core_object.
   ENDMETHOD.                    "constructor
-
 
   METHOD ipo_yecl_salv_table~factory.
 *"------------------------------------------------------------------------*
@@ -396,27 +437,14 @@ CLASS lcl_yecl_salv_table IMPLEMENTATION.
 *"    CX_SALV_MSG .
 *"------------------------------------------------------------------------*
 
-    DATA lo_ref TYPE REF TO cl_abap_weak_reference.
+    cl_salv_table=>_cache_tables( i_table = r_salv_table ).
+    r_salv_table->get_change_settings( ).
 
-    CREATE OBJECT lo_ref
-      EXPORTING
-        oref = r_salv_table.
-    INSERT lo_ref INTO TABLE cl_salv_table=>t_tables.
-
-  ENDMETHOD.                    "ipo_yecl_salv_table~factory
-
-  METHOD ipr_yecl_salv_table~display.
-*"------------------------------------------------------------------------*
-*" Declaration of PRE-method, do not insert any comments here please!
-*"
-*"methods DISPLAY .
-*"------------------------------------------------------------------------*
-
-    IF core_object->r_container IS BOUND.
-      cl_salv_controller_events=>init_uifunction( core_object ).
+    IF r_salv_table->r_container IS BOUND.
+      cl_salv_controller_events=>init_uifunction( r_salv_table ).
     ENDIF.
 
-  ENDMETHOD.                    "ipr_yecl_salv_table~display
+  ENDMETHOD.                    "ipo_yecl_salv_table~factory
 
   METHOD ipo_yecl_salv_table~display.
 *"------------------------------------------------------------------------*
@@ -425,22 +453,22 @@ CLASS lcl_yecl_salv_table IMPLEMENTATION.
 *"methods DISPLAY .
 *"------------------------------------------------------------------------*
 
+    DATA: lo_settings TYPE REF TO ycl_salv_change_settings
+        , lx_root TYPE REF TO cx_root
+        .
+
+
     IF core_object->r_dynpro IS BOUND.
       TRY.
-          IF core_object->r_dynpro EQ cl_gui_container=>default_screen.
-            cl_abap_list_layout=>suppress_toolbar( ).
-            WRITE /.
+          CALL METHOD core_object->r_dynpro->('YIF_OO_DYNPRO~CALL_DYNPRO').
 
-          ELSE.
-            CALL METHOD core_object->r_dynpro->('YIF_OO_DYNPRO~CALL_DYNPRO').
-          ENDIF.
-
-        CATCH cx_list_already_active cx_sy_dyn_call_error.
-          RETURN.
+        CATCH cx_sy_dyn_call_error INTO lx_root.
+          " message in case of missing objects
+          MESSAGE lx_root TYPE 'E'.
       ENDTRY.
     ENDIF.
 
-    IF core_object->r_change_settings IS BOUND AND core_object->r_columns->has_editable( ) EQ abap_true.
+    IF core_object->r_container IS BOUND.
       core_object->r_change_settings->check_changed_data( ).
     ENDIF.
 
