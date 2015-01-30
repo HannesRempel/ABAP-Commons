@@ -1,5 +1,5 @@
 New attributes:
-GV_EDITABLE	Instance Attribute	Protected	Type	SAP_BOOL
+EDITABLE	Instance Attribute	Protected	Type	SAP_BOOL
 
 
 
@@ -27,7 +27,7 @@ VALUE	Importing	Type	CSEQUENCE
 
 METHOD get_editable .
 
-  result = gv_editable.
+  result = editable.
 
 ENDMETHOD.
 
@@ -35,8 +35,8 @@ ENDMETHOD.
 
 METHOD set_editable .
 
-  IF gv_editable NE i_editable.
-    gv_editable = i_editable.
+  IF editable NE i_editable.
+    editable = i_editable.
 
     IF r_controller IS BOUND.
       r_controller->set_changed(

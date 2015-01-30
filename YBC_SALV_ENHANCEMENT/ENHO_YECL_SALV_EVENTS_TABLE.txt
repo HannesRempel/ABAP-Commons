@@ -4,7 +4,7 @@ YIF_SALV_EVENTS_TABLE
 
 
 New attributes:
-GO_CHANGES	Instance Attribute	Private	Type Ref To	YCL_SALV_CHANGES
+R_CHANGES	Instance Attribute	Private	Type Ref To	YCL_SALV_CHANGES
 
 
 
@@ -35,17 +35,17 @@ I_GRID	Importing	Type Ref To	CL_GUI_ALV_GRID
 
 METHOD raise_after_data_change .
 
-  IF et_good_cells IS NOT INITIAL AND go_changes IS BOUND.
-    go_changes->_on_after_data_change( ).
+  IF et_good_cells IS NOT INITIAL AND r_changes IS BOUND.
+    r_changes->_on_after_data_change( ).
 
-    IF go_changes->has_changes( ) EQ abap_true.
+    IF r_changes->has_changes( ) EQ abap_true.
       RAISE EVENT yif_salv_events_table~after_data_change
         EXPORTING
-          i_changes = go_changes.
+          i_changes = r_changes.
     ENDIF.
   ENDIF.
 
-  FREE go_changes.
+  FREE r_changes.
 
 ENDMETHOD.
 
@@ -55,23 +55,23 @@ METHOD raise_before_data_change .
 
   IF er_data_changed->mt_mod_cells IS NOT INITIAL.
     TRY.
-        IF go_changes IS INITIAL.
-          CREATE OBJECT go_changes
+        IF r_changes IS INITIAL.
+          CREATE OBJECT r_changes
             EXPORTING
               i_events = me.
         ENDIF.
 
-        CALL METHOD go_changes->_on_before_data_change
+        CALL METHOD r_changes->_on_before_data_change
           EXPORTING
             i_protocol    = er_data_changed
             i_onf4        = e_onf4
             i_onf4_before = e_onf4_before
             i_onf4_after  = e_onf4_after.
 
-        IF go_changes->has_changes( ) EQ abap_true.
+        IF r_changes->has_changes( ) EQ abap_true.
           RAISE EVENT yif_salv_events_table~before_data_change
             EXPORTING
-              i_changes = go_changes.
+              i_changes = r_changes.
         ENDIF.
 
       CATCH cx_sy_ref_is_initial.                       "#EC NO_HANDLER

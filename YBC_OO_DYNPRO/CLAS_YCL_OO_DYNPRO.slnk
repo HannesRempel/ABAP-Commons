@@ -218,14 +218,14 @@ ENDMETHOD.</source>
         WHERE name  EQ sy-cprog
           AND sprsl EQ sy-langu.
 
-  INSERT yit_gui_function=&gt;ucomm_first_page     INTO TABLE gt_fcode.
-  INSERT yit_gui_function=&gt;ucomm_last_page      INTO TABLE gt_fcode.
-  INSERT yit_gui_function=&gt;ucomm_next_page      INTO TABLE gt_fcode.
-  INSERT yit_gui_function=&gt;ucomm_previous_page  INTO TABLE gt_fcode.
-  INSERT yit_gui_function=&gt;ucomm_print          INTO TABLE gt_fcode.
-  INSERT yit_gui_function=&gt;ucomm_save           INTO TABLE gt_fcode.
-  INSERT yit_gui_function=&gt;ucomm_search         INTO TABLE gt_fcode.
-  INSERT yit_gui_function=&gt;ucomm_search_next    INTO TABLE gt_fcode.
+  INSERT yit_gui_function=&gt;first_page     INTO TABLE gt_fcode.
+  INSERT yit_gui_function=&gt;last_page      INTO TABLE gt_fcode.
+  INSERT yit_gui_function=&gt;next_page      INTO TABLE gt_fcode.
+  INSERT yit_gui_function=&gt;previous_page  INTO TABLE gt_fcode.
+  INSERT yit_gui_function=&gt;print          INTO TABLE gt_fcode.
+  INSERT yit_gui_function=&gt;save           INTO TABLE gt_fcode.
+  INSERT yit_gui_function=&gt;search         INTO TABLE gt_fcode.
+  INSERT yit_gui_function=&gt;search_next    INTO TABLE gt_fcode.
 
 ENDMETHOD.</source>
  </method>

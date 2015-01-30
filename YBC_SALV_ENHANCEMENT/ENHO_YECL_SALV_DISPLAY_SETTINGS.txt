@@ -1,5 +1,5 @@
 New attributes:
-GV_DETAIL_INITIAL	Instance Attribute	Private	Type	LVC_DETINI		TRUE
+DETAIL_INITIAL	Instance Attribute	Private	Type	LVC_DETINI		TRUE
 
 
 
@@ -21,7 +21,7 @@ I_DETINI	Importing	Type	LVC_DETINI
 
 METHOD get_detail_initial .
 
-  result = gv_detail_initial.
+  result = detail_initial.
 
 ENDMETHOD.
 
@@ -29,8 +29,8 @@ ENDMETHOD.
 
 METHOD set_detail_initial .
 
-  IF gv_detail_initial NE i_detini.
-    gv_detail_initial = i_detini.
+  IF detail_initial NE i_detini.
+    detail_initial = i_detini.
 
     IF r_controller IS BOUND.
       r_controller->set_changed(
