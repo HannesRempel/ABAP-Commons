@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CLAS CLSNAME="YCX_EXCEPTION_METHOD" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für Methoden" CATEGORY="40" EXPOSURE="2" STATE="1" RELEASE="0" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" MSG_ID="YBC_ABAP_EXCEPTION" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="YCX_EXCEPTION_CLASSIC">
+ <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+ <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <typeUsage CLSNAME="YCX_EXCEPTION_METHOD" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+ <forwardDeclaration>ABAP</forwardDeclaration>
+ <attribute CLSNAME="YCX_EXCEPTION_METHOD" CMPNAME="CLASS" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCX_EXCEPTION_METHOD" CMPNAME="METHOD" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <inheritance CLSNAME="YCX_EXCEPTION_METHOD" REFCLSNAME="YCX_EXCEPTION_CLASSIC" VERSION="1" STATE="1">
+  <redefinition CLSNAME="YCX_EXCEPTION_METHOD" REFCLSNAME="YCX_EXCEPTION_CLASSIC" VERSION="1" MTDNAME="_GET_TEXT" EXPOSURE="1"/>
+ </inheritance>
+ <method CLSNAME="YCX_EXCEPTION_CLASSIC" CMPNAME="_GET_TEXT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD _get_text.
+
+  result = ycl_exception_helper=&gt;get_text_by_method(
+      i_class  = class
+      i_method = method
+      i_name   = name
+         ).
+
+  IF name IS INITIAL.
+    MESSAGE e014 INTO result WITH method class.
+
+  ELSEIF result IS INITIAL.
+    MESSAGE e015 INTO result WITH method class name.
+
+  ELSE.
+    MESSAGE e016 INTO result WITH method class result.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+</CLAS>

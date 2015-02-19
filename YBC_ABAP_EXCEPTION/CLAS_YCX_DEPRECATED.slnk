@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CLAS CLSNAME="YCX_DEPRECATED" VERSION="1" LANGU="D" DESCRIPT="Veraltete Methode" CATEGORY="40" EXPOSURE="2" STATE="1" RELEASE="0" CLSABSTRCT="X" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="CX_STATIC_CHECK">
+ <implementing CLSNAME="YCX_DEPRECATED" REFCLSNAME="IF_T100_MESSAGE" VERSION="1" EXPOSURE="2" STATE="1" RELTYPE="1" EDITORDER="0 "/>
+ <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+ <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <attribute CLSNAME="YCX_DEPRECATED" CMPNAME="YCX_DEPRECATED" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="0 " ATTDECLTYP="2" ATTEXPVIRT="0" TYPTYPE="4" SRCROW1="15 " SRCCOLUMN1="4 " SRCROW2="22 " SRCCOLUMN2="24 " LOCKED="X" TYPESRC_LENG="310 " TYPESRC="begin of YCX_DEPRECATED,
+      msgid type symsgid value &apos;YBC_ABAP_EXCEPTION&apos;,
+      msgno type symsgno value &apos;100&apos;,
+      attr1 type scx_attrname value &apos;&apos;,
+      attr2 type scx_attrname value &apos;&apos;,
+      attr3 type scx_attrname value &apos;&apos;,
+      attr4 type scx_attrname value &apos;&apos;,
+    end of YCX_DEPRECATED
+"/>
+ <inheritance CLSNAME="YCX_DEPRECATED" REFCLSNAME="CX_STATIC_CHECK" VERSION="1" STATE="1"/>
+</CLAS>

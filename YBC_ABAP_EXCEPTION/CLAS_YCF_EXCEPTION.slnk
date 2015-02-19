@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CLAS CLSNAME="YCF_EXCEPTION" VERSION="1" LANGU="D" DESCRIPT="Fabrik für nicht-klassenbasierte Fehler" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSABSTRCT="X" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+ <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+ <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <method CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_FUNCTION" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_FUNCTION" SCONAME="I_FUNCTION" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_FUNCTION" SCONAME="I_SUBRC" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="I" PARVALUE="SY-SUBRC"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_FUNCTION" SCONAME="I_DESTINATION" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE" PAROPTIONL="X"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_FUNCTION" SCONAME="I_MESSAGE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE" PAROPTIONL="X"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_FUNCTION" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für nicht-klassenbasierte Fehler" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YCX_EXCEPTION"/>
+  <source>METHOD get_instance_by_function.
+
+  DATA: lv_function TYPE string
+      , lv_name TYPE string
+      , lv_destination TYPE string
+      , lv_message TYPE string
+      .
+
+
+  lv_function = i_function.
+  lv_name = ycl_exception_helper=&gt;get_name_by_function(
+      i_function = i_function
+      i_subrc    = i_subrc
+         ).
+
+  IF i_destination IS INITIAL.
+    CREATE OBJECT result
+      TYPE ycx_exception_function
+      EXPORTING
+        function = lv_function
+        name     = lv_name.
+
+  ELSE.
+    lv_destination = i_destination.
+    lv_message = i_message.
+
+    CREATE OBJECT result
+      TYPE ycx_exception_rfc
+      EXPORTING
+        function    = lv_function
+        name        = lv_name
+        destination = lv_destination
+        message     = lv_message.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_MESSAGE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_MESSAGE" SCONAME="I_MSGID" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_MESSAGE" SCONAME="I_MSGNO" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_MESSAGE" SCONAME="I_MSGV1" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE" PAROPTIONL="X"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_MESSAGE" SCONAME="I_MSGV2" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE" PAROPTIONL="X"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_MESSAGE" SCONAME="I_MSGV3" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE" PAROPTIONL="X"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_MESSAGE" SCONAME="I_MSGV4" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="6 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE" PAROPTIONL="X"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_MESSAGE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für nicht-klassenbasierte Fehler" CMPTYPE="1" MTDTYPE="0" EDITORDER="7 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YCX_EXCEPTION"/>
+  <source>METHOD get_instance_by_message.
+
+  DATA: lv_msgid TYPE symsgid
+      , lv_msgno TYPE symsgno
+      , lv_msgv1 TYPE symsgv
+      , lv_msgv2 TYPE symsgv
+      , lv_msgv3 TYPE symsgv
+      , lv_msgv4 TYPE symsgv
+      .
+
+
+  lv_msgid = i_msgid.
+  lv_msgno = i_msgno.
+  lv_msgv1 = i_msgv1.
+  lv_msgv2 = i_msgv2.
+  lv_msgv3 = i_msgv3.
+  lv_msgv4 = i_msgv4.
+
+  CREATE OBJECT result
+    TYPE ycx_exception_message
+    EXPORTING
+      msgid = lv_msgid
+      msgno = lv_msgno
+      msgv1 = lv_msgv1
+      msgv2 = lv_msgv2
+      msgv3 = lv_msgv3
+      msgv4 = lv_msgv4.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_METHOD" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_METHOD" SCONAME="I_CLASS" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_METHOD" SCONAME="I_METHOD" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_METHOD" SCONAME="I_SUBRC" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="I" PARVALUE="SY-SUBRC"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_METHOD" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für nicht-klassenbasierte Fehler" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YCX_EXCEPTION"/>
+  <source>METHOD get_instance_by_method.
+
+  DATA: lv_class TYPE string
+      , lv_method TYPE string
+      , lv_name TYPE string
+      .
+
+
+  lv_class = i_class.
+  lv_method = i_method.
+  lv_name = ycl_exception_helper=&gt;get_name_by_method(
+      i_class  = i_class
+      i_method = i_method
+      i_subrc  = i_subrc
+         ).
+
+  CREATE OBJECT result
+    TYPE ycx_exception_method
+    EXPORTING
+      class  = lv_class
+      method = lv_method
+      name   = lv_name.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_TEXT" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_TEXT" SCONAME="I_TEXT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_TEXT" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für nicht-klassenbasierte Fehler" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YCX_EXCEPTION"/>
+  <source>METHOD get_instance_by_text.
+
+  DATA: lv_text TYPE string
+      .
+
+
+  lv_text = i_text.
+
+  CREATE OBJECT result
+    TYPE ycx_exception_text
+    EXPORTING
+      text = lv_text.
+
+ENDMETHOD.</source>
+ </method>
+</CLAS>

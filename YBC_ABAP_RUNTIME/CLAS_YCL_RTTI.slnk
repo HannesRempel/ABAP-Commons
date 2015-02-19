@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CLAS CLSNAME="YCL_RTTI" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Identification" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSABSTRCT="X" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" WITH_UNIT_TESTS="X" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+ <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+ <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <localTestClasses></localTestClasses>
+ <typeUsage CLSNAME="YCL_RTTI" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X" IMPLICIT="X"/>
+ <forwardDeclaration>ABAP</forwardDeclaration>
+ <typeClasDef CLSNAME="YCL_RTTI" TYPEGROUP="CL_ABAP_TABLEDESCR" VERSION="1" TPUTYPE="1" IMPLICIT="X"/>
+ <method CLSNAME="YCL_RTTI" CMPNAME="GET_CLASSDESCR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_CLASSDESCR" SCONAME="I_OBJECT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="OBJECT"/>
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_CLASSDESCR" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_CLASSDESCR"/>
+  <exception CLSNAME="YCL_RTTI" CMPNAME="GET_CLASSDESCR" SCONAME="CX_SY_REF_IS_INITIAL" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei ASSIGN" MTDTYPE="0" EDITORDER="1 "/>
+  <source>METHOD GET_CLASSDESCR.
+
+  DATA: lo_typedescr TYPE REF TO cl_abap_typedescr
+      .
+
+
+  CALL METHOD cl_abap_typedescr=&gt;describe_by_object_ref
+    EXPORTING
+      p_object_ref         = i_object
+    RECEIVING
+      p_descr_ref          = lo_typedescr
+    EXCEPTIONS
+      reference_is_initial = 1.
+  IF sy-subrc NE 0.
+    RAISE EXCEPTION TYPE cx_sy_ref_is_initial.
+  ENDIF.
+
+  result ?= lo_typedescr.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_RTTI" CMPNAME="GET_COMPLEXDESCR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_COMPLEXDESCR" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DATA"/>
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_COMPLEXDESCR" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_COMPLEXDESCR"/>
+  <exception CLSNAME="YCL_RTTI" CMPNAME="GET_COMPLEXDESCR" SCONAME="CX_SY_MOVE_CAST_ERROR" VERSION="1" LANGU="D" DESCRIPT="Oberklasse aller System-Exceptions" MTDTYPE="0" EDITORDER="1 "/>
+  <source>METHOD GET_COMPLEXDESCR.
+
+  result ?= cl_abap_typedescr=&gt;describe_by_data( i_data ).
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_RTTI" CMPNAME="GET_DATADESCR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_DATADESCR" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DATA"/>
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_DATADESCR" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_DATADESCR"/>
+  <source>METHOD GET_DATADESCR.
+
+  result ?= cl_abap_typedescr=&gt;describe_by_data( i_data ).
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_RTTI" CMPNAME="GET_DATADESCR_BY_NAME" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_DATADESCR_BY_NAME" SCONAME="I_NAME" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_DATADESCR_BY_NAME" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_DATADESCR"/>
+  <exception CLSNAME="YCL_RTTI" CMPNAME="GET_DATADESCR_BY_NAME" SCONAME="CX_SY_UNKNOWN_TYPE" VERSION="1" LANGU="D" DESCRIPT="System-Exception für &apos;Typ nicht gefunden&apos;" MTDTYPE="0" EDITORDER="1 "/>
+  <exception CLSNAME="YCL_RTTI" CMPNAME="GET_DATADESCR_BY_NAME" SCONAME="CX_SY_MOVE_CAST_ERROR" VERSION="1" LANGU="D" DESCRIPT="Oberklasse aller System-Exceptions" MTDTYPE="0" EDITORDER="2 "/>
+  <source>METHOD GET_DATADESCR_BY_NAME.
+
+  DATA: lo_typedescr TYPE REF TO cl_abap_typedescr
+      , lv_name TYPE string
+      .
+
+
+  CALL METHOD cl_abap_typedescr=&gt;describe_by_name
+    EXPORTING
+      p_name         = i_name
+    RECEIVING
+      p_descr_ref    = lo_typedescr
+    EXCEPTIONS
+      type_not_found = 1.
+  IF sy-subrc NE 0.
+    lv_name = i_name.
+    RAISE EXCEPTION TYPE cx_sy_unknown_type
+      EXPORTING
+        type_name = lv_name.
+  ENDIF.
+
+  result ?= lo_typedescr.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_RTTI" CMPNAME="GET_DATADESCR_BY_TABLE_LINE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="5 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_DATADESCR_BY_TABLE_LINE" SCONAME="I_TABLE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ANY TABLE"/>
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_DATADESCR_BY_TABLE_LINE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_DATADESCR"/>
+  <source>METHOD GET_DATADESCR_BY_TABLE_LINE.
+
+  DATA: lo_tabledescr TYPE REF TO cl_abap_tabledescr
+      .
+
+
+  lo_tabledescr = get_tabledescr( i_table ).
+  result = lo_tabledescr-&gt;get_table_line_type( ).
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_RTTI" CMPNAME="GET_ELEMDESCR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="6 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_ELEMDESCR" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE"/>
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_ELEMDESCR" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_ELEMDESCR"/>
+  <exception CLSNAME="YCL_RTTI" CMPNAME="GET_ELEMDESCR" SCONAME="CX_SY_MOVE_CAST_ERROR" VERSION="1" LANGU="D" DESCRIPT="Oberklasse aller System-Exceptions" MTDTYPE="0" EDITORDER="1 "/>
+  <source>METHOD GET_ELEMDESCR.
+
+  result ?= cl_abap_typedescr=&gt;describe_by_data( i_data ).
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_RTTI" CMPNAME="GET_INTFDESCR_BY_NAME" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="7 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_INTFDESCR_BY_NAME" SCONAME="I_NAME" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_INTFDESCR_BY_NAME" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_INTFDESCR"/>
+  <exception CLSNAME="YCL_RTTI" CMPNAME="GET_INTFDESCR_BY_NAME" SCONAME="CX_SY_UNKNOWN_TYPE" VERSION="1" LANGU="D" DESCRIPT="System-Exception für &apos;Typ nicht gefunden&apos;" MTDTYPE="0" EDITORDER="1 "/>
+  <exception CLSNAME="YCL_RTTI" CMPNAME="GET_INTFDESCR_BY_NAME" SCONAME="CX_SY_MOVE_CAST_ERROR" VERSION="1" LANGU="D" DESCRIPT="Oberklasse aller System-Exceptions" MTDTYPE="0" EDITORDER="2 "/>
+  <source>METHOD GET_INTFDESCR_BY_NAME.
+
+  DATA: lo_typedescr TYPE REF TO cl_abap_typedescr
+      , lv_name TYPE string
+      .
+
+
+  CALL METHOD cl_abap_typedescr=&gt;describe_by_name
+    EXPORTING
+      p_name         = i_name
+    RECEIVING
+      p_descr_ref    = lo_typedescr
+    EXCEPTIONS
+      type_not_found = 1.
+  IF sy-subrc NE 0.
+    lv_name = i_name.
+    RAISE EXCEPTION TYPE cx_sy_unknown_type
+      EXPORTING
+        type_name = lv_name.
+  ENDIF.
+
+  result ?= lo_typedescr.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_RTTI" CMPNAME="GET_OBJECTDESCR_BY_NAME" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="8 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_OBJECTDESCR_BY_NAME" SCONAME="I_NAME" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_OBJECTDESCR_BY_NAME" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_OBJECTDESCR"/>
+  <exception CLSNAME="YCL_RTTI" CMPNAME="GET_OBJECTDESCR_BY_NAME" SCONAME="CX_SY_UNKNOWN_TYPE" VERSION="1" LANGU="D" DESCRIPT="System-Exception für &apos;Typ nicht gefunden&apos;" MTDTYPE="0" EDITORDER="1 "/>
+  <exception CLSNAME="YCL_RTTI" CMPNAME="GET_OBJECTDESCR_BY_NAME" SCONAME="CX_SY_MOVE_CAST_ERROR" VERSION="1" LANGU="D" DESCRIPT="Oberklasse aller System-Exceptions" MTDTYPE="0" EDITORDER="2 "/>
+  <source>METHOD GET_OBJECTDESCR_BY_NAME.
+
+  DATA: lo_typedescr TYPE REF TO cl_abap_typedescr
+      , lv_name TYPE string
+      .
+
+
+  CALL METHOD cl_abap_typedescr=&gt;describe_by_name
+    EXPORTING
+      p_name         = i_name
+    RECEIVING
+      p_descr_ref    = lo_typedescr
+    EXCEPTIONS
+      type_not_found = 1.
+  IF sy-subrc NE 0.
+    lv_name = i_name.
+    RAISE EXCEPTION TYPE cx_sy_unknown_type
+      EXPORTING
+        type_name = lv_name.
+  ENDIF.
+
+  result ?= lo_typedescr.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_RTTI" CMPNAME="GET_OBJECTDESCR_BY_TABLE_LINE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="9 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_OBJECTDESCR_BY_TABLE_LINE" SCONAME="I_TABLE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ANY TABLE"/>
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_OBJECTDESCR_BY_TABLE_LINE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_OBJECTDESCR"/>
+  <exception CLSNAME="YCL_RTTI" CMPNAME="GET_OBJECTDESCR_BY_TABLE_LINE" SCONAME="CX_SY_MOVE_CAST_ERROR" VERSION="1" LANGU="D" DESCRIPT="Oberklasse aller System-Exceptions" MTDTYPE="0" EDITORDER="1 "/>
+  <source>METHOD get_objectdescr_by_table_line.
+
+  DATA: lo_tabledescr TYPE REF TO cl_abap_tabledescr
+      , lo_refdescr TYPE REF TO cl_abap_refdescr
+      .
+
+
+  lo_tabledescr = get_tabledescr( i_table ).
+  lo_refdescr ?= lo_tabledescr-&gt;get_table_line_type( ).
+  result ?= lo_refdescr-&gt;get_referenced_type( ).
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_RTTI" CMPNAME="GET_REFDESCR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="10 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_REFDESCR" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="DATA"/>
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_REFDESCR" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_REFDESCR"/>
+  <source>METHOD GET_REFDESCR.
+
+  result ?= cl_abap_typedescr=&gt;describe_by_data( i_data ).
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_RTTI" CMPNAME="GET_STRUCTDESCR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="11 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_STRUCTDESCR" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DATA"/>
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_STRUCTDESCR" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_STRUCTDESCR"/>
+  <exception CLSNAME="YCL_RTTI" CMPNAME="GET_STRUCTDESCR" SCONAME="CX_SY_MOVE_CAST_ERROR" VERSION="1" LANGU="D" DESCRIPT="Oberklasse aller System-Exceptions" MTDTYPE="0" EDITORDER="1 "/>
+  <source>METHOD GET_STRUCTDESCR.
+
+  result ?= cl_abap_typedescr=&gt;describe_by_data( i_data ).
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_RTTI" CMPNAME="GET_TABLEDESCR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="12 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_TABLEDESCR" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ANY TABLE"/>
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_TABLEDESCR" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_TABLEDESCR"/>
+  <source>METHOD GET_TABLEDESCR.
+
+  result ?= cl_abap_typedescr=&gt;describe_by_data( i_data ).
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_RTTI" CMPNAME="GET_TABLEDESCR_BY_NAME" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="13 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_TABLEDESCR_BY_NAME" SCONAME="I_NAME" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_TABLEDESCR_BY_NAME" SCONAME="I_KIND" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ABAP_TABLEKIND" PARVALUE="CL_ABAP_TABLEDESCR=&gt;TABLEKIND_STD"/>
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_TABLEDESCR_BY_NAME" SCONAME="I_UNIQUE" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SAP_BOOL" PAROPTIONL="X"/>
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_TABLEDESCR_BY_NAME" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_TABLEDESCR"/>
+  <exception CLSNAME="YCL_RTTI" CMPNAME="GET_TABLEDESCR_BY_NAME" SCONAME="CX_SY_UNKNOWN_TYPE" VERSION="1" LANGU="D" DESCRIPT="System-Exception für &apos;Typ nicht gefunden&apos;" MTDTYPE="0" EDITORDER="1 "/>
+  <exception CLSNAME="YCL_RTTI" CMPNAME="GET_TABLEDESCR_BY_NAME" SCONAME="CX_SY_MOVE_CAST_ERROR" VERSION="1" LANGU="D" DESCRIPT="Oberklasse aller System-Exceptions" MTDTYPE="0" EDITORDER="2 "/>
+  <exception CLSNAME="YCL_RTTI" CMPNAME="GET_TABLEDESCR_BY_NAME" SCONAME="CX_SY_TABLE_CREATION" VERSION="1" LANGU="D" DESCRIPT="Ausnahme beim Erzeugen eines Tabellentyps" MTDTYPE="0" EDITORDER="3 "/>
+  <source>METHOD GET_TABLEDESCR_BY_NAME.
+
+  DATA: lo_linedescr TYPE REF TO cl_abap_structdescr
+      , lo_includedescr TYPE REF TO cl_abap_structdescr
+      , lt_fields TYPE ddfields
+      , ls_field TYPE REF TO dfies
+      , lt_keys TYPE abap_keydescr_tab
+      , ls_key TYPE REF TO abap_keydescr
+      , lt_components TYPE abap_component_tab
+      , ls_component TYPE REF TO abap_componentdescr
+      , lv_keykind TYPE abap_keydefkind
+      .
+
+
+  lo_linedescr ?= get_typedescr_by_name( i_name ).
+
+  lo_includedescr = lo_linedescr.
+  lt_fields = lo_includedescr-&gt;get_ddic_field_list( ).
+  LOOP AT lt_fields                                      &quot;#EC CI_STDSEQ
+        REFERENCE INTO ls_field
+        WHERE keyflag EQ abap_true.
+    INSERT INITIAL LINE INTO TABLE lt_keys REFERENCE INTO ls_key.
+    ls_key-&gt;name = ls_field-&gt;fieldname.
+  ENDLOOP.
+
+  WHILE lt_keys IS INITIAL AND lo_includedescr-&gt;has_include EQ abap_true.
+    lt_components = lo_includedescr-&gt;get_components( ).
+    READ TABLE lt_components
+          REFERENCE INTO ls_component
+          INDEX 1.
+    IF ls_component-&gt;as_include NE abap_true.
+      EXIT.
+    ENDIF.
+
+    lo_includedescr ?= ls_component-&gt;type.
+    lt_fields = lo_includedescr-&gt;get_ddic_field_list( ).
+    LOOP AT lt_fields REFERENCE INTO ls_field.           &quot;#EC CI_NESTED
+      IF ls_field-&gt;keyflag NE abap_true.
+        EXIT.
+      ENDIF.
+      INSERT INITIAL LINE INTO TABLE lt_keys REFERENCE INTO ls_key.
+      CONCATENATE ls_field-&gt;fieldname ls_component-&gt;suffix INTO ls_key-&gt;name.
+    ENDLOOP.
+  ENDWHILE.
+
+  IF lt_keys IS INITIAL.
+    lv_keykind = cl_abap_tabledescr=&gt;keydefkind_tableline.
+  ELSE.
+    lv_keykind = cl_abap_tabledescr=&gt;keydefkind_user.
+  ENDIF.
+
+  result = cl_abap_tabledescr=&gt;create(
+      p_line_type  = lo_linedescr
+      p_table_kind = i_kind
+      p_unique     = i_unique
+      p_key        = lt_keys
+      p_key_kind   = lv_keykind
+         ).
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_RTTI" CMPNAME="GET_TYPEDESCR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="14 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_TYPEDESCR" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ANY"/>
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_TYPEDESCR" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_TYPEDESCR"/>
+  <source>METHOD get_typedescr.
+
+  result = cl_abap_typedescr=&gt;describe_by_data( i_data ).
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_RTTI" CMPNAME="GET_TYPEDESCR_BY_NAME" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="15 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_TYPEDESCR_BY_NAME" SCONAME="I_NAME" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_TYPEDESCR_BY_NAME" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_TYPEDESCR"/>
+  <exception CLSNAME="YCL_RTTI" CMPNAME="GET_TYPEDESCR_BY_NAME" SCONAME="CX_SY_UNKNOWN_TYPE" VERSION="1" LANGU="D" DESCRIPT="System-Exception für &apos;Typ nicht gefunden&apos;" MTDTYPE="0" EDITORDER="1 "/>
+  <source>METHOD GET_TYPEDESCR_BY_NAME.
+
+  DATA: lv_name TYPE string
+      .
+
+
+  CALL METHOD cl_abap_typedescr=&gt;describe_by_name
+    EXPORTING
+      p_name         = i_name
+    RECEIVING
+      p_descr_ref    = result
+    EXCEPTIONS
+      type_not_found = 1.
+  IF sy-subrc NE 0.
+    lv_name = i_name.
+    RAISE EXCEPTION TYPE cx_sy_unknown_type
+      EXPORTING
+        type_name = lv_name.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+</CLAS>

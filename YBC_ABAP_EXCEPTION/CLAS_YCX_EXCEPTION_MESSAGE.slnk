@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CLAS CLSNAME="YCX_EXCEPTION_MESSAGE" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für Nachrichten" CATEGORY="40" EXPOSURE="2" STATE="1" RELEASE="0" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="YCX_EXCEPTION">
+ <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+ <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <typeUsage CLSNAME="YCX_EXCEPTION_MESSAGE" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+ <forwardDeclaration>ABAP</forwardDeclaration>
+ <attribute CLSNAME="YCX_EXCEPTION_MESSAGE" CMPNAME="MSGID" VERSION="1" LANGU="D" DESCRIPT="Nachrichtenklasse" EXPOSURE="2" STATE="1" EDITORDER="1 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYMSGID" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCX_EXCEPTION_MESSAGE" CMPNAME="MSGNO" VERSION="1" LANGU="D" DESCRIPT="Nachrichtennummer" EXPOSURE="2" STATE="1" EDITORDER="2 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYMSGNO" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCX_EXCEPTION_MESSAGE" CMPNAME="MSGV1" VERSION="1" LANGU="D" DESCRIPT="Nachrichtenvariable" EXPOSURE="2" STATE="1" EDITORDER="3 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYMSGV" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCX_EXCEPTION_MESSAGE" CMPNAME="MSGV2" VERSION="1" LANGU="D" DESCRIPT="Nachrichtenvariable" EXPOSURE="2" STATE="1" EDITORDER="4 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYMSGV" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCX_EXCEPTION_MESSAGE" CMPNAME="MSGV3" VERSION="1" LANGU="D" DESCRIPT="Nachrichtenvariable" EXPOSURE="2" STATE="1" EDITORDER="5 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYMSGV" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCX_EXCEPTION_MESSAGE" CMPNAME="MSGV4" VERSION="1" LANGU="D" DESCRIPT="Nachrichtenvariable" EXPOSURE="2" STATE="1" EDITORDER="6 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYMSGV" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <inheritance CLSNAME="YCX_EXCEPTION_MESSAGE" REFCLSNAME="YCX_EXCEPTION" VERSION="1" STATE="1">
+  <redefinition CLSNAME="YCX_EXCEPTION_MESSAGE" REFCLSNAME="YCX_EXCEPTION" VERSION="1" MTDNAME="_GET_LONGTEXT" EXPOSURE="1"/>
+  <redefinition CLSNAME="YCX_EXCEPTION_MESSAGE" REFCLSNAME="YCX_EXCEPTION" VERSION="1" MTDNAME="_GET_TEXT" EXPOSURE="1"/>
+ </inheritance>
+ <method CLSNAME="YCX_EXCEPTION" CMPNAME="_GET_LONGTEXT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD _get_longtext.
+
+  result = ycl_exception_helper=&gt;get_longtext_by_message(
+      i_msgid = msgid
+      i_msgno = msgno
+      i_msgv1 = msgv1
+      i_msgv2 = msgv2
+      i_msgv3 = msgv3
+      i_msgv4 = msgv4
+         ).
+
+  IF preserve_newlines NE abap_true.
+    REPLACE ALL OCCURRENCES OF yit_abap_char=&gt;crlf IN result WITH space.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCX_EXCEPTION" CMPNAME="_GET_TEXT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD _get_text.
+
+  result = ycl_exception_helper=&gt;get_text_by_message(
+      i_msgid = msgid
+      i_msgno = msgno
+      i_msgv1 = msgv1
+      i_msgv2 = msgv2
+      i_msgv3 = msgv3
+      i_msgv4 = msgv4
+         ).
+
+ENDMETHOD.</source>
+ </method>
+</CLAS>

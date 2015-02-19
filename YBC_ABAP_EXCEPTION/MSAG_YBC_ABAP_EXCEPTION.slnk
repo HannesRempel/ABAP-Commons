@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MSAG ARBGB="YBC_ABAP_EXCEPTION" MASTERLANG="D" RESPUSER="REMPE04" STEXT="Ausnahmen">
+ <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="010" TEXT="Ein nicht-klassenbasierter Fehler ist aufgetreten."/>
+ <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="011" TEXT="Ein Fehler ist aufgetreten: &apos;&amp;1&apos;"/>
+ <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="012" TEXT="Eine klassische Ausnahme wurde geworfen."/>
+ <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="013" TEXT="Die klassische Ausnahme &apos;&amp;1&apos; wurde geworfen."/>
+ <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="014" TEXT="In Methode &apos;&amp;1&apos; der Klasse &apos;&amp;2&apos; wurde eine klassische Ausnahmen geworfen."/>
+ <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="015" TEXT="In Methode &apos;&amp;1&apos; der Klasse &apos;&amp;2&apos; wurde die Ausnahmen &apos;&amp;3&apos; geworfen."/>
+ <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="016" TEXT="In Methode &apos;&amp;1&apos; der Klasse &apos;&amp;2&apos; wurde eine Ausnahmen geworfent: &apos;&amp;3&apos;"/>
+ <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="017" TEXT="In Funktion &apos;&amp;1&apos; wurde eine klassische Ausnahmen geworfen."/>
+ <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="018" TEXT="In Funktion &apos;&amp;1&apos; wurde die Ausnahmen &apos;&amp;2&apos; geworfen."/>
+ <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="019" TEXT="In Funktion &apos;&amp;1&apos; wurde eine Ausnahmen geworfen: &apos;&amp;2&apos;"/>
+ <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="020" TEXT="In Funktion &apos;&amp;1&apos; der Destination &apos;&amp;2&apos; wurde eine Ausnahmen geworfen."/>
+ <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="021" TEXT="In Funktion &apos;&amp;1&apos; der Destination &apos;&amp;2&apos; wurde die Ausnahmen &apos;&amp;3&apos; geworfen."/>
+ <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="022" TEXT="In Funktion &apos;&amp;1&apos; der Destination &apos;&amp;2&apos; wurde eine Ausnahmen geworfen: &apos;&amp;3&apos;"/>
+ <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="100" TEXT="Diese Methode ist veraltet und sollte nicht mehr verwendet werden."/>
+ <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="110" TEXT="Der Index &apos;&amp;1&apos; befindet sich außerhalb der Grenzen."/>
+ <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="010" TEXT="A non-class-based error has occurred."/>
+ <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="011" TEXT="An error has occurred: &apos;&amp;1&apos;"/>
+ <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="012" TEXT="A classic exception was thrown."/>
+ <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="013" TEXT="Classic exception &apos;&amp;1&apos; was thrown."/>
+ <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="014" TEXT="In methode &apos;&amp;1&apos; of class &apos;&amp;2&apos; a classic exception was thrown"/>
+ <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="015" TEXT="In methode &apos;&amp;1&apos; of class &apos;&amp;2&apos; exception &apos;&amp;3&apos; was thrown."/>
+ <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="016" TEXT="In methode &apos;&amp;1&apos; of class &apos;&amp;2&apos; an exception was thrown: &apos;&amp;3&apos;"/>
+ <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="017" TEXT="In function &apos;&amp;1&apos; a classic exception was thrown."/>
+ <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="018" TEXT="In function &apos;&amp;1&apos; exception &apos;&amp;2&apos; was thrown."/>
+ <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="019" TEXT="In function &apos;&amp;1&apos; an exception was thrown: &apos;&amp;2&apos;"/>
+ <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="020" TEXT="In function &apos;&amp;1&apos; of destiantion &apos;&amp;2&apos; an exception was thrown."/>
+ <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="021" TEXT="In function &apos;&amp;1&apos; of destiantion &apos;&amp;2&apos; exception &apos;&amp;3&apos; was thrown."/>
+ <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="022" TEXT="In function &apos;&amp;1&apos; of destiantion &apos;&amp;2&apos; an exception was thrown: &apos;&amp;3&apos;"/>
+ <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="100" TEXT="This method is deprecated and should no longer be used."/>
+ <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="110" TEXT="The index &apos;&amp;1&apos; is out of bounds."/>
+ <t100t SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" STEXT="Ausnahmen"/>
+</MSAG>

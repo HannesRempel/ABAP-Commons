@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CLAS CLSNAME="YCL_ABAP_ESCAPE" VERSION="1" LANGU="D" DESCRIPT="Abwärtskompatibilität der escape-Funktion" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSABSTRCT="X" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+ <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+ <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <typeUsage CLSNAME="YCL_ABAP_ESCAPE" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+ <forwardDeclaration>ABAP</forwardDeclaration>
+ <method CLSNAME="YCL_ABAP_ESCAPE" CMPNAME="URI" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_ABAP_ESCAPE" CMPNAME="URI" SCONAME="VAL" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="YCL_ABAP_ESCAPE" CMPNAME="URI" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+  <source>METHOD uri.
+
+  result = uri_custom(
+      val  = val
+      save = &apos;!$&apos;&apos;*+,&amp;/:;=?@~#[]&apos;
+         ).
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_ABAP_ESCAPE" CMPNAME="URI_CUSTOM" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_ABAP_ESCAPE" CMPNAME="URI_CUSTOM" SCONAME="VAL" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="YCL_ABAP_ESCAPE" CMPNAME="URI_CUSTOM" SCONAME="SAVE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="YCL_ABAP_ESCAPE" CMPNAME="URI_CUSTOM" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+  <source>METHOD uri_custom.
+
+  DATA: lv_offset TYPE i
+      , lv_fdpos TYPE i
+      , lv_escape TYPE string
+      .
+
+
+  WHILE val+lv_offset CA save.
+    lv_fdpos = lv_offset + sy-fdpos.
+    lv_escape = val+lv_offset(sy-fdpos).
+    lv_escape = cl_abap_dyn_prg=&gt;escape_xss_url( lv_escape ).
+    CONCATENATE result lv_escape val+lv_fdpos(1) INTO result.
+    lv_offset = lv_fdpos + 1.
+  ENDWHILE.
+
+  lv_escape = val+lv_offset.
+  lv_escape = cl_abap_dyn_prg=&gt;escape_xss_url( lv_escape ).
+  CONCATENATE result lv_escape INTO result.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_ABAP_ESCAPE" CMPNAME="URI_FULL" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_ABAP_ESCAPE" CMPNAME="URI_FULL" SCONAME="VAL" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="YCL_ABAP_ESCAPE" CMPNAME="URI_FULL" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+  <source>METHOD uri_full.
+
+  result = uri_custom(
+      val  = val
+      save = &apos;~&apos;
+         ).
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_ABAP_ESCAPE" CMPNAME="URL" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_ABAP_ESCAPE" CMPNAME="URL" SCONAME="VAL" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="YCL_ABAP_ESCAPE" CMPNAME="URL" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+  <source>METHOD url.
+
+  result = uri_custom(
+      val  = val
+      save = &apos;!$&apos;&apos;*+,&amp;/:;=?@&apos;
+         ).
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_ABAP_ESCAPE" CMPNAME="URL_FULL" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="5 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_ABAP_ESCAPE" CMPNAME="URL_FULL" SCONAME="VAL" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="YCL_ABAP_ESCAPE" CMPNAME="URL_FULL" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+  <source>METHOD url_full.
+
+  result = uri_custom(
+      val  = val
+      save = &apos;!$&apos;&apos;*+,@&apos;
+         ).
+
+ENDMETHOD.</source>
+ </method>
+</CLAS>

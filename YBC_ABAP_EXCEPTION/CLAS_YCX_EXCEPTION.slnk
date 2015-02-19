@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CLAS CLSNAME="YCX_EXCEPTION" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für nicht-klassenbasierte Fehler" CATEGORY="40" EXPOSURE="2" STATE="1" RELEASE="0" CLSABSTRCT="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" MSG_ID="YBC_ABAP_EXCEPTION" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="CX_STATIC_CHECK">
+ <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+ <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <typeUsage CLSNAME="YCX_EXCEPTION" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X" IMPLICIT="X"/>
+ <forwardDeclaration>ABAP</forwardDeclaration>
+ <inheritance CLSNAME="YCX_EXCEPTION" REFCLSNAME="CX_STATIC_CHECK" VERSION="1" STATE="1">
+  <redefinition CLSNAME="YCX_EXCEPTION" REFCLSNAME="CX_STATIC_CHECK" VERSION="1" MTDNAME="IF_MESSAGE~GET_LONGTEXT" EXPOSURE="2"/>
+  <redefinition CLSNAME="YCX_EXCEPTION" REFCLSNAME="CX_STATIC_CHECK" VERSION="1" MTDNAME="IF_MESSAGE~GET_TEXT" EXPOSURE="2"/>
+ </inheritance>
+ <interfaceMethod CLSNAME="YCX_EXCEPTION" CPDNAME="IF_MESSAGE~GET_LONGTEXT">
+  <source>METHOD if_message~get_longtext.
+
+  DATA: lv_longtext TYPE string
+      .
+
+  result = get_text( ).
+  lv_longtext = _get_longtext( preserve_newlines ).
+
+  IF lv_longtext IS NOT INITIAL.
+    IF preserve_newlines EQ abap_true.
+      CONCATENATE result
+                  lv_longtext
+                  INTO result
+                  SEPARATED BY yit_abap_char=&gt;crlf.
+
+    ELSE.
+      CONCATENATE result
+                  lv_longtext
+                  INTO result
+                  SEPARATED BY space.
+    ENDIF.
+
+    result = ycl_exception_helper=&gt;clean_text( result ).
+  ENDIF.
+
+ENDMETHOD.</source>
+ </interfaceMethod>
+ <interfaceMethod CLSNAME="YCX_EXCEPTION" CPDNAME="IF_MESSAGE~GET_TEXT">
+  <source>METHOD if_message~get_text.
+
+  DATA: lv_offset TYPE i
+      .
+
+
+  result = _get_text( ).
+
+  IF result IS NOT INITIAL.
+    result = ycl_exception_helper=&gt;clean_text( result ).
+
+  ELSE.
+    MESSAGE e010 INTO result.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </interfaceMethod>
+ <method CLSNAME="YCX_EXCEPTION" CMPNAME="_GET_LONGTEXT" VERSION="1" LANGU="D" EXPOSURE="1" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCX_EXCEPTION" CMPNAME="_GET_LONGTEXT" SCONAME="PRESERVE_NEWLINES" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ABAP_BOOL"/>
+  <parameter CLSNAME="YCX_EXCEPTION" CMPNAME="_GET_LONGTEXT" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+  <source>METHOD _get_longtext.
+
+  RETURN.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCX_EXCEPTION" CMPNAME="_GET_TEXT" VERSION="1" LANGU="D" EXPOSURE="1" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" MTDABSTRCT="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCX_EXCEPTION" CMPNAME="_GET_TEXT" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+ </method>
+</CLAS>
