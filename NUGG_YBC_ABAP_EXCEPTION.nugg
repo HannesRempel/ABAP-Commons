@@ -1,0 +1,938 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nugget name="YBC_ABAP_EXCEPTION">
+ <CLAS CLSNAME="YCL_EXCEPTION_HELPER" VERSION="1" LANGU="D" DESCRIPT="Hilfsklasse für Ausnahmen" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSABSTRCT="X" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+  <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+  <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+  <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+  <textPool>
+   <language SPRAS="D">
+    <textElement ID="I" KEY="001" ENTRY="Unbekannter Fehler." LENGTH="132 "/>
+   </language>
+   <language SPRAS="E">
+    <textElement ID="I" KEY="001" ENTRY="Unknown error." LENGTH="132 "/>
+   </language>
+  </textPool>
+  <typeUsage CLSNAME="YCL_EXCEPTION_HELPER" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+  <forwardDeclaration>ABAP</forwardDeclaration>
+  <attribute CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="CO_COMMUNICATION" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="1 " ATTDECLTYP="2" ATTVALUE="&apos;COMMUNICATION_FAILURE&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="CO_MESSAGE" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="2 " ATTDECLTYP="2" ATTVALUE="&apos;ERROR_MESSAGE&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="CO_OTHERS" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="3 " ATTDECLTYP="2" ATTVALUE="&apos;OTHERS&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="CO_SYSTEM" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="4 " ATTDECLTYP="2" ATTVALUE="&apos;SYSTEM_FAILURE&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <method CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="CLEAN_TEXT" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="CLEAN_TEXT" SCONAME="I_TEXT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="CLEAN_TEXT" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+   <source>METHOD clean_text.
+
+  DATA: lv_offset TYPE i
+      .
+
+
+  IF i_text IS NOT INITIAL.
+    result = i_text.
+    CONDENSE result.
+    lv_offset = strlen( result ) - 1.
+    IF result+lv_offset(1) CN yit_abap_regex=&gt;punct.
+      CONCATENATE result yit_abap_char=&gt;dot INTO result.
+    ENDIF.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_LONGTEXT_BY_FUNCTION" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_LONGTEXT_BY_FUNCTION" SCONAME="I_FUNCTION" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_LONGTEXT_BY_FUNCTION" SCONAME="I_NAME" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_LONGTEXT_BY_FUNCTION" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+   <source>METHOD get_longtext_by_function.
+
+  DATA: ls_key TYPE doku_obj
+      , lt_itf TYPE tline_tab
+      .
+
+
+  IF i_function IS NOT INITIAL AND i_name IS NOT INITIAL.
+    ls_key = i_function.
+    ls_key+30 = i_name.
+    CALL FUNCTION &apos;DOCU_GET&apos;
+      EXPORTING
+        id     = &apos;FX&apos;
+        langu  = sy-langu
+        object = ls_key
+        typ    = &apos;T&apos;
+      TABLES
+        line   = lt_itf
+      EXCEPTIONS
+        OTHERS = 0.
+
+    result = _convert( lt_itf ).
+  ENDIF.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_LONGTEXT_BY_MESSAGE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_LONGTEXT_BY_MESSAGE" SCONAME="I_MSGID" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_LONGTEXT_BY_MESSAGE" SCONAME="I_MSGNO" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_LONGTEXT_BY_MESSAGE" SCONAME="I_MSGV1" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE" PAROPTIONL="X"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_LONGTEXT_BY_MESSAGE" SCONAME="I_MSGV2" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE" PAROPTIONL="X"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_LONGTEXT_BY_MESSAGE" SCONAME="I_MSGV3" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE" PAROPTIONL="X"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_LONGTEXT_BY_MESSAGE" SCONAME="I_MSGV4" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="6 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE" PAROPTIONL="X"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_LONGTEXT_BY_MESSAGE" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="7 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+   <source>METHOD get_longtext_by_message.
+
+  DATA: ls_key TYPE doku_obj
+      , lt_itf TYPE tline_tab
+      , ls_itf TYPE tline
+      .
+
+
+  IF i_msgid IS NOT INITIAL AND i_msgno IS NOT INITIAL.
+    CONCATENATE i_msgid i_msgno INTO ls_key.
+    CALL FUNCTION &apos;DOCU_GET&apos;
+      EXPORTING
+        id     = &apos;NA&apos;
+        langu  = sy-langu
+        object = ls_key
+        typ    = &apos;E&apos;
+      TABLES
+        line   = lt_itf
+      EXCEPTIONS
+        OTHERS = 0.
+
+    ls_itf-tdformat = &apos;/:&apos;.
+
+    ls_itf-tdline = i_msgv4.
+    REPLACE ALL OCCURRENCES OF &apos;&apos;&apos;&apos; IN ls_itf-tdline WITH &apos;&apos;&apos;&apos;&apos;&apos;.
+    CONCATENATE &apos;DEFINE &amp;V4&amp; = &apos;&apos;&apos; ls_itf-tdline &apos;&apos;&apos;&apos;
+                INTO ls_itf-tdline.
+    INSERT ls_itf INTO lt_itf INDEX 1.
+
+    ls_itf-tdline = i_msgv3.
+    REPLACE ALL OCCURRENCES OF &apos;&apos;&apos;&apos; IN ls_itf-tdline WITH &apos;&apos;&apos;&apos;&apos;&apos;.
+    CONCATENATE &apos;DEFINE &amp;V3&amp; = &apos;&apos;&apos; ls_itf-tdline &apos;&apos;&apos;&apos;
+                INTO ls_itf-tdline.
+    INSERT ls_itf INTO lt_itf INDEX 1.
+
+    ls_itf-tdline = i_msgv2.
+    REPLACE ALL OCCURRENCES OF &apos;&apos;&apos;&apos; IN ls_itf-tdline WITH &apos;&apos;&apos;&apos;&apos;&apos;.
+    CONCATENATE &apos;DEFINE &amp;V2&amp; = &apos;&apos;&apos; ls_itf-tdline &apos;&apos;&apos;&apos;
+                INTO ls_itf-tdline.
+    INSERT ls_itf INTO lt_itf INDEX 1.
+
+    ls_itf-tdline = i_msgv1.
+    REPLACE ALL OCCURRENCES OF &apos;&apos;&apos;&apos; IN ls_itf-tdline WITH &apos;&apos;&apos;&apos;&apos;&apos;.
+    CONCATENATE &apos;DEFINE &amp;V1&amp; = &apos;&apos;&apos; ls_itf-tdline &apos;&apos;&apos;&apos;
+                INTO ls_itf-tdline.
+    INSERT ls_itf INTO lt_itf INDEX 1.
+
+    result = _convert( lt_itf ).
+  ENDIF.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_NAME_BY_FUNCTION" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_NAME_BY_FUNCTION" SCONAME="I_FUNCTION" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_NAME_BY_FUNCTION" SCONAME="I_SUBRC" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="I" PARVALUE="SY-SUBRC"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_NAME_BY_FUNCTION" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+   <source>METHOD get_name_by_function.
+
+  result = _subrc_to_name( i_subrc ).
+
+  IF result IS INITIAL AND i_function IS NOT INITIAL AND i_subrc NE 0.
+    SELECT SINGLE parameter                                 &quot;#EC WARNOK
+          FROM fupararef
+          INTO result
+          WHERE funcname  EQ i_function
+            AND r3state   EQ &apos;A&apos;
+            AND paramtype EQ &apos;X&apos;
+            AND pposition EQ i_subrc.
+  ENDIF.
+
+  IF result IS INITIAL.
+    result = co_others.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_NAME_BY_METHOD" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="5 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_NAME_BY_METHOD" SCONAME="I_CLASS" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_NAME_BY_METHOD" SCONAME="I_METHOD" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_NAME_BY_METHOD" SCONAME="I_SUBRC" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="I" PARVALUE="SY-SUBRC"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_NAME_BY_METHOD" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+   <source>METHOD get_name_by_method.
+
+  result = _subrc_to_name( i_subrc ).
+
+  IF result IS INITIAL AND i_class IS NOT INITIAL AND i_method IS NOT INITIAL AND i_subrc NE 0.
+    SELECT SINGLE sconame                                   &quot;#EC WARNOK
+          FROM vseosubcdf
+          INTO result
+          WHERE clsname   EQ i_class
+            AND cmpname   EQ i_method
+            AND version   EQ 1
+            AND cmptype   EQ 1
+            AND mtdtype   EQ 0
+            AND scotype   EQ 1
+            AND editorder EQ i_subrc.
+  ENDIF.
+
+  IF result IS INITIAL.
+    result = co_others.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_FUNCTION" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="6 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_FUNCTION" SCONAME="I_FUNCTION" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_FUNCTION" SCONAME="I_NAME" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_FUNCTION" SCONAME="I_LANGU" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE" PARVALUE="SY-LANGU"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_FUNCTION" SCONAME="I_DEFAULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE" PAROPTIONL="X"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_FUNCTION" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+   <source>METHOD get_text_by_function.
+
+  IF i_function IS NOT INITIAL.
+    CASE i_name.
+      WHEN space.
+        RETURN.
+
+      WHEN co_message.
+        result = get_text_by_message2( ).
+
+      WHEN co_communication
+        OR co_system.
+        result = i_default.
+
+      WHEN co_others.
+        IF i_default IS NOT INITIAL.
+          result = i_default.
+
+        ELSE.
+          result = text-001.
+        ENDIF.
+
+      WHEN OTHERS.
+        SELECT SINGLE stext
+              FROM funct
+              INTO result
+              WHERE spras     EQ i_langu
+                AND funcname  EQ i_function
+                AND parameter EQ i_name
+                AND kind      EQ &apos;X&apos;
+                AND version   EQ 1.
+
+        IF sy-subrc NE 0.
+          result = i_default.
+        ENDIF.
+    ENDCASE.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_FUNCTION2" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="7 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_FUNCTION2" SCONAME="I_FUNCTION" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_FUNCTION2" SCONAME="I_SUBRC" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="I" PARVALUE="SY-SUBRC"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_FUNCTION2" SCONAME="I_LANGU" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE" PARVALUE="SY-LANGU"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_FUNCTION2" SCONAME="I_DEFAULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE" PAROPTIONL="X"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_FUNCTION2" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+   <source>METHOD get_text_by_function2.
+
+  DATA: lv_name TYPE string
+      .
+
+
+  lv_name = ycl_exception_helper=&gt;get_name_by_function(
+      i_function = i_function
+      i_subrc    = i_subrc
+         ).
+  result = ycl_exception_helper=&gt;get_text_by_function(
+      i_function = i_function
+      i_name     = lv_name
+      i_langu    = i_langu
+      i_default  = i_default
+         ).
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_MESSAGE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="8 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_MESSAGE" SCONAME="I_MSGID" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_MESSAGE" SCONAME="I_MSGNO" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_MESSAGE" SCONAME="I_MSGV1" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE" PAROPTIONL="X"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_MESSAGE" SCONAME="I_MSGV2" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE" PAROPTIONL="X"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_MESSAGE" SCONAME="I_MSGV3" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE" PAROPTIONL="X"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_MESSAGE" SCONAME="I_MSGV4" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="6 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE" PAROPTIONL="X"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_MESSAGE" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="7 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+   <source>METHOD get_text_by_message.
+
+  IF i_msgid IS NOT INITIAL AND i_msgno IS NOT INITIAL.
+    MESSAGE ID i_msgid
+            TYPE &apos;S&apos;
+            NUMBER i_msgno
+            INTO result
+            WITH i_msgv1 i_msgv2 i_msgv3 i_msgv4.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_MESSAGE2" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="9 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_MESSAGE2" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+   <source>METHOD get_text_by_message2.
+
+  result = get_text_by_message(
+      i_msgid = sy-msgid
+      i_msgno = sy-msgno
+      i_msgv1 = sy-msgv1
+      i_msgv2 = sy-msgv2
+      i_msgv3 = sy-msgv3
+      i_msgv4 = sy-msgv4
+         ).
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_METHOD" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="10 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_METHOD" SCONAME="I_CLASS" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_METHOD" SCONAME="I_METHOD" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_METHOD" SCONAME="I_NAME" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_METHOD" SCONAME="I_LANGU" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE" PARVALUE="SY-LANGU"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_METHOD" SCONAME="I_DEFAULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE" PAROPTIONL="X"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_METHOD" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="6 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+   <source>METHOD get_text_by_method.
+
+  IF i_class IS NOT INITIAL AND i_method IS NOT INITIAL.
+    CASE i_name.
+      WHEN space.
+        RETURN.
+
+      WHEN co_message.
+        result = get_text_by_message2( ).
+
+      WHEN co_communication
+        OR co_system.
+        result = i_default.
+
+      WHEN co_others.
+        IF i_default IS NOT INITIAL.
+          result = i_default.
+
+        ELSE.
+          result = text-001.
+        ENDIF.
+
+      WHEN OTHERS.
+        SELECT SINGLE descript                              &quot;#EC WARNOK
+              FROM vseoexcep
+              INTO result
+              WHERE clsname EQ i_class
+                AND cmpname EQ i_method
+                AND sconame EQ i_name
+                AND langu   EQ i_langu.
+
+        IF sy-subrc NE 0.
+          result = i_default.
+        ENDIF.
+    ENDCASE.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_METHOD2" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="11 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_METHOD2" SCONAME="I_CLASS" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_METHOD2" SCONAME="I_METHOD" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_METHOD2" SCONAME="I_SUBRC" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="I" PARVALUE="SY-SUBRC"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_METHOD2" SCONAME="I_LANGU" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE" PARVALUE="SY-LANGU"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_METHOD2" SCONAME="I_DEFAULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE" PAROPTIONL="X"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_METHOD2" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="6 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+   <source>METHOD get_text_by_method2.
+
+  DATA: lv_name TYPE string
+      .
+
+
+  lv_name = ycl_exception_helper=&gt;get_name_by_method(
+      i_class  = i_class
+      i_method = i_method
+      i_subrc  = i_subrc
+         ).
+  result = ycl_exception_helper=&gt;get_text_by_method(
+      i_class    = i_class
+      i_method   = i_method
+      i_name     = lv_name
+      i_langu    = i_langu
+      i_default  = i_default
+         ).
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="_CONVERT" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="12 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="_CONVERT" SCONAME="I_ITF" VERSION="1" LANGU="D" DESCRIPT="Liste von Sapscript Zeilen" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="TLINE_TAB"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="_CONVERT" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+   <source>METHOD _convert.
+
+  DATA: lt_asc TYPE tdtab_c132
+      , ls_asc TYPE REF TO tdline
+      .
+
+
+  CALL FUNCTION &apos;CONVERT_ITF_TO_ASCII&apos;
+    IMPORTING
+      c_datatab = lt_asc
+    TABLES
+      itf_lines = i_itf.
+
+  READ TABLE lt_asc
+        INTO result
+        INDEX 1.
+
+  LOOP AT lt_asc REFERENCE INTO ls_asc FROM 2.
+    CONCATENATE result ` ` ls_asc-&gt;* INTO result.
+  ENDLOOP.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="_SUBRC_TO_NAME" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="13 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="_SUBRC_TO_NAME" SCONAME="I_SUBRC" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="I"/>
+   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="_SUBRC_TO_NAME" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+   <source>METHOD _subrc_to_name.
+
+  CASE i_subrc.
+    WHEN yit_abap_subrc=&gt;communication.
+      result = co_communication.
+
+    WHEN yit_abap_subrc=&gt;system.
+      result = co_system.
+
+    WHEN yit_abap_subrc=&gt;message.
+      result = co_message.
+
+    WHEN yit_abap_subrc=&gt;others.
+      result = co_others.
+  ENDCASE.
+
+ENDMETHOD.</source>
+  </method>
+ </CLAS>
+ <CLAS CLSNAME="YCX_EXCEPTION_RFC" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für RFC-Funktionen" CATEGORY="40" EXPOSURE="2" STATE="1" RELEASE="0" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" MSG_ID="YBC_ABAP_EXCEPTION" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="YCX_EXCEPTION_FUNCTION">
+  <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+  <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+  <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+  <typeUsage CLSNAME="YCX_EXCEPTION_RFC" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+  <forwardDeclaration>ABAP</forwardDeclaration>
+  <attribute CLSNAME="YCX_EXCEPTION_RFC" CMPNAME="DESTINATION" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="YCX_EXCEPTION_RFC" CMPNAME="MESSAGE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <inheritance CLSNAME="YCX_EXCEPTION_RFC" REFCLSNAME="YCX_EXCEPTION_FUNCTION" VERSION="1" STATE="1">
+   <redefinition CLSNAME="YCX_EXCEPTION_RFC" REFCLSNAME="YCX_EXCEPTION_FUNCTION" VERSION="1" MTDNAME="_GET_TEXT" EXPOSURE="1"/>
+  </inheritance>
+  <method CLSNAME="YCX_EXCEPTION_FUNCTION" CMPNAME="_GET_TEXT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <source>METHOD _get_text.
+
+  message = ycl_exception_helper=&gt;get_text_by_function(
+      i_function = function
+      i_name     = name
+      i_default  = message
+         ).
+
+  IF name IS INITIAL.
+    MESSAGE e020 INTO result WITH function destination.
+
+  ELSEIF message IS INITIAL.
+    MESSAGE e021 INTO result WITH function destination name.
+
+  ELSE.
+    MESSAGE e022 INTO result WITH function destination message.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </method>
+ </CLAS>
+ <CLAS CLSNAME="YCF_EXCEPTION" VERSION="1" LANGU="D" DESCRIPT="Fabrik für nicht-klassenbasierte Fehler" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSABSTRCT="X" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+  <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+  <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+  <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+  <method CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_FUNCTION" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_FUNCTION" SCONAME="I_FUNCTION" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_FUNCTION" SCONAME="I_SUBRC" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="I" PARVALUE="SY-SUBRC"/>
+   <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_FUNCTION" SCONAME="I_DESTINATION" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE" PAROPTIONL="X"/>
+   <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_FUNCTION" SCONAME="I_MESSAGE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE" PAROPTIONL="X"/>
+   <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_FUNCTION" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für nicht-klassenbasierte Fehler" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YCX_EXCEPTION"/>
+   <source>METHOD get_instance_by_function.
+
+  DATA: lv_function TYPE string
+      , lv_name TYPE string
+      , lv_destination TYPE string
+      , lv_message TYPE string
+      .
+
+
+  lv_function = i_function.
+  lv_name = ycl_exception_helper=&gt;get_name_by_function(
+      i_function = i_function
+      i_subrc    = i_subrc
+         ).
+
+  IF i_destination IS INITIAL.
+    CREATE OBJECT result
+      TYPE ycx_exception_function
+      EXPORTING
+        function = lv_function
+        name     = lv_name.
+
+  ELSE.
+    lv_destination = i_destination.
+    lv_message = i_message.
+
+    CREATE OBJECT result
+      TYPE ycx_exception_rfc
+      EXPORTING
+        function    = lv_function
+        name        = lv_name
+        destination = lv_destination
+        message     = lv_message.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_MESSAGE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_MESSAGE" SCONAME="I_MSGID" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_MESSAGE" SCONAME="I_MSGNO" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE"/>
+   <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_MESSAGE" SCONAME="I_MSGV1" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE" PAROPTIONL="X"/>
+   <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_MESSAGE" SCONAME="I_MSGV2" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE" PAROPTIONL="X"/>
+   <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_MESSAGE" SCONAME="I_MSGV3" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE" PAROPTIONL="X"/>
+   <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_MESSAGE" SCONAME="I_MSGV4" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="6 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE" PAROPTIONL="X"/>
+   <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_MESSAGE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für nicht-klassenbasierte Fehler" CMPTYPE="1" MTDTYPE="0" EDITORDER="7 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YCX_EXCEPTION"/>
+   <source>METHOD get_instance_by_message.
+
+  DATA: lv_msgid TYPE symsgid
+      , lv_msgno TYPE symsgno
+      , lv_msgv1 TYPE symsgv
+      , lv_msgv2 TYPE symsgv
+      , lv_msgv3 TYPE symsgv
+      , lv_msgv4 TYPE symsgv
+      .
+
+
+  lv_msgid = i_msgid.
+  lv_msgno = i_msgno.
+  lv_msgv1 = i_msgv1.
+  lv_msgv2 = i_msgv2.
+  lv_msgv3 = i_msgv3.
+  lv_msgv4 = i_msgv4.
+
+  CREATE OBJECT result
+    TYPE ycx_exception_message
+    EXPORTING
+      msgid = lv_msgid
+      msgno = lv_msgno
+      msgv1 = lv_msgv1
+      msgv2 = lv_msgv2
+      msgv3 = lv_msgv3
+      msgv4 = lv_msgv4.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_METHOD" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_METHOD" SCONAME="I_CLASS" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_METHOD" SCONAME="I_METHOD" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_METHOD" SCONAME="I_SUBRC" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="I" PARVALUE="SY-SUBRC"/>
+   <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_METHOD" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für nicht-klassenbasierte Fehler" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YCX_EXCEPTION"/>
+   <source>METHOD get_instance_by_method.
+
+  DATA: lv_class TYPE string
+      , lv_method TYPE string
+      , lv_name TYPE string
+      .
+
+
+  lv_class = i_class.
+  lv_method = i_method.
+  lv_name = ycl_exception_helper=&gt;get_name_by_method(
+      i_class  = i_class
+      i_method = i_method
+      i_subrc  = i_subrc
+         ).
+
+  CREATE OBJECT result
+    TYPE ycx_exception_method
+    EXPORTING
+      class  = lv_class
+      method = lv_method
+      name   = lv_name.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_TEXT" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_TEXT" SCONAME="I_TEXT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_TEXT" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für nicht-klassenbasierte Fehler" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YCX_EXCEPTION"/>
+   <source>METHOD get_instance_by_text.
+
+  DATA: lv_text TYPE string
+      .
+
+
+  lv_text = i_text.
+
+  CREATE OBJECT result
+    TYPE ycx_exception_text
+    EXPORTING
+      text = lv_text.
+
+ENDMETHOD.</source>
+  </method>
+ </CLAS>
+ <CLAS CLSNAME="YCX_INDEX_OUT_OF_BOUNDS" VERSION="1" LANGU="D" DESCRIPT="Index außerhalb der Grenzen" CATEGORY="40" EXPOSURE="2" STATE="1" RELEASE="0" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="CX_DYNAMIC_CHECK">
+  <implementing CLSNAME="YCX_INDEX_OUT_OF_BOUNDS" REFCLSNAME="IF_T100_MESSAGE" VERSION="1" EXPOSURE="2" STATE="1" RELTYPE="1" EDITORDER="0 "/>
+  <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+  <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+  <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+  <attribute CLSNAME="YCX_INDEX_OUT_OF_BOUNDS" CMPNAME="INDEX" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="I" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="YCX_INDEX_OUT_OF_BOUNDS" CMPNAME="YCX_INDEX_OUT_OF_BOUNDS" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="0 " ATTDECLTYP="2" ATTEXPVIRT="0" TYPTYPE="4" SRCROW1="14 " SRCCOLUMN1="4 " SRCROW2="21 " SRCCOLUMN2="33 " LOCKED="X" TYPESRC_LENG="333 " TYPESRC="begin of YCX_INDEX_OUT_OF_BOUNDS,
+      msgid type symsgid value &apos;YBC_ABAP_EXCEPTION&apos;,
+      msgno type symsgno value &apos;110&apos;,
+      attr1 type scx_attrname value &apos;INDEX&apos;,
+      attr2 type scx_attrname value &apos;&apos;,
+      attr3 type scx_attrname value &apos;&apos;,
+      attr4 type scx_attrname value &apos;&apos;,
+    end of YCX_INDEX_OUT_OF_BOUNDS
+"/>
+  <inheritance CLSNAME="YCX_INDEX_OUT_OF_BOUNDS" REFCLSNAME="CX_DYNAMIC_CHECK" VERSION="1" STATE="1"/>
+ </CLAS>
+ <CLAS CLSNAME="YCX_EXCEPTION" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für nicht-klassenbasierte Fehler" CATEGORY="40" EXPOSURE="2" STATE="1" RELEASE="0" CLSABSTRCT="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" MSG_ID="YBC_ABAP_EXCEPTION" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="CX_STATIC_CHECK">
+  <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+  <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+  <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+  <typeUsage CLSNAME="YCX_EXCEPTION" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X" IMPLICIT="X"/>
+  <forwardDeclaration>ABAP</forwardDeclaration>
+  <inheritance CLSNAME="YCX_EXCEPTION" REFCLSNAME="CX_STATIC_CHECK" VERSION="1" STATE="1">
+   <redefinition CLSNAME="YCX_EXCEPTION" REFCLSNAME="CX_STATIC_CHECK" VERSION="1" MTDNAME="IF_MESSAGE~GET_LONGTEXT" EXPOSURE="2"/>
+   <redefinition CLSNAME="YCX_EXCEPTION" REFCLSNAME="CX_STATIC_CHECK" VERSION="1" MTDNAME="IF_MESSAGE~GET_TEXT" EXPOSURE="2"/>
+  </inheritance>
+  <interfaceMethod CLSNAME="YCX_EXCEPTION" CPDNAME="IF_MESSAGE~GET_LONGTEXT">
+   <source>METHOD if_message~get_longtext.
+
+  DATA: lv_longtext TYPE string
+      .
+
+  result = get_text( ).
+  lv_longtext = _get_longtext( preserve_newlines ).
+
+  IF lv_longtext IS NOT INITIAL.
+    IF preserve_newlines EQ abap_true.
+      CONCATENATE result
+                  lv_longtext
+                  INTO result
+                  SEPARATED BY yit_abap_char=&gt;crlf.
+
+    ELSE.
+      CONCATENATE result
+                  lv_longtext
+                  INTO result
+                  SEPARATED BY space.
+    ENDIF.
+
+    result = ycl_exception_helper=&gt;clean_text( result ).
+  ENDIF.
+
+ENDMETHOD.</source>
+  </interfaceMethod>
+  <interfaceMethod CLSNAME="YCX_EXCEPTION" CPDNAME="IF_MESSAGE~GET_TEXT">
+   <source>METHOD if_message~get_text.
+
+  DATA: lv_offset TYPE i
+      .
+
+
+  result = _get_text( ).
+
+  IF result IS NOT INITIAL.
+    result = ycl_exception_helper=&gt;clean_text( result ).
+
+  ELSE.
+    MESSAGE e010 INTO result.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </interfaceMethod>
+  <method CLSNAME="YCX_EXCEPTION" CMPNAME="_GET_LONGTEXT" VERSION="1" LANGU="D" EXPOSURE="1" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCX_EXCEPTION" CMPNAME="_GET_LONGTEXT" SCONAME="PRESERVE_NEWLINES" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ABAP_BOOL"/>
+   <parameter CLSNAME="YCX_EXCEPTION" CMPNAME="_GET_LONGTEXT" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+   <source>METHOD _get_longtext.
+
+  RETURN.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCX_EXCEPTION" CMPNAME="_GET_TEXT" VERSION="1" LANGU="D" EXPOSURE="1" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" MTDABSTRCT="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCX_EXCEPTION" CMPNAME="_GET_TEXT" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+  </method>
+ </CLAS>
+ <CLAS CLSNAME="YCX_DEPRECATED" VERSION="1" LANGU="D" DESCRIPT="Veraltete Methode" CATEGORY="40" EXPOSURE="2" STATE="1" RELEASE="0" CLSABSTRCT="X" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="CX_STATIC_CHECK">
+  <implementing CLSNAME="YCX_DEPRECATED" REFCLSNAME="IF_T100_MESSAGE" VERSION="1" EXPOSURE="2" STATE="1" RELTYPE="1" EDITORDER="0 "/>
+  <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+  <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+  <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+  <attribute CLSNAME="YCX_DEPRECATED" CMPNAME="YCX_DEPRECATED" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="0 " ATTDECLTYP="2" ATTEXPVIRT="0" TYPTYPE="4" SRCROW1="15 " SRCCOLUMN1="4 " SRCROW2="22 " SRCCOLUMN2="24 " LOCKED="X" TYPESRC_LENG="310 " TYPESRC="begin of YCX_DEPRECATED,
+      msgid type symsgid value &apos;YBC_ABAP_EXCEPTION&apos;,
+      msgno type symsgno value &apos;100&apos;,
+      attr1 type scx_attrname value &apos;&apos;,
+      attr2 type scx_attrname value &apos;&apos;,
+      attr3 type scx_attrname value &apos;&apos;,
+      attr4 type scx_attrname value &apos;&apos;,
+    end of YCX_DEPRECATED
+"/>
+  <inheritance CLSNAME="YCX_DEPRECATED" REFCLSNAME="CX_STATIC_CHECK" VERSION="1" STATE="1"/>
+ </CLAS>
+ <CLAS CLSNAME="YCX_EXCEPTION_MESSAGE" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für Nachrichten" CATEGORY="40" EXPOSURE="2" STATE="1" RELEASE="0" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="YCX_EXCEPTION">
+  <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+  <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+  <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+  <typeUsage CLSNAME="YCX_EXCEPTION_MESSAGE" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+  <forwardDeclaration>ABAP</forwardDeclaration>
+  <attribute CLSNAME="YCX_EXCEPTION_MESSAGE" CMPNAME="MSGID" VERSION="1" LANGU="D" DESCRIPT="Nachrichtenklasse" EXPOSURE="2" STATE="1" EDITORDER="1 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYMSGID" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="YCX_EXCEPTION_MESSAGE" CMPNAME="MSGNO" VERSION="1" LANGU="D" DESCRIPT="Nachrichtennummer" EXPOSURE="2" STATE="1" EDITORDER="2 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYMSGNO" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="YCX_EXCEPTION_MESSAGE" CMPNAME="MSGV1" VERSION="1" LANGU="D" DESCRIPT="Nachrichtenvariable" EXPOSURE="2" STATE="1" EDITORDER="3 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYMSGV" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="YCX_EXCEPTION_MESSAGE" CMPNAME="MSGV2" VERSION="1" LANGU="D" DESCRIPT="Nachrichtenvariable" EXPOSURE="2" STATE="1" EDITORDER="4 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYMSGV" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="YCX_EXCEPTION_MESSAGE" CMPNAME="MSGV3" VERSION="1" LANGU="D" DESCRIPT="Nachrichtenvariable" EXPOSURE="2" STATE="1" EDITORDER="5 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYMSGV" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="YCX_EXCEPTION_MESSAGE" CMPNAME="MSGV4" VERSION="1" LANGU="D" DESCRIPT="Nachrichtenvariable" EXPOSURE="2" STATE="1" EDITORDER="6 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYMSGV" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <inheritance CLSNAME="YCX_EXCEPTION_MESSAGE" REFCLSNAME="YCX_EXCEPTION" VERSION="1" STATE="1">
+   <redefinition CLSNAME="YCX_EXCEPTION_MESSAGE" REFCLSNAME="YCX_EXCEPTION" VERSION="1" MTDNAME="_GET_LONGTEXT" EXPOSURE="1"/>
+   <redefinition CLSNAME="YCX_EXCEPTION_MESSAGE" REFCLSNAME="YCX_EXCEPTION" VERSION="1" MTDNAME="_GET_TEXT" EXPOSURE="1"/>
+  </inheritance>
+  <method CLSNAME="YCX_EXCEPTION" CMPNAME="_GET_LONGTEXT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <source>METHOD _get_longtext.
+
+  result = ycl_exception_helper=&gt;get_longtext_by_message(
+      i_msgid = msgid
+      i_msgno = msgno
+      i_msgv1 = msgv1
+      i_msgv2 = msgv2
+      i_msgv3 = msgv3
+      i_msgv4 = msgv4
+         ).
+
+  IF preserve_newlines NE abap_true.
+    REPLACE ALL OCCURRENCES OF yit_abap_char=&gt;crlf IN result WITH space.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCX_EXCEPTION" CMPNAME="_GET_TEXT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <source>METHOD _get_text.
+
+  result = ycl_exception_helper=&gt;get_text_by_message(
+      i_msgid = msgid
+      i_msgno = msgno
+      i_msgv1 = msgv1
+      i_msgv2 = msgv2
+      i_msgv3 = msgv3
+      i_msgv4 = msgv4
+         ).
+
+ENDMETHOD.</source>
+  </method>
+ </CLAS>
+ <CLAS CLSNAME="YCX_EXCEPTION_CLASSIC" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für klassische Ausnahmen" CATEGORY="40" EXPOSURE="2" STATE="1" RELEASE="0" CLSABSTRCT="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" MSG_ID="YBC_ABAP_EXCEPTION" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="YCX_EXCEPTION">
+  <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+  <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+  <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+  <typeUsage CLSNAME="YCX_EXCEPTION_CLASSIC" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+  <forwardDeclaration>ABAP</forwardDeclaration>
+  <attribute CLSNAME="YCX_EXCEPTION_CLASSIC" CMPNAME="NAME" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <inheritance CLSNAME="YCX_EXCEPTION_CLASSIC" REFCLSNAME="YCX_EXCEPTION" VERSION="1" STATE="1">
+   <redefinition CLSNAME="YCX_EXCEPTION_CLASSIC" REFCLSNAME="YCX_EXCEPTION" VERSION="1" MTDNAME="_GET_TEXT" EXPOSURE="1"/>
+  </inheritance>
+  <method CLSNAME="YCX_EXCEPTION" CMPNAME="_GET_TEXT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <source>METHOD _get_text.
+
+  IF name IS INITIAL.
+    MESSAGE e012 INTO result.
+
+  ELSE.
+    MESSAGE e013 INTO result WITH name.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </method>
+ </CLAS>
+ <CLAS CLSNAME="YCX_EXCEPTION_FUNCTION" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für Funktionen" CATEGORY="40" EXPOSURE="2" STATE="1" RELEASE="0" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" MSG_ID="YBC_ABAP_EXCEPTION" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="YCX_EXCEPTION_CLASSIC">
+  <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+  <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+  <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+  <typeUsage CLSNAME="YCX_EXCEPTION_FUNCTION" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+  <forwardDeclaration>ABAP</forwardDeclaration>
+  <attribute CLSNAME="YCX_EXCEPTION_FUNCTION" CMPNAME="FUNCTION" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <inheritance CLSNAME="YCX_EXCEPTION_FUNCTION" REFCLSNAME="YCX_EXCEPTION_CLASSIC" VERSION="1" STATE="1">
+   <redefinition CLSNAME="YCX_EXCEPTION_FUNCTION" REFCLSNAME="YCX_EXCEPTION_CLASSIC" VERSION="1" MTDNAME="_GET_LONGTEXT" EXPOSURE="1"/>
+   <redefinition CLSNAME="YCX_EXCEPTION_FUNCTION" REFCLSNAME="YCX_EXCEPTION_CLASSIC" VERSION="1" MTDNAME="_GET_TEXT" EXPOSURE="1"/>
+  </inheritance>
+  <method CLSNAME="YCX_EXCEPTION_CLASSIC" CMPNAME="_GET_LONGTEXT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <source>METHOD _get_longtext.
+
+  result = ycl_exception_helper=&gt;get_longtext_by_function(
+      i_function = function
+      i_name     = name
+         ).
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCX_EXCEPTION_CLASSIC" CMPNAME="_GET_TEXT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <source>METHOD _get_text.
+
+  result = ycl_exception_helper=&gt;get_text_by_function(
+      i_function = function
+      i_name     = name
+         ).
+
+  IF name IS INITIAL.
+    MESSAGE e017 INTO result WITH function.
+
+  ELSEIF result IS INITIAL.
+    MESSAGE e018 INTO result WITH function name.
+
+  ELSE.
+    MESSAGE e019 INTO result WITH function result.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </method>
+ </CLAS>
+ <CLAS CLSNAME="YCX_EXCEPTION_METHOD" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für Methoden" CATEGORY="40" EXPOSURE="2" STATE="1" RELEASE="0" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" MSG_ID="YBC_ABAP_EXCEPTION" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="YCX_EXCEPTION_CLASSIC">
+  <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+  <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+  <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+  <typeUsage CLSNAME="YCX_EXCEPTION_METHOD" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+  <forwardDeclaration>ABAP</forwardDeclaration>
+  <attribute CLSNAME="YCX_EXCEPTION_METHOD" CMPNAME="CLASS" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="YCX_EXCEPTION_METHOD" CMPNAME="METHOD" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <inheritance CLSNAME="YCX_EXCEPTION_METHOD" REFCLSNAME="YCX_EXCEPTION_CLASSIC" VERSION="1" STATE="1">
+   <redefinition CLSNAME="YCX_EXCEPTION_METHOD" REFCLSNAME="YCX_EXCEPTION_CLASSIC" VERSION="1" MTDNAME="_GET_TEXT" EXPOSURE="1"/>
+  </inheritance>
+  <method CLSNAME="YCX_EXCEPTION_CLASSIC" CMPNAME="_GET_TEXT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <source>METHOD _get_text.
+
+  result = ycl_exception_helper=&gt;get_text_by_method(
+      i_class  = class
+      i_method = method
+      i_name   = name
+         ).
+
+  IF name IS INITIAL.
+    MESSAGE e014 INTO result WITH method class.
+
+  ELSEIF result IS INITIAL.
+    MESSAGE e015 INTO result WITH method class name.
+
+  ELSE.
+    MESSAGE e016 INTO result WITH method class result.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </method>
+ </CLAS>
+ <CLAS CLSNAME="YCX_EXCEPTION_TEXT" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für Texte" CATEGORY="40" EXPOSURE="2" STATE="1" RELEASE="0" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" MSG_ID="YBC_ABAP_EXCEPTION" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="YCX_EXCEPTION">
+  <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+  <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+  <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+  <typeUsage CLSNAME="YCX_EXCEPTION_TEXT" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+  <forwardDeclaration>ABAP</forwardDeclaration>
+  <attribute CLSNAME="YCX_EXCEPTION_TEXT" CMPNAME="TEXT" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <inheritance CLSNAME="YCX_EXCEPTION_TEXT" REFCLSNAME="YCX_EXCEPTION" VERSION="1" STATE="1">
+   <redefinition CLSNAME="YCX_EXCEPTION_TEXT" REFCLSNAME="YCX_EXCEPTION" VERSION="1" MTDNAME="_GET_TEXT" EXPOSURE="1"/>
+  </inheritance>
+  <method CLSNAME="YCX_EXCEPTION" CMPNAME="_GET_TEXT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <source>METHOD _get_text.
+
+  IF text IS INITIAL.
+    MESSAGE e010 INTO result.
+
+  ELSE.
+    MESSAGE e011 INTO result WITH text.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </method>
+ </CLAS>
+ <MSAG ARBGB="YBC_ABAP_EXCEPTION" MASTERLANG="D" RESPUSER="REMPE04" STEXT="Ausnahmen">
+  <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="010" TEXT="Ein nicht-klassenbasierter Fehler ist aufgetreten."/>
+  <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="011" TEXT="Ein Fehler ist aufgetreten: &apos;&amp;1&apos;"/>
+  <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="012" TEXT="Eine klassische Ausnahme wurde geworfen."/>
+  <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="013" TEXT="Die klassische Ausnahme &apos;&amp;1&apos; wurde geworfen."/>
+  <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="014" TEXT="In Methode &apos;&amp;1&apos; der Klasse &apos;&amp;2&apos; wurde eine klassische Ausnahmen geworfen."/>
+  <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="015" TEXT="In Methode &apos;&amp;1&apos; der Klasse &apos;&amp;2&apos; wurde die Ausnahmen &apos;&amp;3&apos; geworfen."/>
+  <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="016" TEXT="In Methode &apos;&amp;1&apos; der Klasse &apos;&amp;2&apos; wurde eine Ausnahmen geworfent: &apos;&amp;3&apos;"/>
+  <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="017" TEXT="In Funktion &apos;&amp;1&apos; wurde eine klassische Ausnahmen geworfen."/>
+  <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="018" TEXT="In Funktion &apos;&amp;1&apos; wurde die Ausnahmen &apos;&amp;2&apos; geworfen."/>
+  <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="019" TEXT="In Funktion &apos;&amp;1&apos; wurde eine Ausnahmen geworfen: &apos;&amp;2&apos;"/>
+  <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="020" TEXT="In Funktion &apos;&amp;1&apos; der Destination &apos;&amp;2&apos; wurde eine Ausnahmen geworfen."/>
+  <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="021" TEXT="In Funktion &apos;&amp;1&apos; der Destination &apos;&amp;2&apos; wurde die Ausnahmen &apos;&amp;3&apos; geworfen."/>
+  <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="022" TEXT="In Funktion &apos;&amp;1&apos; der Destination &apos;&amp;2&apos; wurde eine Ausnahmen geworfen: &apos;&amp;3&apos;"/>
+  <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="100" TEXT="Diese Methode ist veraltet und sollte nicht mehr verwendet werden."/>
+  <t100 SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="110" TEXT="Der Index &apos;&amp;1&apos; befindet sich außerhalb der Grenzen."/>
+  <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="010" TEXT="A non-class-based error has occurred."/>
+  <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="011" TEXT="An error has occurred: &apos;&amp;1&apos;"/>
+  <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="012" TEXT="A classic exception was thrown."/>
+  <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="013" TEXT="Classic exception &apos;&amp;1&apos; was thrown."/>
+  <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="014" TEXT="In methode &apos;&amp;1&apos; of class &apos;&amp;2&apos; a classic exception was thrown"/>
+  <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="015" TEXT="In methode &apos;&amp;1&apos; of class &apos;&amp;2&apos; exception &apos;&amp;3&apos; was thrown."/>
+  <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="016" TEXT="In methode &apos;&amp;1&apos; of class &apos;&amp;2&apos; an exception was thrown: &apos;&amp;3&apos;"/>
+  <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="017" TEXT="In function &apos;&amp;1&apos; a classic exception was thrown."/>
+  <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="018" TEXT="In function &apos;&amp;1&apos; exception &apos;&amp;2&apos; was thrown."/>
+  <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="019" TEXT="In function &apos;&amp;1&apos; an exception was thrown: &apos;&amp;2&apos;"/>
+  <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="020" TEXT="In function &apos;&amp;1&apos; of destiantion &apos;&amp;2&apos; an exception was thrown."/>
+  <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="021" TEXT="In function &apos;&amp;1&apos; of destiantion &apos;&amp;2&apos; exception &apos;&amp;3&apos; was thrown."/>
+  <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="022" TEXT="In function &apos;&amp;1&apos; of destiantion &apos;&amp;2&apos; an exception was thrown: &apos;&amp;3&apos;"/>
+  <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="100" TEXT="This method is deprecated and should no longer be used."/>
+  <t100 SPRSL="E" ARBGB="YBC_ABAP_EXCEPTION" MSGNR="110" TEXT="The index &apos;&amp;1&apos; is out of bounds."/>
+  <t100t SPRSL="D" ARBGB="YBC_ABAP_EXCEPTION" STEXT="Ausnahmen"/>
+ </MSAG>
+</nugget>

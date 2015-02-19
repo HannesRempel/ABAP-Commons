@@ -1,0 +1,1336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nugget name="YBC_ABAP_RUNTIME">
+ <CLAS CLSNAME="YCL_RTTI" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Identification" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSABSTRCT="X" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" WITH_UNIT_TESTS="X" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+  <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+  <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+  <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+  <localTestClasses></localTestClasses>
+  <typeUsage CLSNAME="YCL_RTTI" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X" IMPLICIT="X"/>
+  <forwardDeclaration>ABAP</forwardDeclaration>
+  <typeClasDef CLSNAME="YCL_RTTI" TYPEGROUP="CL_ABAP_TABLEDESCR" VERSION="1" TPUTYPE="1" IMPLICIT="X"/>
+  <method CLSNAME="YCL_RTTI" CMPNAME="GET_CLASSDESCR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_CLASSDESCR" SCONAME="I_OBJECT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="OBJECT"/>
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_CLASSDESCR" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_CLASSDESCR"/>
+   <exception CLSNAME="YCL_RTTI" CMPNAME="GET_CLASSDESCR" SCONAME="CX_SY_REF_IS_INITIAL" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei ASSIGN" MTDTYPE="0" EDITORDER="1 "/>
+   <source>METHOD GET_CLASSDESCR.
+
+  DATA: lo_typedescr TYPE REF TO cl_abap_typedescr
+      .
+
+
+  CALL METHOD cl_abap_typedescr=&gt;describe_by_object_ref
+    EXPORTING
+      p_object_ref         = i_object
+    RECEIVING
+      p_descr_ref          = lo_typedescr
+    EXCEPTIONS
+      reference_is_initial = 1.
+  IF sy-subrc NE 0.
+    RAISE EXCEPTION TYPE cx_sy_ref_is_initial.
+  ENDIF.
+
+  result ?= lo_typedescr.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTI" CMPNAME="GET_COMPLEXDESCR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_COMPLEXDESCR" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DATA"/>
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_COMPLEXDESCR" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_COMPLEXDESCR"/>
+   <exception CLSNAME="YCL_RTTI" CMPNAME="GET_COMPLEXDESCR" SCONAME="CX_SY_MOVE_CAST_ERROR" VERSION="1" LANGU="D" DESCRIPT="Oberklasse aller System-Exceptions" MTDTYPE="0" EDITORDER="1 "/>
+   <source>METHOD GET_COMPLEXDESCR.
+
+  result ?= cl_abap_typedescr=&gt;describe_by_data( i_data ).
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTI" CMPNAME="GET_DATADESCR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_DATADESCR" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DATA"/>
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_DATADESCR" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_DATADESCR"/>
+   <source>METHOD GET_DATADESCR.
+
+  result ?= cl_abap_typedescr=&gt;describe_by_data( i_data ).
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTI" CMPNAME="GET_DATADESCR_BY_NAME" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_DATADESCR_BY_NAME" SCONAME="I_NAME" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_DATADESCR_BY_NAME" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_DATADESCR"/>
+   <exception CLSNAME="YCL_RTTI" CMPNAME="GET_DATADESCR_BY_NAME" SCONAME="CX_SY_UNKNOWN_TYPE" VERSION="1" LANGU="D" DESCRIPT="System-Exception für &apos;Typ nicht gefunden&apos;" MTDTYPE="0" EDITORDER="1 "/>
+   <exception CLSNAME="YCL_RTTI" CMPNAME="GET_DATADESCR_BY_NAME" SCONAME="CX_SY_MOVE_CAST_ERROR" VERSION="1" LANGU="D" DESCRIPT="Oberklasse aller System-Exceptions" MTDTYPE="0" EDITORDER="2 "/>
+   <source>METHOD GET_DATADESCR_BY_NAME.
+
+  DATA: lo_typedescr TYPE REF TO cl_abap_typedescr
+      , lv_name TYPE string
+      .
+
+
+  CALL METHOD cl_abap_typedescr=&gt;describe_by_name
+    EXPORTING
+      p_name         = i_name
+    RECEIVING
+      p_descr_ref    = lo_typedescr
+    EXCEPTIONS
+      type_not_found = 1.
+  IF sy-subrc NE 0.
+    lv_name = i_name.
+    RAISE EXCEPTION TYPE cx_sy_unknown_type
+      EXPORTING
+        type_name = lv_name.
+  ENDIF.
+
+  result ?= lo_typedescr.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTI" CMPNAME="GET_DATADESCR_BY_TABLE_LINE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="5 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_DATADESCR_BY_TABLE_LINE" SCONAME="I_TABLE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ANY TABLE"/>
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_DATADESCR_BY_TABLE_LINE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_DATADESCR"/>
+   <source>METHOD GET_DATADESCR_BY_TABLE_LINE.
+
+  DATA: lo_tabledescr TYPE REF TO cl_abap_tabledescr
+      .
+
+
+  lo_tabledescr = get_tabledescr( i_table ).
+  result = lo_tabledescr-&gt;get_table_line_type( ).
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTI" CMPNAME="GET_ELEMDESCR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="6 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_ELEMDESCR" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SIMPLE"/>
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_ELEMDESCR" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_ELEMDESCR"/>
+   <exception CLSNAME="YCL_RTTI" CMPNAME="GET_ELEMDESCR" SCONAME="CX_SY_MOVE_CAST_ERROR" VERSION="1" LANGU="D" DESCRIPT="Oberklasse aller System-Exceptions" MTDTYPE="0" EDITORDER="1 "/>
+   <source>METHOD GET_ELEMDESCR.
+
+  result ?= cl_abap_typedescr=&gt;describe_by_data( i_data ).
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTI" CMPNAME="GET_INTFDESCR_BY_NAME" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="7 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_INTFDESCR_BY_NAME" SCONAME="I_NAME" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_INTFDESCR_BY_NAME" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_INTFDESCR"/>
+   <exception CLSNAME="YCL_RTTI" CMPNAME="GET_INTFDESCR_BY_NAME" SCONAME="CX_SY_UNKNOWN_TYPE" VERSION="1" LANGU="D" DESCRIPT="System-Exception für &apos;Typ nicht gefunden&apos;" MTDTYPE="0" EDITORDER="1 "/>
+   <exception CLSNAME="YCL_RTTI" CMPNAME="GET_INTFDESCR_BY_NAME" SCONAME="CX_SY_MOVE_CAST_ERROR" VERSION="1" LANGU="D" DESCRIPT="Oberklasse aller System-Exceptions" MTDTYPE="0" EDITORDER="2 "/>
+   <source>METHOD GET_INTFDESCR_BY_NAME.
+
+  DATA: lo_typedescr TYPE REF TO cl_abap_typedescr
+      , lv_name TYPE string
+      .
+
+
+  CALL METHOD cl_abap_typedescr=&gt;describe_by_name
+    EXPORTING
+      p_name         = i_name
+    RECEIVING
+      p_descr_ref    = lo_typedescr
+    EXCEPTIONS
+      type_not_found = 1.
+  IF sy-subrc NE 0.
+    lv_name = i_name.
+    RAISE EXCEPTION TYPE cx_sy_unknown_type
+      EXPORTING
+        type_name = lv_name.
+  ENDIF.
+
+  result ?= lo_typedescr.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTI" CMPNAME="GET_OBJECTDESCR_BY_NAME" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="8 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_OBJECTDESCR_BY_NAME" SCONAME="I_NAME" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_OBJECTDESCR_BY_NAME" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_OBJECTDESCR"/>
+   <exception CLSNAME="YCL_RTTI" CMPNAME="GET_OBJECTDESCR_BY_NAME" SCONAME="CX_SY_UNKNOWN_TYPE" VERSION="1" LANGU="D" DESCRIPT="System-Exception für &apos;Typ nicht gefunden&apos;" MTDTYPE="0" EDITORDER="1 "/>
+   <exception CLSNAME="YCL_RTTI" CMPNAME="GET_OBJECTDESCR_BY_NAME" SCONAME="CX_SY_MOVE_CAST_ERROR" VERSION="1" LANGU="D" DESCRIPT="Oberklasse aller System-Exceptions" MTDTYPE="0" EDITORDER="2 "/>
+   <source>METHOD GET_OBJECTDESCR_BY_NAME.
+
+  DATA: lo_typedescr TYPE REF TO cl_abap_typedescr
+      , lv_name TYPE string
+      .
+
+
+  CALL METHOD cl_abap_typedescr=&gt;describe_by_name
+    EXPORTING
+      p_name         = i_name
+    RECEIVING
+      p_descr_ref    = lo_typedescr
+    EXCEPTIONS
+      type_not_found = 1.
+  IF sy-subrc NE 0.
+    lv_name = i_name.
+    RAISE EXCEPTION TYPE cx_sy_unknown_type
+      EXPORTING
+        type_name = lv_name.
+  ENDIF.
+
+  result ?= lo_typedescr.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTI" CMPNAME="GET_OBJECTDESCR_BY_TABLE_LINE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="9 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_OBJECTDESCR_BY_TABLE_LINE" SCONAME="I_TABLE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ANY TABLE"/>
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_OBJECTDESCR_BY_TABLE_LINE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_OBJECTDESCR"/>
+   <exception CLSNAME="YCL_RTTI" CMPNAME="GET_OBJECTDESCR_BY_TABLE_LINE" SCONAME="CX_SY_MOVE_CAST_ERROR" VERSION="1" LANGU="D" DESCRIPT="Oberklasse aller System-Exceptions" MTDTYPE="0" EDITORDER="1 "/>
+   <source>METHOD get_objectdescr_by_table_line.
+
+  DATA: lo_tabledescr TYPE REF TO cl_abap_tabledescr
+      , lo_refdescr TYPE REF TO cl_abap_refdescr
+      .
+
+
+  lo_tabledescr = get_tabledescr( i_table ).
+  lo_refdescr ?= lo_tabledescr-&gt;get_table_line_type( ).
+  result ?= lo_refdescr-&gt;get_referenced_type( ).
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTI" CMPNAME="GET_REFDESCR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="10 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_REFDESCR" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="DATA"/>
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_REFDESCR" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_REFDESCR"/>
+   <source>METHOD GET_REFDESCR.
+
+  result ?= cl_abap_typedescr=&gt;describe_by_data( i_data ).
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTI" CMPNAME="GET_STRUCTDESCR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="11 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_STRUCTDESCR" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DATA"/>
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_STRUCTDESCR" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_STRUCTDESCR"/>
+   <exception CLSNAME="YCL_RTTI" CMPNAME="GET_STRUCTDESCR" SCONAME="CX_SY_MOVE_CAST_ERROR" VERSION="1" LANGU="D" DESCRIPT="Oberklasse aller System-Exceptions" MTDTYPE="0" EDITORDER="1 "/>
+   <source>METHOD GET_STRUCTDESCR.
+
+  result ?= cl_abap_typedescr=&gt;describe_by_data( i_data ).
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTI" CMPNAME="GET_TABLEDESCR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="12 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_TABLEDESCR" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ANY TABLE"/>
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_TABLEDESCR" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_TABLEDESCR"/>
+   <source>METHOD GET_TABLEDESCR.
+
+  result ?= cl_abap_typedescr=&gt;describe_by_data( i_data ).
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTI" CMPNAME="GET_TABLEDESCR_BY_NAME" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="13 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_TABLEDESCR_BY_NAME" SCONAME="I_NAME" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_TABLEDESCR_BY_NAME" SCONAME="I_KIND" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ABAP_TABLEKIND" PARVALUE="CL_ABAP_TABLEDESCR=&gt;TABLEKIND_STD"/>
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_TABLEDESCR_BY_NAME" SCONAME="I_UNIQUE" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SAP_BOOL" PAROPTIONL="X"/>
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_TABLEDESCR_BY_NAME" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_TABLEDESCR"/>
+   <exception CLSNAME="YCL_RTTI" CMPNAME="GET_TABLEDESCR_BY_NAME" SCONAME="CX_SY_UNKNOWN_TYPE" VERSION="1" LANGU="D" DESCRIPT="System-Exception für &apos;Typ nicht gefunden&apos;" MTDTYPE="0" EDITORDER="1 "/>
+   <exception CLSNAME="YCL_RTTI" CMPNAME="GET_TABLEDESCR_BY_NAME" SCONAME="CX_SY_MOVE_CAST_ERROR" VERSION="1" LANGU="D" DESCRIPT="Oberklasse aller System-Exceptions" MTDTYPE="0" EDITORDER="2 "/>
+   <exception CLSNAME="YCL_RTTI" CMPNAME="GET_TABLEDESCR_BY_NAME" SCONAME="CX_SY_TABLE_CREATION" VERSION="1" LANGU="D" DESCRIPT="Ausnahme beim Erzeugen eines Tabellentyps" MTDTYPE="0" EDITORDER="3 "/>
+   <source>METHOD GET_TABLEDESCR_BY_NAME.
+
+  DATA: lo_linedescr TYPE REF TO cl_abap_structdescr
+      , lo_includedescr TYPE REF TO cl_abap_structdescr
+      , lt_fields TYPE ddfields
+      , ls_field TYPE REF TO dfies
+      , lt_keys TYPE abap_keydescr_tab
+      , ls_key TYPE REF TO abap_keydescr
+      , lt_components TYPE abap_component_tab
+      , ls_component TYPE REF TO abap_componentdescr
+      , lv_keykind TYPE abap_keydefkind
+      .
+
+
+  lo_linedescr ?= get_typedescr_by_name( i_name ).
+
+  lo_includedescr = lo_linedescr.
+  lt_fields = lo_includedescr-&gt;get_ddic_field_list( ).
+  LOOP AT lt_fields                                      &quot;#EC CI_STDSEQ
+        REFERENCE INTO ls_field
+        WHERE keyflag EQ abap_true.
+    INSERT INITIAL LINE INTO TABLE lt_keys REFERENCE INTO ls_key.
+    ls_key-&gt;name = ls_field-&gt;fieldname.
+  ENDLOOP.
+
+  WHILE lt_keys IS INITIAL AND lo_includedescr-&gt;has_include EQ abap_true.
+    lt_components = lo_includedescr-&gt;get_components( ).
+    READ TABLE lt_components
+          REFERENCE INTO ls_component
+          INDEX 1.
+    IF ls_component-&gt;as_include NE abap_true.
+      EXIT.
+    ENDIF.
+
+    lo_includedescr ?= ls_component-&gt;type.
+    lt_fields = lo_includedescr-&gt;get_ddic_field_list( ).
+    LOOP AT lt_fields REFERENCE INTO ls_field.           &quot;#EC CI_NESTED
+      IF ls_field-&gt;keyflag NE abap_true.
+        EXIT.
+      ENDIF.
+      INSERT INITIAL LINE INTO TABLE lt_keys REFERENCE INTO ls_key.
+      CONCATENATE ls_field-&gt;fieldname ls_component-&gt;suffix INTO ls_key-&gt;name.
+    ENDLOOP.
+  ENDWHILE.
+
+  IF lt_keys IS INITIAL.
+    lv_keykind = cl_abap_tabledescr=&gt;keydefkind_tableline.
+  ELSE.
+    lv_keykind = cl_abap_tabledescr=&gt;keydefkind_user.
+  ENDIF.
+
+  result = cl_abap_tabledescr=&gt;create(
+      p_line_type  = lo_linedescr
+      p_table_kind = i_kind
+      p_unique     = i_unique
+      p_key        = lt_keys
+      p_key_kind   = lv_keykind
+         ).
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTI" CMPNAME="GET_TYPEDESCR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="14 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_TYPEDESCR" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ANY"/>
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_TYPEDESCR" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_TYPEDESCR"/>
+   <source>METHOD get_typedescr.
+
+  result = cl_abap_typedescr=&gt;describe_by_data( i_data ).
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTI" CMPNAME="GET_TYPEDESCR_BY_NAME" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="15 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_TYPEDESCR_BY_NAME" SCONAME="I_NAME" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCL_RTTI" CMPNAME="GET_TYPEDESCR_BY_NAME" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_ABAP_TYPEDESCR"/>
+   <exception CLSNAME="YCL_RTTI" CMPNAME="GET_TYPEDESCR_BY_NAME" SCONAME="CX_SY_UNKNOWN_TYPE" VERSION="1" LANGU="D" DESCRIPT="System-Exception für &apos;Typ nicht gefunden&apos;" MTDTYPE="0" EDITORDER="1 "/>
+   <source>METHOD GET_TYPEDESCR_BY_NAME.
+
+  DATA: lv_name TYPE string
+      .
+
+
+  CALL METHOD cl_abap_typedescr=&gt;describe_by_name
+    EXPORTING
+      p_name         = i_name
+    RECEIVING
+      p_descr_ref    = result
+    EXCEPTIONS
+      type_not_found = 1.
+  IF sy-subrc NE 0.
+    lv_name = i_name.
+    RAISE EXCEPTION TYPE cx_sy_unknown_type
+      EXPORTING
+        type_name = lv_name.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </method>
+ </CLAS>
+ <CLAS CLSNAME="YCL_RTTS" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSABSTRCT="X" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" WITH_UNIT_TESTS="X" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+  <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+  <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+  <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+  <localTestClasses>*----------------------------------------------------------------------*
+*       CLASS lcl_abap_unit_test DEFINITION
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+CLASS lcl_abap_unit_test DEFINITION
+      FOR TESTING
+      FINAL
+      &quot;#AU Duration Short
+      &quot;#AU Risk_Level Harmless
+      .
+
+  PRIVATE SECTION.
+
+    METHODS:
+      test_b FOR TESTING,
+      test_c FOR TESTING,
+      test_d FOR TESTING,
+      test_f FOR TESTING,
+      test_g FOR TESTING,
+      test_h FOR TESTING,
+      test_i FOR TESTING,
+      test_l FOR TESTING,
+      test_n FOR TESTING,
+      test_p FOR TESTING,
+      test_s FOR TESTING,
+      test_t FOR TESTING,
+      test_u FOR TESTING,
+      test_v1 FOR TESTING,
+      test_v2 FOR TESTING,
+      test_x FOR TESTING,
+      test_y FOR TESTING,
+      is_client_specified FOR TESTING,
+      is_clike
+        IMPORTING
+          i_data TYPE data,
+      is_clike_structure
+        IMPORTING
+          i_data TYPE data,
+      is_csequence
+        IMPORTING
+          i_data TYPE data,
+      is_elementary
+        IMPORTING
+          i_data TYPE data,
+      is_flat_structure
+        IMPORTING
+          i_data TYPE data,
+      is_numeric
+        IMPORTING
+          i_data TYPE data,
+      is_simple
+        IMPORTING
+          i_data TYPE data,
+      is_xsequence
+        IMPORTING
+          i_data TYPE data,
+      is_not_clike
+        IMPORTING
+          i_data TYPE data,
+      is_not_clike_structure
+        IMPORTING
+          i_data TYPE data,
+      is_not_csequence
+        IMPORTING
+          i_data TYPE data,
+      is_not_elementary
+        IMPORTING
+          i_data TYPE data,
+      is_not_flat_structure
+        IMPORTING
+          i_data TYPE data,
+      is_not_numeric
+        IMPORTING
+          i_data TYPE data,
+      is_not_simple
+        IMPORTING
+          i_data TYPE data,
+      is_not_xsequence
+        IMPORTING
+          i_data TYPE data.
+
+ENDCLASS.                    &quot;lcl_abap_unit_test DEFINITION
+*----------------------------------------------------------------------*
+*       CLASS lcl_abap_unit_test IMPLEMENTATION
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+CLASS lcl_abap_unit_test IMPLEMENTATION.
+
+  METHOD test_b.
+
+    DATA lv_data TYPE int1.
+    is_not_clike( lv_data ).
+    is_not_clike_structure( lv_data ).
+    is_not_csequence( lv_data ).
+    is_elementary( lv_data ).
+    is_flat_structure( lv_data ).
+    is_numeric( lv_data ).
+    is_simple( lv_data ).
+    is_not_xsequence( lv_data ).
+
+  ENDMETHOD.                    &quot;test_b
+
+  METHOD test_c.
+
+    DATA lv_data TYPE c.
+    is_clike( lv_data ).
+    is_clike_structure( lv_data ).
+    is_csequence( lv_data ).
+    is_elementary( lv_data ).
+    is_flat_structure( lv_data ).
+    is_not_numeric( lv_data ).
+    is_simple( lv_data ).
+    is_not_xsequence( lv_data ).
+
+  ENDMETHOD.                    &quot;test_c
+
+  METHOD test_d.
+
+    DATA lv_data TYPE d.
+    is_clike( lv_data ).
+    is_clike_structure( lv_data ).
+    is_not_csequence( lv_data ).
+    is_elementary( lv_data ).
+    is_flat_structure( lv_data ).
+    is_not_numeric( lv_data ).
+    is_simple( lv_data ).
+    is_not_xsequence( lv_data ).
+
+  ENDMETHOD.                    &quot;test_d
+
+  METHOD test_f.
+
+    DATA lv_data TYPE f.
+    is_not_clike( lv_data ).
+    is_not_clike_structure( lv_data ).
+    is_not_csequence( lv_data ).
+    is_elementary( lv_data ).
+    is_flat_structure( lv_data ).
+    is_numeric( lv_data ).
+    is_simple( lv_data ).
+    is_not_xsequence( lv_data ).
+
+  ENDMETHOD.                    &quot;test_f
+
+  METHOD test_g.
+
+    DATA lv_data TYPE string.
+    is_clike( lv_data ).
+    is_not_clike_structure( lv_data ).
+    is_csequence( lv_data ).
+    is_elementary( lv_data ).
+    is_not_flat_structure( lv_data ).
+    is_not_numeric( lv_data ).
+    is_simple( lv_data ).
+    is_not_xsequence( lv_data ).
+
+  ENDMETHOD.                    &quot;test_g
+
+  METHOD test_h.
+
+    DATA lv_data TYPE stringtab.
+    is_not_clike( lv_data ).
+    is_not_clike_structure( lv_data ).
+    is_not_csequence( lv_data ).
+    is_not_elementary( lv_data ).
+    is_not_flat_structure( lv_data ).
+    is_not_numeric( lv_data ).
+    is_not_simple( lv_data ).
+    is_not_xsequence( lv_data ).
+
+  ENDMETHOD.                    &quot;test_h
+
+  METHOD test_i.
+
+    DATA lv_data TYPE i.
+    is_not_clike( lv_data ).
+    is_not_clike_structure( lv_data ).
+    is_not_csequence( lv_data ).
+    is_elementary( lv_data ).
+    is_flat_structure( lv_data ).
+    is_numeric( lv_data ).
+    is_simple( lv_data ).
+    is_not_xsequence( lv_data ).
+
+  ENDMETHOD.                    &quot;test_i
+
+  METHOD test_l.
+
+    DATA lv_data TYPE REF TO i.
+    CREATE DATA lv_data.
+    is_not_clike( lv_data ).
+    is_not_clike_structure( lv_data ).
+    is_not_csequence( lv_data ).
+    is_not_elementary( lv_data ).
+    is_not_flat_structure( lv_data ).
+    is_not_numeric( lv_data ).
+    is_not_simple( lv_data ).
+    is_not_xsequence( lv_data ).
+
+  ENDMETHOD.                    &quot;test_l
+
+  METHOD test_n.
+
+    DATA lv_data TYPE n.
+    is_clike( lv_data ).
+    is_clike_structure( lv_data ).
+    is_not_csequence( lv_data ).
+    is_elementary( lv_data ).
+    is_flat_structure( lv_data ).
+    is_not_numeric( lv_data ).
+    is_simple( lv_data ).
+    is_not_xsequence( lv_data ).
+
+  ENDMETHOD.                    &quot;test_n
+
+  METHOD test_p.
+
+    DATA lv_data TYPE p.
+    is_not_clike( lv_data ).
+    is_not_clike_structure( lv_data ).
+    is_not_csequence( lv_data ).
+    is_elementary( lv_data ).
+    is_flat_structure( lv_data ).
+    is_numeric( lv_data ).
+    is_simple( lv_data ).
+    is_not_xsequence( lv_data ).
+
+  ENDMETHOD.                    &quot;test_p
+
+  METHOD test_s.
+
+    DATA lv_data TYPE int2.
+    is_not_clike( lv_data ).
+    is_not_clike_structure( lv_data ).
+    is_not_csequence( lv_data ).
+    is_elementary( lv_data ).
+    is_flat_structure( lv_data ).
+    is_numeric( lv_data ).
+    is_simple( lv_data ).
+    is_not_xsequence( lv_data ).
+
+  ENDMETHOD.                    &quot;test_s
+
+  METHOD test_t.
+
+    DATA lv_data TYPE t.
+    is_clike( lv_data ).
+    is_clike_structure( lv_data ).
+    is_not_csequence( lv_data ).
+    is_elementary( lv_data ).
+    is_flat_structure( lv_data ).
+    is_not_numeric( lv_data ).
+    is_simple( lv_data ).
+    is_not_xsequence( lv_data ).
+
+  ENDMETHOD.                    &quot;test_t
+
+  METHOD test_u.
+
+    TYPES:
+    BEGIN OF ts,
+      string TYPE string,
+    END OF ts.
+
+    DATA lv_data TYPE ts.
+    is_not_clike( lv_data ).
+    is_not_clike_structure( lv_data ).
+    is_not_csequence( lv_data ).
+    is_not_elementary( lv_data ).
+    is_not_flat_structure( lv_data ).
+    is_not_numeric( lv_data ).
+    is_not_simple( lv_data ).
+    is_not_xsequence( lv_data ).
+
+  ENDMETHOD.                    &quot;test_u
+
+  METHOD test_v1.
+
+    TYPES:
+    BEGIN OF ts,
+      c TYPE c LENGTH 1,
+    END OF ts.
+
+    DATA lv_data TYPE ts.
+    is_clike( lv_data ).
+    is_clike_structure( lv_data ).
+    is_not_csequence( lv_data ).
+    is_not_elementary( lv_data ).
+    is_flat_structure( lv_data ).
+    is_not_numeric( lv_data ).
+    is_simple( lv_data ).
+    is_not_xsequence( lv_data ).
+
+  ENDMETHOD.                    &quot;test_v1
+
+  METHOD test_v2.
+
+    TYPES:
+    BEGIN OF ts,
+      i TYPE i,
+    END OF ts.
+
+    DATA lv_data TYPE ts.
+    is_not_clike( lv_data ).
+    is_not_clike_structure( lv_data ).
+    is_not_csequence( lv_data ).
+    is_not_elementary( lv_data ).
+    is_flat_structure( lv_data ).
+    is_not_numeric( lv_data ).
+    is_not_simple( lv_data ).
+    is_not_xsequence( lv_data ).
+
+  ENDMETHOD.                    &quot;test_v2
+
+  METHOD test_x.
+
+    DATA lv_data TYPE x.
+    is_not_clike( lv_data ).
+    is_not_clike_structure( lv_data ).
+    is_not_csequence( lv_data ).
+    is_elementary( lv_data ).
+    is_flat_structure( lv_data ).
+    is_not_numeric( lv_data ).
+    is_simple( lv_data ).
+    is_xsequence( lv_data ).
+
+  ENDMETHOD.                    &quot;test_x
+
+  METHOD test_y.
+
+    DATA lv_data TYPE xstring.
+    is_not_clike( lv_data ).
+    is_not_clike_structure( lv_data ).
+    is_not_csequence( lv_data ).
+    is_elementary( lv_data ).
+    is_not_flat_structure( lv_data ).
+    is_not_numeric( lv_data ).
+    is_simple( lv_data ).
+    is_xsequence( lv_data ).
+
+  ENDMETHOD.                    &quot;test_y
+
+  METHOD is_client_specified.
+
+    DATA lv_data TYPE t000.
+    IF ycl_rtts=&gt;is_client_specified( lv_data ) NE abap_true.
+      cl_aunit_assert=&gt;fail( ).
+    ENDIF.
+
+  ENDMETHOD.                    &quot;IS_CLIENT_SPECIFIED
+
+  METHOD is_clike.
+
+    IF ycl_rtts=&gt;is_clike( i_data ) NE abap_true.
+      cl_aunit_assert=&gt;fail( ).
+    ENDIF.
+
+  ENDMETHOD.                    &quot;is_clike
+
+  METHOD is_clike_structure.
+
+    IF ycl_rtts=&gt;is_clike_structure( i_data ) NE abap_true.
+      cl_aunit_assert=&gt;fail( ).
+    ENDIF.
+
+  ENDMETHOD.                    &quot;is_clike_structure
+
+  METHOD is_csequence.
+
+    IF ycl_rtts=&gt;is_csequence( i_data ) NE abap_true.
+      cl_aunit_assert=&gt;fail( ).
+    ENDIF.
+
+  ENDMETHOD.                    &quot;is_csequence
+
+  METHOD is_elementary.
+
+    IF ycl_rtts=&gt;is_elementary( i_data ) NE abap_true.
+      cl_aunit_assert=&gt;fail( ).
+    ENDIF.
+
+  ENDMETHOD.                    &quot;is_elementary
+
+  METHOD is_flat_structure.
+
+    IF ycl_rtts=&gt;is_flat_structure( i_data ) NE abap_true.
+      cl_aunit_assert=&gt;fail( ).
+    ENDIF.
+
+  ENDMETHOD.                    &quot;is_flat_structure
+
+  METHOD is_numeric.
+
+    IF ycl_rtts=&gt;is_numeric( i_data ) NE abap_true.
+      cl_aunit_assert=&gt;fail( ).
+    ENDIF.
+
+  ENDMETHOD.                    &quot;is_numeric
+
+  METHOD is_simple.
+
+    IF ycl_rtts=&gt;is_simple( i_data ) NE abap_true.
+      cl_aunit_assert=&gt;fail( ).
+    ENDIF.
+
+  ENDMETHOD.                    &quot;is_simple
+
+  METHOD is_xsequence.
+
+    IF ycl_rtts=&gt;is_xsequence( i_data ) NE abap_true.
+      cl_aunit_assert=&gt;fail( ).
+    ENDIF.
+
+  ENDMETHOD.                    &quot;is_xsequence
+
+  METHOD is_not_clike.
+
+    IF ycl_rtts=&gt;is_clike( i_data ) EQ abap_true.
+      cl_aunit_assert=&gt;fail( ).
+    ENDIF.
+
+  ENDMETHOD.                    &quot;is_not_clike
+
+  METHOD is_not_clike_structure.
+
+    IF ycl_rtts=&gt;is_clike_structure( i_data ) EQ abap_true.
+      cl_aunit_assert=&gt;fail( ).
+    ENDIF.
+
+  ENDMETHOD.                    &quot;is_not_clike_structure
+
+  METHOD is_not_csequence.
+
+    IF ycl_rtts=&gt;is_csequence( i_data ) EQ abap_true.
+      cl_aunit_assert=&gt;fail( ).
+    ENDIF.
+
+  ENDMETHOD.                    &quot;is_not_csequence
+
+  METHOD is_not_elementary.
+
+    IF ycl_rtts=&gt;is_elementary( i_data ) EQ abap_true.
+      cl_aunit_assert=&gt;fail( ).
+    ENDIF.
+
+  ENDMETHOD.                    &quot;is_not_elementary
+
+  METHOD is_not_flat_structure.
+
+    IF ycl_rtts=&gt;is_flat_structure( i_data ) EQ abap_true.
+      cl_aunit_assert=&gt;fail( ).
+    ENDIF.
+
+  ENDMETHOD.                    &quot;is_not_flat_structure
+
+  METHOD is_not_numeric.
+
+    IF ycl_rtts=&gt;is_numeric( i_data ) EQ abap_true.
+      cl_aunit_assert=&gt;fail( ).
+    ENDIF.
+
+  ENDMETHOD.                    &quot;is_not_numeric
+
+  METHOD is_not_simple.
+
+    IF ycl_rtts=&gt;is_simple( i_data ) EQ abap_true.
+      cl_aunit_assert=&gt;fail( ).
+    ENDIF.
+
+  ENDMETHOD.                    &quot;is_not_simple
+
+  METHOD is_not_xsequence.
+
+    IF ycl_rtts=&gt;is_xsequence( i_data ) EQ abap_true.
+      cl_aunit_assert=&gt;fail( ).
+    ENDIF.
+
+  ENDMETHOD.                    &quot;is_not_xsequence
+
+ENDCLASS.                    &quot;lcl_abap_unit_test IMPLEMENTATION</localTestClasses>
+  <typeUsage CLSNAME="YCL_RTTS" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X" IMPLICIT="X"/>
+  <forwardDeclaration>ABAP</forwardDeclaration>
+  <typeClasDef CLSNAME="YCL_RTTS" TYPEGROUP="CL_ABAP_TABLEDESCR" VERSION="1" TPUTYPE="1" IMPLICIT="X"/>
+  <method CLSNAME="YCL_RTTS" CMPNAME="APPLIES_TO_CLASS" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="APPLIES_TO_CLASS" SCONAME="I_OBJECT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="OBJECT"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="APPLIES_TO_CLASS" SCONAME="I_NAME" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="APPLIES_TO_CLASS" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+   <source>METHOD APPLIES_TO_CLASS.
+
+  DATA: lo_classdescr TYPE REF TO cl_abap_classdescr
+      .
+
+
+  IF i_object IS NOT BOUND OR i_name IS INITIAL.
+    RETURN.
+  ENDIF.
+
+  lo_classdescr = ycl_rtti=&gt;get_classdescr( i_object ).
+
+  DO.
+    result = lo_classdescr-&gt;applies_to_class( i_name ).
+    IF result EQ abap_true.
+      RETURN.
+    ENDIF.
+
+    lo_classdescr-&gt;get_super_class_type(
+      RECEIVING
+        p_descr_ref           = lo_classdescr
+      EXCEPTIONS
+        super_class_not_found = 1
+           ).
+    IF sy-subrc NE 0.
+      RETURN.
+    ENDIF.
+  ENDDO.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTS" CMPNAME="APPLIES_TO_DATA" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="APPLIES_TO_DATA" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DATA"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="APPLIES_TO_DATA" SCONAME="I_NAME" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="APPLIES_TO_DATA" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+   <source>METHOD APPLIES_TO_DATA.
+
+  DATA: lo_datadescr TYPE REF TO cl_abap_datadescr
+      .
+
+
+  IF i_name IS INITIAL.
+    RETURN.
+  ENDIF.
+
+  lo_datadescr = ycl_rtti=&gt;get_datadescr( i_data ).
+  result = lo_datadescr-&gt;applies_to_data( i_name ).
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTS" CMPNAME="APPLIES_TO_INTERFACE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="APPLIES_TO_INTERFACE" SCONAME="I_OBJECT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="OBJECT"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="APPLIES_TO_INTERFACE" SCONAME="I_NAME" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="APPLIES_TO_INTERFACE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+   <source>METHOD APPLIES_TO_INTERFACE .
+
+  DATA: lo_classdescr TYPE REF TO cl_abap_classdescr
+      .
+
+
+  IF i_object IS NOT BOUND OR i_name IS INITIAL.
+    RETURN.
+  ENDIF.
+
+  lo_classdescr = ycl_rtti=&gt;get_classdescr( i_object ).
+  lo_classdescr-&gt;get_interface_type(
+    EXPORTING
+      p_name              = i_name
+    EXCEPTIONS
+      interface_not_found = 1
+         ).
+  IF sy-subrc EQ 0.
+    result = abap_true.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTS" CMPNAME="IS_CLIENT_SPECIFIED" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_CLIENT_SPECIFIED" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DATA"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_CLIENT_SPECIFIED" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+   <source>METHOD IS_CLIENT_SPECIFIED.
+
+  DATA: lo_complexdescr TYPE REF TO cl_abap_complexdescr
+      .
+
+
+  TRY.
+      lo_complexdescr = ycl_rtti=&gt;get_complexdescr( i_data ).
+      result = is_client_specified_by_type( lo_complexdescr ).
+
+    CATCH cx_sy_move_cast_error.
+      RETURN.
+  ENDTRY.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTS" CMPNAME="IS_CLIENT_SPECIFIED_BY_TYPE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="5 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_CLIENT_SPECIFIED_BY_TYPE" SCONAME="I_COMPLEX" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_ABAP_COMPLEXDESCR"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_CLIENT_SPECIFIED_BY_TYPE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+   <source>METHOD IS_CLIENT_SPECIFIED_BY_TYPE.
+
+  DATA: lo_structdescr TYPE REF TO cl_abap_structdescr
+      , lo_tabledescr TYPE REF TO cl_abap_tabledescr
+      , ls_component TYPE REF TO abap_compdescr
+      , lo_elemdescr TYPE REF TO cl_abap_elemdescr
+      , ls_dfies TYPE dfies
+      .
+
+
+  IF i_complex IS NOT BOUND.
+    RETURN.
+  ENDIF.
+
+  TRY.
+      lo_structdescr ?= i_complex.
+
+    CATCH cx_sy_move_cast_error.
+      TRY.
+          lo_tabledescr ?= i_complex.
+          lo_structdescr ?= lo_tabledescr-&gt;get_table_line_type( ).
+
+        CATCH cx_sy_move_cast_error.
+          RETURN.
+      ENDTRY.
+  ENDTRY.
+
+  READ TABLE lo_structdescr-&gt;components
+        REFERENCE INTO ls_component
+        INDEX 1.
+  IF sy-subrc NE 0.
+    RETURN.
+  ENDIF.
+
+  TRY.
+      lo_elemdescr ?= lo_structdescr-&gt;get_component_type( ls_component-&gt;name ).
+      ls_dfies = lo_elemdescr-&gt;get_ddic_field( ).
+
+    CATCH cx_sy_move_cast_error.
+      RETURN.
+  ENDTRY.
+
+  IF ls_dfies-datatype EQ &apos;CLNT&apos;.
+    result = abap_true.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTS" CMPNAME="IS_CLIKE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="6 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_CLIKE" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DATA"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_CLIKE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+   <source>METHOD IS_CLIKE .
+
+  DATA: lo_datadescr TYPE REF TO cl_abap_datadescr
+      .
+
+
+  lo_datadescr = ycl_rtti=&gt;get_datadescr( i_data ).
+  result = is_clike_by_type( lo_datadescr ).
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTS" CMPNAME="IS_CLIKE_BY_TYPE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="7 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_CLIKE_BY_TYPE" SCONAME="I_DATA" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_ABAP_DATADESCR"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_CLIKE_BY_TYPE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+   <source>METHOD IS_CLIKE_BY_TYPE.
+
+  DATA: lo_structdescr TYPE REF TO cl_abap_structdescr
+      , lt_components TYPE abap_component_tab
+      , ls_component TYPE REF TO abap_componentdescr
+      .
+
+
+  IF i_data IS NOT BOUND.
+    RETURN.
+  ENDIF.
+
+  CASE i_data-&gt;type_kind.
+    WHEN cl_abap_typedescr=&gt;typekind_char
+      OR cl_abap_typedescr=&gt;typekind_string
+      OR cl_abap_typedescr=&gt;typekind_num
+      OR cl_abap_typedescr=&gt;typekind_date
+      OR cl_abap_typedescr=&gt;typekind_time.
+      result = abap_true.
+
+    WHEN cl_abap_typedescr=&gt;typekind_struct1.
+      lo_structdescr ?= i_data.
+      lt_components = lo_structdescr-&gt;get_components( ).
+      LOOP AT lt_components REFERENCE INTO ls_component.
+        result = is_clike_structure_by_type( ls_component-&gt;type ).
+        IF result NE abap_true.
+          RETURN.
+        ENDIF.
+      ENDLOOP.
+  ENDCASE.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTS" CMPNAME="IS_CLIKE_STRUCTURE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="8 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_CLIKE_STRUCTURE" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DATA"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_CLIKE_STRUCTURE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+   <source>METHOD IS_CLIKE_STRUCTURE .
+
+  DATA: lo_datadescr TYPE REF TO cl_abap_datadescr
+      .
+
+
+  lo_datadescr = ycl_rtti=&gt;get_datadescr( i_data ).
+  result = is_clike_structure_by_type( lo_datadescr ).
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTS" CMPNAME="IS_CLIKE_STRUCTURE_BY_TYPE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="9 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_CLIKE_STRUCTURE_BY_TYPE" SCONAME="I_DATA" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_ABAP_DATADESCR"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_CLIKE_STRUCTURE_BY_TYPE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+   <source>METHOD IS_CLIKE_STRUCTURE_BY_TYPE.
+
+  DATA: lo_structdescr TYPE REF TO cl_abap_structdescr
+      , lt_components TYPE abap_component_tab
+      , ls_component TYPE REF TO abap_componentdescr
+      .
+
+
+  IF i_data IS NOT BOUND.
+    RETURN.
+  ENDIF.
+
+  CASE i_data-&gt;type_kind.
+    WHEN cl_abap_typedescr=&gt;typekind_char
+      OR cl_abap_typedescr=&gt;typekind_num
+      OR cl_abap_typedescr=&gt;typekind_date
+      OR cl_abap_typedescr=&gt;typekind_time.
+      result = abap_true.
+
+    WHEN cl_abap_typedescr=&gt;typekind_struct1.
+      lo_structdescr ?= i_data.
+      lt_components = lo_structdescr-&gt;get_components( ).
+      LOOP AT lt_components REFERENCE INTO ls_component.
+        result = is_clike_structure_by_type( ls_component-&gt;type ).
+        IF result NE abap_true.
+          RETURN.
+        ENDIF.
+      ENDLOOP.
+  ENDCASE.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTS" CMPNAME="IS_CSEQUENCE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="10 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_CSEQUENCE" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DATA"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_CSEQUENCE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+   <source>METHOD IS_CSEQUENCE .
+
+  DATA: lv_type TYPE c
+      .
+
+
+  DESCRIBE FIELD i_data TYPE lv_type.
+  CASE lv_type.
+    WHEN cl_abap_typedescr=&gt;typekind_char
+      OR cl_abap_typedescr=&gt;typekind_string.
+      result = abap_true.
+  ENDCASE.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTS" CMPNAME="IS_CSEQUENCE_BY_TYPE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="11 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_CSEQUENCE_BY_TYPE" SCONAME="I_DATA" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_ABAP_DATADESCR"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_CSEQUENCE_BY_TYPE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+   <source>METHOD IS_CSEQUENCE_BY_TYPE.
+
+  IF i_data IS NOT BOUND.
+    RETURN.
+  ENDIF.
+
+  CASE i_data-&gt;type_kind.
+    WHEN cl_abap_typedescr=&gt;typekind_char
+      OR cl_abap_typedescr=&gt;typekind_string.
+      result = abap_true.
+  ENDCASE.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTS" CMPNAME="IS_ELEMENTARY" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="12 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_ELEMENTARY" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DATA"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_ELEMENTARY" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+   <source>METHOD IS_ELEMENTARY .
+
+  DATA: lo_datadescr TYPE REF TO cl_abap_datadescr
+      .
+
+
+  lo_datadescr = ycl_rtti=&gt;get_datadescr( i_data ).
+  result = is_elementary_by_type( lo_datadescr ).
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTS" CMPNAME="IS_ELEMENTARY_BY_TYPE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="13 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_ELEMENTARY_BY_TYPE" SCONAME="I_DATA" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_ABAP_DATADESCR"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_ELEMENTARY_BY_TYPE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+   <source>METHOD IS_ELEMENTARY_BY_TYPE.
+
+  IF i_data IS NOT BOUND.
+    RETURN.
+  ENDIF.
+
+  IF i_data-&gt;kind EQ cl_abap_typedescr=&gt;kind_elem.
+    result = abap_true.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTS" CMPNAME="IS_FLAT_STRUCTURE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="14 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_FLAT_STRUCTURE" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DATA"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_FLAT_STRUCTURE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+   <source>METHOD IS_FLAT_STRUCTURE .
+
+  DATA: lo_datadescr TYPE REF TO cl_abap_datadescr
+      .
+
+
+  lo_datadescr = ycl_rtti=&gt;get_datadescr( i_data ).
+  result = is_flat_structure_by_type( lo_datadescr ).
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTS" CMPNAME="IS_FLAT_STRUCTURE_BY_TYPE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="15 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_FLAT_STRUCTURE_BY_TYPE" SCONAME="I_DATA" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_ABAP_DATADESCR"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_FLAT_STRUCTURE_BY_TYPE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+   <source>METHOD IS_FLAT_STRUCTURE_BY_TYPE.
+
+  DATA: lo_structdescr TYPE REF TO cl_abap_structdescr
+      , lt_components TYPE abap_component_tab
+      , ls_component TYPE REF TO abap_componentdescr
+      .
+
+
+  IF i_data IS NOT BOUND.
+    RETURN.
+  ENDIF.
+
+  CASE i_data-&gt;type_kind.
+    WHEN cl_abap_typedescr=&gt;typekind_string
+      OR cl_abap_typedescr=&gt;typekind_xstring.
+
+    WHEN cl_abap_typedescr=&gt;typekind_struct1.
+      lo_structdescr ?= i_data.
+      lt_components = lo_structdescr-&gt;get_components( ).
+      LOOP AT lt_components REFERENCE INTO ls_component.
+        result = is_flat_structure_by_type( ls_component-&gt;type ).
+        IF result NE abap_true.
+          RETURN.
+        ENDIF.
+      ENDLOOP.
+
+    WHEN OTHERS.
+      IF i_data-&gt;kind EQ cl_abap_typedescr=&gt;kind_elem.
+        result = abap_true.
+      ENDIF.
+  ENDCASE.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTS" CMPNAME="IS_NUMERIC" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="16 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_NUMERIC" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DATA"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_NUMERIC" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+   <source>METHOD IS_NUMERIC .
+
+  DATA: lv_type TYPE c
+      .
+
+
+  DESCRIBE FIELD i_data TYPE lv_type.
+  CASE lv_type.
+    WHEN cl_abap_typedescr=&gt;typekind_int1
+      OR cl_abap_typedescr=&gt;typekind_int2
+      OR cl_abap_typedescr=&gt;typekind_int
+      OR cl_abap_typedescr=&gt;typekind_packed
+      OR &apos;a&apos;  &quot; cl_abap_typedescr=&gt;typekind_decfloat16
+      OR &apos;e&apos;  &quot; cl_abap_typedescr=&gt;typekind_decfloat34
+      OR cl_abap_typedescr=&gt;typekind_float.
+      result = abap_true.
+  ENDCASE.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTS" CMPNAME="IS_NUMERIC_BY_TYPE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="17 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_NUMERIC_BY_TYPE" SCONAME="I_DATA" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_ABAP_DATADESCR"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_NUMERIC_BY_TYPE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+   <source>METHOD IS_NUMERIC_BY_TYPE.
+
+  IF i_data IS NOT BOUND.
+    RETURN.
+  ENDIF.
+
+  CASE i_data-&gt;type_kind.
+    WHEN cl_abap_typedescr=&gt;typekind_int1
+      OR cl_abap_typedescr=&gt;typekind_int2
+      OR cl_abap_typedescr=&gt;typekind_int
+      OR cl_abap_typedescr=&gt;typekind_packed
+      OR &apos;a&apos;  &quot; cl_abap_typedescr=&gt;typekind_decfloat16
+      OR &apos;e&apos;  &quot; cl_abap_typedescr=&gt;typekind_decfloat34
+      OR cl_abap_typedescr=&gt;typekind_float.
+      result = abap_true.
+  ENDCASE.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTS" CMPNAME="IS_READ_ONLY_REF" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="18 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_READ_ONLY_REF" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="DATA"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_READ_ONLY_REF" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+   <exception CLSNAME="YCL_RTTS" CMPNAME="IS_READ_ONLY_REF" SCONAME="CX_SY_REF_IS_INITIAL" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei ASSIGN" MTDTYPE="0" EDITORDER="1 "/>
+   <source>METHOD IS_READ_ONLY_REF.
+
+  IF i_data IS BOUND.
+    result = cl_abap_datadescr=&gt;is_read_only( i_data ).
+
+  ELSE.
+    RAISE EXCEPTION TYPE cx_sy_ref_is_initial.
+  ENDIF.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTS" CMPNAME="IS_SIMPLE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="19 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_SIMPLE" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DATA"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_SIMPLE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+   <source>METHOD IS_SIMPLE .
+
+  DATA: lo_datadescr TYPE REF TO cl_abap_datadescr
+      .
+
+
+  lo_datadescr = ycl_rtti=&gt;get_datadescr( i_data ).
+  result = is_simple_by_type( lo_datadescr ).
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTS" CMPNAME="IS_SIMPLE_BY_TYPE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="20 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_SIMPLE_BY_TYPE" SCONAME="I_DATA" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_ABAP_DATADESCR"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_SIMPLE_BY_TYPE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+   <source>METHOD IS_SIMPLE_BY_TYPE.
+
+  DATA: lo_structdescr TYPE REF TO cl_abap_structdescr
+      , lt_components TYPE abap_component_tab
+      , ls_component TYPE REF TO abap_componentdescr
+      .
+
+
+  IF i_data IS NOT BOUND.
+    RETURN.
+  ENDIF.
+
+  CASE i_data-&gt;type_kind.
+    WHEN cl_abap_typedescr=&gt;typekind_struct1.
+      lo_structdescr ?= i_data.
+      lt_components = lo_structdescr-&gt;get_components( ).
+      LOOP AT lt_components REFERENCE INTO ls_component.
+        result = is_clike_structure_by_type( ls_component-&gt;type ).
+        IF result NE abap_true.
+          RETURN.
+        ENDIF.
+      ENDLOOP.
+
+    WHEN OTHERS.
+      IF i_data-&gt;kind EQ cl_abap_typedescr=&gt;kind_elem.
+        result = abap_true.
+      ENDIF.
+  ENDCASE.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTS" CMPNAME="IS_XSEQUENCE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="21 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_XSEQUENCE" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DATA"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_XSEQUENCE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+   <source>METHOD IS_XSEQUENCE .
+
+  DATA: lv_type TYPE c
+      .
+
+
+  DESCRIBE FIELD i_data TYPE lv_type.
+  CASE lv_type.
+    WHEN cl_abap_typedescr=&gt;typekind_hex
+      OR cl_abap_typedescr=&gt;typekind_xstring.
+      result = abap_true.
+  ENDCASE.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTS" CMPNAME="IS_XSEQUENCE_BY_TYPE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="22 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_XSEQUENCE_BY_TYPE" SCONAME="I_DATA" VERSION="1" LANGU="D" DESCRIPT="Run Time Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_ABAP_DATADESCR"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="IS_XSEQUENCE_BY_TYPE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+   <source>METHOD IS_XSEQUENCE_BY_TYPE.
+
+  IF i_data IS NOT BOUND.
+    RETURN.
+  ENDIF.
+
+  CASE i_data-&gt;type_kind.
+    WHEN cl_abap_typedescr=&gt;typekind_hex
+      OR cl_abap_typedescr=&gt;typekind_xstring.
+      result = abap_true.
+  ENDCASE.
+
+ENDMETHOD.</source>
+  </method>
+  <method CLSNAME="YCL_RTTS" CMPNAME="TO_READ_ONLY_REF" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="23 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="TO_READ_ONLY_REF" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DATA"/>
+   <parameter CLSNAME="YCL_RTTS" CMPNAME="TO_READ_ONLY_REF" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="DATA"/>
+   <source>METHOD TO_READ_ONLY_REF.
+
+  GET REFERENCE OF i_data INTO result.
+
+ENDMETHOD.</source>
+  </method>
+ </CLAS>
+</nugget>
