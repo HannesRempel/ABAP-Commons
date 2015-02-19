@@ -30,8 +30,8 @@ PROCESS AFTER INPUT.
   </dynpros>
   <pfstatus>
    <pfstatus_sta CODE="STANDARD" MODAL="D" ACTCODE="000001" PFKCODE="000001" BUTCODE="0001" INT_NOTE="Standard"/>
-   <pfstatus_fun CODE="BACK" TEXTNO="001" TYPE="E" TEXT_TYPE="S" FUN_TEXT="Zurück"/>
-   <pfstatus_fun CODE="CANCEL" TEXTNO="001" TYPE="E" TEXT_TYPE="S" FUN_TEXT="Abbrechen"/>
+   <pfstatus_fun CODE="BACK" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Zurück"/>
+   <pfstatus_fun CODE="CANCEL" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Abbrechen"/>
    <pfstatus_fun CODE="EXIT" TEXTNO="001" TYPE="E" TEXT_TYPE="S" FUN_TEXT="Beenden"/>
    <pfstatus_fun CODE="FIRST_PAGE" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_FIRST_PAGE" ICON_ID="@2Y@" FUN_TEXT="Erste Seite"/>
    <pfstatus_fun CODE="LAST_PAGE" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_LAST_PAGE" ICON_ID="@31@" FUN_TEXT="Letzte Seite"/>
@@ -129,7 +129,15 @@ FORM pai.
 
   lo_dynpro = ycl_oo_dynpro=&gt;get_current( ).
   lo_dynpro-&gt;raise_function_code( sy-ucomm ).
-  FREE sy-ucomm.
+  CASE sy-ucomm.
+    WHEN yit_gui_function=&gt;back
+      OR yit_gui_function=&gt;cancel
+      OR yit_gui_function=&gt;exit.
+      PERFORM exit.
+
+    WHEN OTHERS.
+      FREE sy-ucomm.
+  ENDCASE.
 
   lv_dynnr = lo_dynpro-&gt;get_dynnr( ).
   SET SCREEN lv_dynnr.

@@ -187,6 +187,15 @@ ENDMETHOD.</source>
 
 ENDMETHOD.</source>
  </interfaceMethod>
+ <interfaceMethod CLSNAME="YCL_OO_DYNPRO" CPDNAME="YIF_OO_DYNPRO~GET_CHILDREN">
+  <source>METHOD yif_oo_dynpro~get_children.
+
+  READ TABLE children
+        INTO result
+        INDEX i_index.
+
+ENDMETHOD.</source>
+ </interfaceMethod>
  <interfaceMethod CLSNAME="YCL_OO_DYNPRO" CPDNAME="YIF_OO_DYNPRO~GET_CONTAINER">
   <source>METHOD yif_oo_dynpro~get_container.
 
@@ -195,6 +204,7 @@ ENDMETHOD.</source>
 ENDMETHOD.</source>
  </interfaceMethod>
  <method CLSNAME="YCL_OO_DYNPRO" CMPNAME="CONSTRUCTOR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="2" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_OO_DYNPRO" CMPNAME="CONSTRUCTOR" SCONAME="I_TITLE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="2" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE" PAROPTIONL="X"/>
   <exception CLSNAME="YCL_OO_DYNPRO" CMPNAME="CONSTRUCTOR" SCONAME="CX_SY_CREATE_OBJECT_ERROR" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei Objekterzeugung" MTDTYPE="2" EDITORDER="1 "/>
   <source>METHOD constructor.
 
@@ -209,14 +219,19 @@ ENDMETHOD.</source>
   IF sy-subrc NE 0.
     RAISE EXCEPTION TYPE cx_sy_create_object_error
       EXPORTING
-        classname = `ZCL_GUI_CUSTOM_CONTAINER`.
+        classname = &apos;YCL_OO_DYNPRO&apos;.
   ENDIF.
 
-  SELECT SINGLE text
-        FROM trdirt
-        INTO gv_title
-        WHERE name  EQ sy-cprog
-          AND sprsl EQ sy-langu.
+  IF i_title IS NOT INITIAL.
+    gv_title = i_title.
+
+  ELSE.
+    SELECT SINGLE text
+          FROM trdirt
+          INTO gv_title
+          WHERE name  EQ sy-cprog
+            AND sprsl EQ sy-langu.
+  ENDIF.
 
   INSERT yit_gui_function=&gt;first_page     INTO TABLE gt_fcode.
   INSERT yit_gui_function=&gt;last_page      INTO TABLE gt_fcode.
