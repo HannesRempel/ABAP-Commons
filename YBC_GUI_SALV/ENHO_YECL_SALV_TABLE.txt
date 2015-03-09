@@ -26,6 +26,7 @@ DISPLAY
 
 
 Method parameters FACTORY2:
+I_TITLE	Importing	Type	CSEQUENCE	Optional
 R_SALV_TABLE	Exporting	Type Ref To	CL_SALV_TABLE
 T_TABLE	Changing	Type	TABLE
 
@@ -97,22 +98,17 @@ RESULT	Returning	Type Ref To	DATA
 
 METHOD factory2 .
 
-  DATA: lo_dynpro TYPE REF TO object
+  DATA: lo_dynpro TYPE REF TO yif_oo_dynpro
       , lo_container TYPE REF TO cl_gui_container
-      , lx_root TYPE REF TO cx_root
       .
 
 
   IF cl_salv_model=>is_offline( ) NE if_salv_c_bool_sap=>true.
     TRY.
-        CALL METHOD ('YCF_OO_DYNPRO')=>create_dynpro
-          RECEIVING
-            result = lo_dynpro.
-        lo_container ?= lo_dynpro.
+        lo_dynpro = ycf_oo_dynpro=>create_dynpro( i_title ).
+        lo_container = lo_dynpro->get_container( ).
 
-      CATCH cx_sy_dyn_call_error cx_sy_move_cast_error INTO lx_root.
-        " message in case of missing objects
-        MESSAGE lx_root TYPE 'E'.
+      CATCH cx_sy_create_object_error.                  "#EC NO_HANDLER
     ENDTRY.
   ENDIF.
 
@@ -126,6 +122,8 @@ METHOD factory2 .
           CHANGING
             t_table      = t_table.
 
+        r_salv_table->r_dynpro = lo_dynpro.
+
       ELSE.
         CALL METHOD factory
           IMPORTING
@@ -133,8 +131,6 @@ METHOD factory2 .
           CHANGING
             t_table      = t_table.
       ENDIF.
-
-      r_salv_table->r_dynpro = lo_container.
 
     CATCH cx_salv_msg.                                  "#EC NO_HANDLER
   ENDTRY.
@@ -453,19 +449,8 @@ CLASS lcl_yecl_salv_table IMPLEMENTATION.
 *"methods DISPLAY .
 *"------------------------------------------------------------------------*
 
-    DATA: lo_settings TYPE REF TO ycl_salv_change_settings
-        , lx_root TYPE REF TO cx_root
-        .
-
-
     IF core_object->r_dynpro IS BOUND.
-      TRY.
-          CALL METHOD core_object->r_dynpro->('YIF_OO_DYNPRO~CALL_DYNPRO').
-
-        CATCH cx_sy_dyn_call_error INTO lx_root.
-          " message in case of missing objects
-          MESSAGE lx_root TYPE 'E'.
-      ENDTRY.
+      core_object->r_dynpro->call_dynpro( ).
     ENDIF.
 
     IF core_object->r_container IS BOUND.

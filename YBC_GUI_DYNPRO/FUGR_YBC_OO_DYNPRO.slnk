@@ -102,7 +102,7 @@ FORM pbo.
       .
 
 
-  lo_dynpro = ycl_oo_dynpro=&gt;get_current( ).
+  lo_dynpro = ycl_oo_dynpro=&gt;get_active( ).
 
   lv_pfkey = lo_dynpro-&gt;get_pfkey( ).
   lv_cprog = lo_dynpro-&gt;get_cprog( ).
@@ -127,7 +127,7 @@ FORM pai.
       .
 
 
-  lo_dynpro = ycl_oo_dynpro=&gt;get_current( ).
+  lo_dynpro = ycl_oo_dynpro=&gt;get_active( ).
   lo_dynpro-&gt;raise_function_code( sy-ucomm ).
   CASE sy-ucomm.
     WHEN yit_gui_function=&gt;back
@@ -200,7 +200,7 @@ ENDMODULE.                    &quot;pbo OUTPUT</include_source>
       .
 
 
-  lo_dynpro = ycl_oo_dynpro=&gt;get_current( ).
+  lo_dynpro = ycl_oo_dynpro=&gt;get_active( ).
   IF lo_dynpro IS BOUND.
     lv_dynnr = lo_dynpro-&gt;get_dynnr( ).
     CALL SCREEN lv_dynnr.

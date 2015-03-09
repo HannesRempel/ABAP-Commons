@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CLAS CLSNAME="YCL_OO_DYNPRO" VERSION="1" LANGU="D" DESCRIPT="Dynpro mit Custom Control Container" CATEGORY="00" EXPOSURE="0" STATE="1" RELEASE="0" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="CL_GUI_CUSTOM_CONTAINER">
+<CLAS CLSNAME="YCL_OO_DYNPRO" VERSION="1" LANGU="D" DESCRIPT="Dynpro mit Custom Control Container" CATEGORY="00" EXPOSURE="0" STATE="1" RELEASE="0" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
  <friends CLSNAME="YCL_OO_DYNPRO" REFCLSNAME="YCF_OO_DYNPRO" FRIENDTYPE="0" VERSION="1" STATE="1"/>
  <implementing CLSNAME="YCL_OO_DYNPRO" REFCLSNAME="YIF_OO_DYNPRO" VERSION="1" EXPOSURE="2" STATE="1" RELTYPE="1" EDITORDER="3 "/>
- <events CLSNAME="YCL_OO_DYNPRO" CMPNAME="FUNCTION_CODE" VERSION="1" LANGU="D" ALIAS="X" EXPOSURE="0" STATE="1" EDITORDER="0 " EVTDECLTYP="0" REFCLSNAME="YIF_GUI_FUNCTION" REFCMPNAME="FUNCTION_CODE" BCEVTCAT="00">
-  <parameter CLSNAME="YIF_GUI_FUNCTION" CMPNAME="FUNCTION_CODE" SCONAME="I_UCOMM" VERSION="1" LANGU="D" DESCRIPT="Funktionscode, der PAI ausgelöst hat" CMPTYPE="2" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="1" PARPASSTYP="0" TYPTYPE="1" TYPE="SY-UCOMM"/>
- </events>
  <localImplementation>*&quot;* local class implementation for public class
 *&quot;* use this source file for the implementation part of
 *&quot;* local helper classes</localImplementation>
@@ -15,29 +12,25 @@
 *&quot;* in the implementation part of the class</localMacros>
  <typeUsage CLSNAME="YCL_OO_DYNPRO" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
  <forwardDeclaration>ABAP</forwardDeclaration>
- <attribute CLSNAME="YCL_OO_DYNPRO" CMPNAME="CO_REPID" VERSION="1" LANGU="D" DESCRIPT="ABAP-Programm, aktuelles Rahmenprogramm" EXPOSURE="0" STATE="1" EDITORDER="1 " ATTDECLTYP="2" ATTVALUE="&apos;SAPLYBC_OO_DYNPRO&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYREPID" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <attribute CLSNAME="YCL_OO_DYNPRO" CMPNAME="GT_FCODE" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="3 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="RLB_T_EXCL" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <attribute CLSNAME="YCL_OO_DYNPRO" CMPNAME="GV_CONTAINER" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="4 " ATTDECLTYP="0" ATTVALUE="&apos;A&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="C" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <attribute CLSNAME="YCL_OO_DYNPRO" CMPNAME="GV_CPROG" VERSION="1" LANGU="D" DESCRIPT="Aufrufendes Programm" EXPOSURE="0" STATE="1" EDITORDER="5 " ATTDECLTYP="0" ATTVALUE="CO_REPID" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYCPROG" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <attribute CLSNAME="YCL_OO_DYNPRO" CMPNAME="GV_DYNNR" VERSION="1" LANGU="D" DESCRIPT="Aktuelle Dynpro-Nummer" EXPOSURE="0" STATE="1" EDITORDER="6 " ATTDECLTYP="0" ATTVALUE="&apos;9999&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYDYNNR" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <attribute CLSNAME="YCL_OO_DYNPRO" CMPNAME="GV_PFKEY" VERSION="1" LANGU="D" DESCRIPT="Aktueller GUI-Status" EXPOSURE="0" STATE="1" EDITORDER="7 " ATTDECLTYP="0" ATTVALUE="&apos;STANDARD&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYPFKEY" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <attribute CLSNAME="YCL_OO_DYNPRO" CMPNAME="GV_TITLE" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="8 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <attribute CLSNAME="YCL_OO_DYNPRO" CMPNAME="SO_CURRENT" VERSION="1" LANGU="D" DESCRIPT="Dynpro with Custom Control Container" EXPOSURE="0" STATE="1" EDITORDER="2 " ATTDECLTYP="1" ATTEXPVIRT="0" TYPTYPE="3" TYPE="YCL_OO_DYNPRO" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <inheritance CLSNAME="YCL_OO_DYNPRO" REFCLSNAME="CL_GUI_CUSTOM_CONTAINER" VERSION="1" STATE="1">
-  <redefinition CLSNAME="YCL_OO_DYNPRO" REFCLSNAME="CL_GUI_CUSTOM_CONTAINER" VERSION="1" MTDNAME="LINK" EXPOSURE="2"/>
- </inheritance>
+ <attribute CLSNAME="YCL_OO_DYNPRO" CMPNAME="ACTIVE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " ATTDECLTYP="1" ATTEXPVIRT="0" TYPTYPE="3" TYPE="YCL_OO_DYNPRO" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_OO_DYNPRO" CMPNAME="CONTAINER" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="2 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="CL_GUI_CUSTOM_CONTAINER" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_OO_DYNPRO" CMPNAME="CPROG" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="3 " ATTDECLTYP="0" ATTVALUE="&apos;SAPLYBC_OO_DYNPRO&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYCPROG" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_OO_DYNPRO" CMPNAME="DYNNR" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="4 " ATTDECLTYP="0" ATTVALUE="&apos;9999&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYDYNNR" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_OO_DYNPRO" CMPNAME="FCODE" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="5 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="RLB_T_EXCL" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_OO_DYNPRO" CMPNAME="PFKEY" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="6 " ATTDECLTYP="0" ATTVALUE="&apos;STANDARD&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYPFKEY" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_OO_DYNPRO" CMPNAME="TITLE" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="7 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
  <interfaceMethod CLSNAME="YCL_OO_DYNPRO" CPDNAME="YIF_GUI_FUNCTION~ACTIVATE">
   <source>METHOD yif_gui_function~activate.
 
-  READ TABLE gt_fcode
+  READ TABLE fcode
         WITH KEY table_line = i_ucomm
         BINARY SEARCH
         TRANSPORTING NO FIELDS.
 
   IF sy-subrc EQ 0.
-    DELETE gt_fcode INDEX sy-tabix.
-    IF gv_container EQ &apos;C&apos;.
-      SET PF-STATUS gv_pfkey OF PROGRAM gv_cprog EXCLUDING gt_fcode.
+    DELETE fcode INDEX sy-tabix.
+    IF active EQ me.
+      SET PF-STATUS pfkey OF PROGRAM cprog EXCLUDING fcode.
     ENDIF.
   ENDIF.
 
@@ -46,15 +39,15 @@ ENDMETHOD.</source>
  <interfaceMethod CLSNAME="YCL_OO_DYNPRO" CPDNAME="YIF_GUI_FUNCTION~DEACTIVATE">
   <source>METHOD yif_gui_function~deactivate.
 
-  READ TABLE gt_fcode
+  READ TABLE fcode
         WITH KEY table_line = i_ucomm
         BINARY SEARCH
         TRANSPORTING NO FIELDS.
 
   IF sy-subrc NE 0.
-    INSERT i_ucomm INTO gt_fcode INDEX sy-tabix.
-    IF gv_container EQ &apos;C&apos;.
-      SET PF-STATUS gv_pfkey OF PROGRAM gv_cprog EXCLUDING gt_fcode.
+    INSERT i_ucomm INTO fcode INDEX sy-tabix.
+    IF active EQ me.
+      SET PF-STATUS pfkey OF PROGRAM cprog EXCLUDING fcode.
     ENDIF.
   ENDIF.
 
@@ -63,14 +56,14 @@ ENDMETHOD.</source>
  <interfaceMethod CLSNAME="YCL_OO_DYNPRO" CPDNAME="YIF_GUI_FUNCTION~GET_EXCLUDED">
   <source>METHOD yif_gui_function~get_excluded.
 
-  result = gt_fcode.
+  result = fcode.
 
 ENDMETHOD.</source>
  </interfaceMethod>
  <interfaceMethod CLSNAME="YCL_OO_DYNPRO" CPDNAME="YIF_GUI_FUNCTION~IS_ACTIVE">
   <source>METHOD yif_gui_function~is_active.
 
-  READ TABLE gt_fcode
+  READ TABLE fcode
         WITH KEY table_line = i_fcode
         BINARY SEARCH
         TRANSPORTING NO FIELDS.
@@ -83,28 +76,28 @@ ENDMETHOD.</source>
  <interfaceMethod CLSNAME="YCL_OO_DYNPRO" CPDNAME="YIF_GUI_STATUS~GET_CPROG">
   <source>METHOD yif_gui_status~get_cprog.
 
-  result = gv_cprog.
+  result = cprog.
 
 ENDMETHOD.</source>
  </interfaceMethod>
  <interfaceMethod CLSNAME="YCL_OO_DYNPRO" CPDNAME="YIF_GUI_STATUS~GET_PFKEY">
   <source>METHOD yif_gui_status~get_pfkey.
 
-  result = gv_pfkey.
+  result = pfkey.
 
 ENDMETHOD.</source>
  </interfaceMethod>
  <interfaceMethod CLSNAME="YCL_OO_DYNPRO" CPDNAME="YIF_GUI_STATUS~GET_TITLE">
   <source>METHOD yif_gui_status~get_title.
 
-  result = gv_title.
+  result = title.
 
 ENDMETHOD.</source>
  </interfaceMethod>
  <interfaceMethod CLSNAME="YCL_OO_DYNPRO" CPDNAME="YIF_GUI_STATUS~IS_TOOLBAR">
   <source>METHOD yif_gui_status~is_toolbar.
 
-  IF gv_dynnr EQ &apos;9998&apos;.
+  IF dynnr EQ &apos;9998&apos;.
     result = abap_true.
   ENDIF.
 
@@ -113,36 +106,35 @@ ENDMETHOD.</source>
  <interfaceMethod CLSNAME="YCL_OO_DYNPRO" CPDNAME="YIF_GUI_STATUS~SET_STATUS">
   <source>METHOD yif_gui_status~set_status.
 
-  gv_pfkey = i_pfkey.
-  gv_cprog = i_cprog.
+  pfkey = i_pfkey.
+  cprog = i_cprog.
 
 ENDMETHOD.</source>
  </interfaceMethod>
  <interfaceMethod CLSNAME="YCL_OO_DYNPRO" CPDNAME="YIF_GUI_STATUS~SET_TITLE">
   <source>METHOD yif_gui_status~set_title.
 
-  gv_title = i_title.
+  title = i_title.
 
 ENDMETHOD.</source>
  </interfaceMethod>
  <interfaceMethod CLSNAME="YCL_OO_DYNPRO" CPDNAME="YIF_GUI_STATUS~SET_TOOLBAR">
   <source>METHOD yif_gui_status~set_toolbar.
 
-  IF i_toolbar EQ is_toolbar( ).
-    RETURN.
-  ENDIF.
+  IF i_toolbar NE yif_gui_status~is_toolbar( ).
+    IF i_toolbar EQ abap_true.
+      dynnr = &apos;9998&apos;.
+    ELSE.
+      dynnr = &apos;9999&apos;.
+    ENDIF.
 
-  IF i_toolbar EQ abap_true.
-    gv_dynnr = &apos;9998&apos;.
-
-  ELSE.
-    gv_dynnr = &apos;9999&apos;.
-  ENDIF.
-
-  IF gv_container EQ &apos;C&apos;.
-    CALL METHOD me-&gt;link
-      EXCEPTIONS
-        OTHERS = 0.
+    IF active EQ me.
+      CALL METHOD container-&gt;link
+        EXPORTING
+          dynnr  = dynnr
+        EXCEPTIONS
+          OTHERS = 0.
+    ENDIF.
   ENDIF.
 
 ENDMETHOD.</source>
@@ -150,47 +142,51 @@ ENDMETHOD.</source>
  <interfaceMethod CLSNAME="YCL_OO_DYNPRO" CPDNAME="YIF_OO_DYNPRO~CALL_DYNPRO">
   <source>METHOD yif_oo_dynpro~call_dynpro.
 
-  DATA: lo_current TYPE REF TO ycl_oo_dynpro
+  DATA: lo_active TYPE REF TO ycl_oo_dynpro
       .
 
 
-  IF parent IS BOUND.
-    lo_current = so_current.
-    IF lo_current IS BOUND.
-      lo_current-&gt;gv_container = &apos;A&apos;.
-      CALL METHOD lo_current-&gt;link
+  IF container-&gt;parent IS BOUND.
+    lo_active = active.
+    IF lo_active IS BOUND.
+      CALL METHOD lo_active-&gt;container-&gt;link
+        EXPORTING
+          container = &apos;A&apos;
         EXCEPTIONS
-          OTHERS = 0.
+          OTHERS    = 0.
     ENDIF.
 
-    gv_container = &apos;C&apos;.
-    CALL METHOD link
+    CALL METHOD container-&gt;link
+      EXPORTING
+        container = &apos;C&apos;
       EXCEPTIONS
-        OTHERS = 0.
+        OTHERS    = 0.
 
-    so_current = me.
+    active = me.
     CALL FUNCTION &apos;Y_OO_DYNPRO_CALL&apos;.
-    so_current = lo_current.
+    active = lo_active.
 
-    gv_container = &apos;A&apos;.
-    CALL METHOD link
+    CALL METHOD container-&gt;link
+      EXPORTING
+        container = &apos;A&apos;
       EXCEPTIONS
-        OTHERS = 0.
+        OTHERS    = 0.
 
-    IF lo_current IS BOUND.
-      lo_current-&gt;gv_container = &apos;C&apos;.
-      CALL METHOD lo_current-&gt;link
+    IF lo_active IS BOUND.
+      CALL METHOD lo_active-&gt;container-&gt;link
+        EXPORTING
+          container = &apos;C&apos;
         EXCEPTIONS
-          OTHERS = 0.
+          OTHERS    = 0.
     ENDIF.
   ENDIF.
 
 ENDMETHOD.</source>
  </interfaceMethod>
- <interfaceMethod CLSNAME="YCL_OO_DYNPRO" CPDNAME="YIF_OO_DYNPRO~GET_CHILDREN">
-  <source>METHOD yif_oo_dynpro~get_children.
+ <interfaceMethod CLSNAME="YCL_OO_DYNPRO" CPDNAME="YIF_OO_DYNPRO~GET_CHILD">
+  <source>METHOD yif_oo_dynpro~get_child.
 
-  READ TABLE children
+  READ TABLE container-&gt;children
         INTO result
         INDEX i_index.
 
@@ -199,7 +195,7 @@ ENDMETHOD.</source>
  <interfaceMethod CLSNAME="YCL_OO_DYNPRO" CPDNAME="YIF_OO_DYNPRO~GET_CONTAINER">
   <source>METHOD yif_oo_dynpro~get_container.
 
-  result = me.
+  result = container.
 
 ENDMETHOD.</source>
  </interfaceMethod>
@@ -208,47 +204,47 @@ ENDMETHOD.</source>
   <exception CLSNAME="YCL_OO_DYNPRO" CMPNAME="CONSTRUCTOR" SCONAME="CX_SY_CREATE_OBJECT_ERROR" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei Objekterzeugung" MTDTYPE="2" EDITORDER="1 "/>
   <source>METHOD constructor.
 
-  CALL METHOD super-&gt;constructor
+  CREATE OBJECT container
     EXPORTING
-      container_name          = gv_container
-      repid                   = co_repid
-      dynnr                   = gv_dynnr
+      container_name          = &apos;A&apos;
+      repid                   = cprog
+      dynnr                   = dynnr
       no_autodef_progid_dynnr = abap_true
     EXCEPTIONS
-      OTHERS                  = 1.
+      others                  = 1.
   IF sy-subrc NE 0.
     RAISE EXCEPTION TYPE cx_sy_create_object_error
       EXPORTING
-        classname = &apos;YCL_OO_DYNPRO&apos;.
+        classname = &apos;CL_GUI_CUSTOM_CONTAINER&apos;.
   ENDIF.
 
   IF i_title IS NOT INITIAL.
-    gv_title = i_title.
+    title = i_title.
 
   ELSE.
     SELECT SINGLE text
           FROM trdirt
-          INTO gv_title
+          INTO title
           WHERE name  EQ sy-cprog
             AND sprsl EQ sy-langu.
   ENDIF.
 
-  INSERT yit_gui_function=&gt;first_page     INTO TABLE gt_fcode.
-  INSERT yit_gui_function=&gt;last_page      INTO TABLE gt_fcode.
-  INSERT yit_gui_function=&gt;next_page      INTO TABLE gt_fcode.
-  INSERT yit_gui_function=&gt;previous_page  INTO TABLE gt_fcode.
-  INSERT yit_gui_function=&gt;print          INTO TABLE gt_fcode.
-  INSERT yit_gui_function=&gt;save           INTO TABLE gt_fcode.
-  INSERT yit_gui_function=&gt;search         INTO TABLE gt_fcode.
-  INSERT yit_gui_function=&gt;search_next    INTO TABLE gt_fcode.
+  INSERT yit_gui_function=&gt;first_page     INTO TABLE fcode.
+  INSERT yit_gui_function=&gt;last_page      INTO TABLE fcode.
+  INSERT yit_gui_function=&gt;next_page      INTO TABLE fcode.
+  INSERT yit_gui_function=&gt;previous_page  INTO TABLE fcode.
+  INSERT yit_gui_function=&gt;print          INTO TABLE fcode.
+  INSERT yit_gui_function=&gt;save           INTO TABLE fcode.
+  INSERT yit_gui_function=&gt;search         INTO TABLE fcode.
+  INSERT yit_gui_function=&gt;search_next    INTO TABLE fcode.
 
 ENDMETHOD.</source>
  </method>
- <method CLSNAME="YCL_OO_DYNPRO" CMPNAME="GET_CURRENT" VERSION="1" LANGU="D" DESCRIPT="Intern only" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="YCL_OO_DYNPRO" CMPNAME="GET_CURRENT" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Dynpro with Custom Control Container" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YCL_OO_DYNPRO"/>
-  <source>METHOD get_current.
+ <method CLSNAME="YCL_OO_DYNPRO" CMPNAME="GET_ACTIVE" VERSION="1" LANGU="D" DESCRIPT="Intern only" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_OO_DYNPRO" CMPNAME="GET_ACTIVE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Dynpro with Custom Control Container" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YCL_OO_DYNPRO"/>
+  <source>METHOD get_active.
 
-  result = so_current.
+  result = active.
 
 ENDMETHOD.</source>
  </method>
@@ -256,33 +252,7 @@ ENDMETHOD.</source>
   <parameter CLSNAME="YCL_OO_DYNPRO" CMPNAME="GET_DYNNR" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Aktuelle Dynpro-Nummer" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SYDYNNR"/>
   <source>METHOD get_dynnr.
 
-  result = gv_dynnr.
-
-ENDMETHOD.</source>
- </method>
- <method CLSNAME="CL_GUI_CUSTOM_CONTAINER" CMPNAME="LINK" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <source>METHOD link.
-
-  CALL METHOD super-&gt;link
-    EXPORTING
-      repid                       = co_repid
-      dynnr                       = gv_dynnr
-      container                   = gv_container
-    EXCEPTIONS
-      cntl_error                  = 1
-      cntl_system_error           = 2
-      lifetime_dynpro_dynpro_link = 3.
-
-  CASE sy-subrc.
-    WHEN 1.
-      RAISE cntl_error.
-
-    WHEN 2.
-      RAISE cntl_system_error.
-
-    WHEN 3.
-      RAISE lifetime_dynpro_dynpro_link.
-  ENDCASE.
+  result = dynnr.
 
 ENDMETHOD.</source>
  </method>
@@ -290,13 +260,12 @@ ENDMETHOD.</source>
   <parameter CLSNAME="YCL_OO_DYNPRO" CMPNAME="RAISE_FUNCTION_CODE" SCONAME="I_UCOMM" VERSION="1" LANGU="D" DESCRIPT="Funktionscode, der PAI ausgelöst hat" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SY-UCOMM"/>
   <source>METHOD raise_function_code.
 
-  IF so_current EQ me.
-    RAISE EVENT function_code
+  IF active EQ me.
+    RAISE EVENT yif_gui_function~function_code
       EXPORTING
-        i_ucomm = i_ucomm.
+        ucomm = i_ucomm.
   ENDIF.
 
 ENDMETHOD.</source>
  </method>
- <aliasMethod CLSNAME="YCL_OO_DYNPRO" CMPNAME="IS_TOOLBAR" VERSION="1" EXPOSURE="0" CMPTYPE="0" REFCLSNAME="YIF_GUI_STATUS" REFCMPNAME="IS_TOOLBAR"/>
 </CLAS>
