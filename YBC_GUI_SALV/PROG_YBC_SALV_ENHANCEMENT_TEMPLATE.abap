@@ -42,18 +42,16 @@ CLASS lcl_report DEFINITION FINAL.
       _on_before_data_change
         FOR EVENT before_data_change OF yif_salv_events_table
         IMPORTING
-          i_changes,
+          changes,
       _on_after_data_change
         FOR EVENT after_data_change OF yif_salv_events_table
         IMPORTING
           sender
-          i_changes,
+          changes,
       _toggle
         IMPORTING
           i_table TYPE REF TO cl_salv_table,
-      _save
-        IMPORTING
-          i_table TYPE REF TO cl_salv_table.
+      _save.
 
 ENDCLASS.                    "lcl_report DEFINITION
 *----------------------------------------------------------------------*
@@ -150,8 +148,7 @@ CLASS lcl_report IMPLEMENTATION.
         _toggle( lo_table ).
 
       WHEN cl_gui_alv_grid=>mc_fc_data_save.
-        lo_table = cl_salv_table=>get_table_by_object( sender ).
-        _save( lo_table ).
+        _save( ).
     ENDCASE.
 
   ENDMETHOD.                    "_on_ADDED_FUNCTION
@@ -169,12 +166,12 @@ CLASS lcl_report IMPLEMENTATION.
 
   METHOD _on_before_data_change.
 
-*    DATA: lt_change TYPE zbc_salv_t_change
-*        , ls_change TYPE REF TO zbc_salv_s_change
+*    DATA: lt_change TYPE ybc_salv_t_change
+*        , ls_change TYPE REF TO ybc_salv_s_change
 *        .
 *
 *
-*    lt_change = i_changes->get_changes( ).
+*    lt_change = changes->get_changes( ).
 *    LOOP AT lt_change REFERENCE INTO ls_change.
 *      " do something
 *    ENDLOOP.
@@ -188,7 +185,7 @@ CLASS lcl_report IMPLEMENTATION.
 *
 *
 *    " do something and refresh if needed
-*    lo_table = zcf_salv_table=>get_table_for_object( sender ).
+*    lo_table = cl_salv_table=>get_table_by_object( sender ).
 *    lo_table->refresh( ).
 
   ENDMETHOD.                    "_on_after_data_change
@@ -209,13 +206,7 @@ CLASS lcl_report IMPLEMENTATION.
 
   METHOD _save.
 
-*    DATA: lo_change_settings TYPE REF TO zcl_salv_change_settings
-*        .
-*
-*
-*    lo_change_settings = i_table->get_change_settings( ).
-*    lo_change_settings->check_changed_data( ).
-*    " do something
+    " do something
 
   ENDMETHOD.                    "_save
 
