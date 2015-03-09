@@ -41,7 +41,7 @@ METHOD raise_after_data_change .
     IF r_changes->has_changes( ) EQ abap_true.
       RAISE EVENT yif_salv_events_table~after_data_change
         EXPORTING
-          i_changes = r_changes.
+          changes = r_changes.
     ENDIF.
   ENDIF.
 
@@ -71,7 +71,7 @@ METHOD raise_before_data_change .
         IF r_changes->has_changes( ) EQ abap_true.
           RAISE EVENT yif_salv_events_table~before_data_change
             EXPORTING
-              i_changes = r_changes.
+              changes = r_changes.
         ENDIF.
 
       CATCH cx_sy_ref_is_initial.                       "#EC NO_HANDLER
@@ -89,6 +89,6 @@ METHOD raise_grid_created .
 
   RAISE EVENT yif_salv_events_table~grid_created
     EXPORTING
-      i_grid = i_grid.
+      grid = i_grid.
 
 ENDMETHOD.

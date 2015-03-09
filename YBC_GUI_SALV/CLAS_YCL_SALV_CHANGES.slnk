@@ -15,7 +15,7 @@
  <attribute CLSNAME="YCL_SALV_CHANGES" CMPNAME="GO_TABLE" VERSION="1" LANGU="D" DESCRIPT="Basisklasse für einfache Tabellen" EXPOSURE="0" STATE="1" EDITORDER="1 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="CL_SALV_TABLE" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
  <attribute CLSNAME="YCL_SALV_CHANGES" CMPNAME="GT_CHANGES" VERSION="1" LANGU="D" DESCRIPT="ALV: Änderungen" EXPOSURE="0" STATE="1" EDITORDER="2 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="YBC_SALV_T_CHANGE" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
  <attribute CLSNAME="YCL_SALV_CHANGES" CMPNAME="GV_AFTER" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" EXPOSURE="0" STATE="1" EDITORDER="3 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SAP_BOOL" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <attribute CLSNAME="YCL_SALV_CHANGES" CMPNAME="GV_ONF4" VERSION="1" LANGU="D" DESCRIPT="F4 Typ" EXPOSURE="0" STATE="1" EDITORDER="4 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="YBC_SALV_DE_F4" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_SALV_CHANGES" CMPNAME="GV_ONF4" VERSION="1" LANGU="D" DESCRIPT="F4 Typ" EXPOSURE="0" STATE="1" EDITORDER="4 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ABAP_CHAR1" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
  <method CLSNAME="YCL_SALV_CHANGES" CMPNAME="CONSTRUCTOR" VERSION="1" LANGU="D" DESCRIPT="CONSTRUCTOR" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="2" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
   <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="CONSTRUCTOR" SCONAME="I_EVENTS" VERSION="1" LANGU="D" DESCRIPT="Ereignisse in einfachen, zweidimensionalen Tabellen" CMPTYPE="1" MTDTYPE="2" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_SALV_EVENTS_TABLE"/>
   <exception CLSNAME="YCL_SALV_CHANGES" CMPNAME="CONSTRUCTOR" SCONAME="CX_SY_REF_IS_INITIAL" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei ASSIGN" MTDTYPE="2" EDITORDER="1 "/>
@@ -66,7 +66,7 @@ ENDMETHOD.</source>
 ENDMETHOD.</source>
  </method>
  <method CLSNAME="YCL_SALV_CHANGES" CMPNAME="GET_ONF4" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="GET_ONF4" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="F4 Typ" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="YBC_SALV_DE_F4"/>
+  <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="GET_ONF4" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="ABAP_CHAR1"/>
   <source>METHOD get_onf4.
 
   result = gv_onf4.
@@ -285,7 +285,7 @@ ENDMETHOD.</source>
 
   _on_data_change( ).
   gv_after = abap_true.
-  gv_onf4 = yif_salv_c_changes=&gt;co_f4_none.
+  gv_onf4 = yit_salv_onf4=&gt;none.
 
 ENDMETHOD.</source>
  </method>
@@ -308,18 +308,18 @@ ENDMETHOD.</source>
 
 
   _on_data_change( ).
-  gv_onf4 = yif_salv_c_changes=&gt;co_f4_none.
+  gv_onf4 = yit_salv_onf4=&gt;none.
 
   IF i_onf4 IS NOT INITIAL.
-    gv_onf4 = yif_salv_c_changes=&gt;co_f4_normal.
+    gv_onf4 = yit_salv_onf4=&gt;normal.
   ENDIF.
 
   IF i_onf4_before EQ abap_true.
-    gv_onf4 = yif_salv_c_changes=&gt;co_f4_before.
+    gv_onf4 = yit_salv_onf4=&gt;before.
   ENDIF.
 
   IF i_onf4_after EQ abap_true.
-    gv_onf4 = yif_salv_c_changes=&gt;co_f4_after.
+    gv_onf4 = yit_salv_onf4=&gt;after.
   ENDIF.
 
   ASSIGN i_protocol-&gt;mp_mod_rows-&gt;* TO &lt;lt_data&gt;.

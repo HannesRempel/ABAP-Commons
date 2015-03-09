@@ -105,23 +105,23 @@ CLASS lcl_report DEFINITION FINAL.
           cx_salv_access_error
           cx_salv_error,
       _on_added_function
-        FOR EVENT added_function OF if_salv_events_functions
+            FOR EVENT added_function OF if_salv_events_functions
         IMPORTING
-          sender
-          e_salv_function,
+            sender
+            e_salv_function,
       _on_double_click
-        FOR EVENT double_click OF if_salv_events_actions_table
+            FOR EVENT double_click OF if_salv_events_actions_table
         IMPORTING
-          sender,
+            sender,
       _on_before_data_change
-        FOR EVENT before_data_change OF yif_salv_events_table
+            FOR EVENT before_data_change OF yif_salv_events_table
         IMPORTING
-          i_changes,
+            changes,
       _on_after_data_change
-        FOR EVENT after_data_change OF yif_salv_events_table
+            FOR EVENT after_data_change OF yif_salv_events_table
         IMPORTING
-          sender
-          i_changes,
+            sender
+            changes,
       _toggle
         IMPORTING
           i_table TYPE REF TO cl_salv_table.
@@ -187,13 +187,20 @@ CLASS lcl_report IMPLEMENTATION.
 
 
     IF pa_grid EQ abap_true.
-      CALL METHOD cl_salv_table=&gt;factory2
-        IMPORTING
-          r_salv_table = lo_table
-        CHANGING
-          t_table      = gt_data.
+      TRY.
+          CALL METHOD cl_salv_table=&gt;(&apos;FACTORY2&apos;)
+            IMPORTING
+              r_salv_table = lo_table
+            CHANGING
+              t_table      = gt_data.
 
-    ELSE.
+        CATCH cx_sy_dyn_call_error INTO lx_root.
+          &quot; message in case of inactive enhancement
+          MESSAGE lx_root TYPE &apos;I&apos; DISPLAY LIKE &apos;E&apos;.
+      ENDTRY.
+    ENDIF.
+
+    IF lo_table IS NOT BOUND.
       CALL METHOD cl_salv_table=&gt;factory
         EXPORTING
           list_display = pa_list
@@ -321,7 +328,7 @@ CLASS lcl_report IMPLEMENTATION.
         .
 
 
-    lt_change = i_changes-&gt;get_changes( ).
+    lt_change = changes-&gt;get_changes( ).
     LOOP AT lt_change REFERENCE INTO ls_change.
       CASE ls_change-&gt;columnname.
         WHEN &apos;CARRID&apos;.
@@ -331,7 +338,7 @@ CLASS lcl_report IMPLEMENTATION.
                 INTO lv_value
                 WHERE carrid EQ lv_value.
           IF sy-subrc EQ 0.
-            i_changes-&gt;set_value(
+            changes-&gt;set_value(
                 i_row_id = ls_change-&gt;row_id
                 i_column = &apos;CARRNAME&apos;
                 i_value  = lv_value
@@ -370,7 +377,7 @@ CLASS lcl_report IMPLEMENTATION.
         .
 
 
-    lt_changes = i_changes-&gt;get_changes( ).
+    lt_changes = changes-&gt;get_changes( ).
     LOOP AT lt_changes REFERENCE INTO ls_change.
       READ TABLE gt_data
             INDEX ls_change-&gt;row_id

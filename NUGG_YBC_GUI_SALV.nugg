@@ -16,7 +16,7 @@
   <attribute CLSNAME="YCL_SALV_CHANGES" CMPNAME="GO_TABLE" VERSION="1" LANGU="D" DESCRIPT="Basisklasse für einfache Tabellen" EXPOSURE="0" STATE="1" EDITORDER="1 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="CL_SALV_TABLE" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
   <attribute CLSNAME="YCL_SALV_CHANGES" CMPNAME="GT_CHANGES" VERSION="1" LANGU="D" DESCRIPT="ALV: Änderungen" EXPOSURE="0" STATE="1" EDITORDER="2 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="YBC_SALV_T_CHANGE" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
   <attribute CLSNAME="YCL_SALV_CHANGES" CMPNAME="GV_AFTER" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" EXPOSURE="0" STATE="1" EDITORDER="3 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SAP_BOOL" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
-  <attribute CLSNAME="YCL_SALV_CHANGES" CMPNAME="GV_ONF4" VERSION="1" LANGU="D" DESCRIPT="F4 Typ" EXPOSURE="0" STATE="1" EDITORDER="4 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="YBC_SALV_DE_F4" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="YCL_SALV_CHANGES" CMPNAME="GV_ONF4" VERSION="1" LANGU="D" DESCRIPT="F4 Typ" EXPOSURE="0" STATE="1" EDITORDER="4 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ABAP_CHAR1" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
   <method CLSNAME="YCL_SALV_CHANGES" CMPNAME="CONSTRUCTOR" VERSION="1" LANGU="D" DESCRIPT="CONSTRUCTOR" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="2" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
    <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="CONSTRUCTOR" SCONAME="I_EVENTS" VERSION="1" LANGU="D" DESCRIPT="Ereignisse in einfachen, zweidimensionalen Tabellen" CMPTYPE="1" MTDTYPE="2" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_SALV_EVENTS_TABLE"/>
    <exception CLSNAME="YCL_SALV_CHANGES" CMPNAME="CONSTRUCTOR" SCONAME="CX_SY_REF_IS_INITIAL" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei ASSIGN" MTDTYPE="2" EDITORDER="1 "/>
@@ -67,7 +67,7 @@ ENDMETHOD.</source>
 ENDMETHOD.</source>
   </method>
   <method CLSNAME="YCL_SALV_CHANGES" CMPNAME="GET_ONF4" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-   <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="GET_ONF4" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="F4 Typ" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="YBC_SALV_DE_F4"/>
+   <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="GET_ONF4" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="ABAP_CHAR1"/>
    <source>METHOD get_onf4.
 
   result = gv_onf4.
@@ -286,7 +286,7 @@ ENDMETHOD.</source>
 
   _on_data_change( ).
   gv_after = abap_true.
-  gv_onf4 = yif_salv_c_changes=&gt;co_f4_none.
+  gv_onf4 = yit_salv_onf4=&gt;none.
 
 ENDMETHOD.</source>
   </method>
@@ -309,18 +309,18 @@ ENDMETHOD.</source>
 
 
   _on_data_change( ).
-  gv_onf4 = yif_salv_c_changes=&gt;co_f4_none.
+  gv_onf4 = yit_salv_onf4=&gt;none.
 
   IF i_onf4 IS NOT INITIAL.
-    gv_onf4 = yif_salv_c_changes=&gt;co_f4_normal.
+    gv_onf4 = yit_salv_onf4=&gt;normal.
   ENDIF.
 
   IF i_onf4_before EQ abap_true.
-    gv_onf4 = yif_salv_c_changes=&gt;co_f4_before.
+    gv_onf4 = yit_salv_onf4=&gt;before.
   ENDIF.
 
   IF i_onf4_after EQ abap_true.
-    gv_onf4 = yif_salv_c_changes=&gt;co_f4_after.
+    gv_onf4 = yit_salv_onf4=&gt;after.
   ENDIF.
 
   ASSIGN i_protocol-&gt;mp_mod_rows-&gt;* TO &lt;lt_data&gt;.
@@ -840,32 +840,22 @@ ENDMETHOD.</source>
 ENDMETHOD.</source>
   </method>
  </CLAS>
- <DTEL ROLLNAME="YBC_SALV_DE_F4" MultiLanguageSupport="X">
-  <DDLANGUAGE LANGU="D">
-   <DD04V ROLLNAME="YBC_SALV_DE_F4" DDLANGUAGE="D" ROUTPUTLEN="000000" HEADLEN="55" SCRLEN1="10" SCRLEN2="20" SCRLEN3="40" DDTEXT="F4 Typ" REPTEXT="F4 Typ" SCRTEXT_S="F4 Typ" SCRTEXT_M="F4 Typ" SCRTEXT_L="F4 Typ" AUTHCLASS="00" DTELMASTER="D" DATATYPE="CHAR" LENG="000001" DECIMALS="000000" OUTPUTLEN="000001"/>
-  </DDLANGUAGE>
-  <DDLANGUAGE LANGU="E">
-   <DD04V ROLLNAME="YBC_SALV_DE_F4" DDLANGUAGE="E" ROUTPUTLEN="000000" HEADLEN="55" SCRLEN1="10" SCRLEN2="20" SCRLEN3="40" DDTEXT="F4 Type" REPTEXT="F4 Type" SCRTEXT_S="F4 Type" SCRTEXT_M="F4 Type" SCRTEXT_L="F4 Type" AUTHCLASS="00" DTELMASTER="D" DATATYPE="CHAR" LENG="000001" DECIMALS="000000" OUTPUTLEN="000001"/>
-  </DDLANGUAGE>
-  <DDLANGUAGE LANGU="T">
-   <DD04V ROLLNAME="YBC_SALV_DE_F4" DDLANGUAGE="T" ROUTPUTLEN="000000" HEADLEN="55" SCRLEN1="10" SCRLEN2="20" SCRLEN3="40" DDTEXT="F4 Type" REPTEXT="F4 Type" SCRTEXT_S="F4 Type" SCRTEXT_M="F4 Type" SCRTEXT_L="F4 Type" AUTHCLASS="00" DTELMASTER="D" DATATYPE="CHAR" LENG="000001" DECIMALS="000000" OUTPUTLEN="000001"/>
-  </DDLANGUAGE>
- </DTEL>
- <INTF CLSNAME="YIF_SALV_C_CHANGES" VERSION="1" LANGU="D" DESCRIPT="ALV: Konstanten für Änderungen" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" UNICODE="X">
-  <attribute CLSNAME="YIF_SALV_C_CHANGES" CMPNAME="CO_F4_AFTER" VERSION="1" LANGU="D" DESCRIPT="Nach dem F4-Aufruf" EXPOSURE="2" STATE="1" EDITORDER="1 " ATTDECLTYP="2" ATTVALUE="&apos;A&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="YBC_SALV_DE_F4" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
-  <attribute CLSNAME="YIF_SALV_C_CHANGES" CMPNAME="CO_F4_BEFORE" VERSION="1" LANGU="D" DESCRIPT="Vor dem F4-Aufruf" EXPOSURE="2" STATE="1" EDITORDER="2 " ATTDECLTYP="2" ATTVALUE="&apos;B&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="YBC_SALV_DE_F4" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
-  <attribute CLSNAME="YIF_SALV_C_CHANGES" CMPNAME="CO_F4_NONE" VERSION="1" LANGU="D" DESCRIPT="Kein F4-Aufruf" EXPOSURE="2" STATE="1" EDITORDER="3 " ATTDECLTYP="2" ATTVALUE="&apos; &apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="YBC_SALV_DE_F4" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
-  <attribute CLSNAME="YIF_SALV_C_CHANGES" CMPNAME="CO_F4_NORMAL" VERSION="1" LANGU="D" DESCRIPT="Normaler F4-Aufruf" EXPOSURE="2" STATE="1" EDITORDER="4 " ATTDECLTYP="2" ATTVALUE="&apos;X&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="YBC_SALV_DE_F4" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <INTF CLSNAME="YIT_SALV_ONF4" VERSION="1" LANGU="D" DESCRIPT="ALV: Konstanten für Änderungen" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" UNICODE="X">
+  <typeUsage CLSNAME="YIT_SALV_ONF4" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+  <attribute CLSNAME="YIT_SALV_ONF4" CMPNAME="AFTER" VERSION="1" LANGU="D" DESCRIPT="Nach dem F4-Aufruf" EXPOSURE="2" STATE="1" EDITORDER="1 " ATTDECLTYP="2" ATTVALUE="&apos;A&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ABAP_CHAR1" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="YIT_SALV_ONF4" CMPNAME="BEFORE" VERSION="1" LANGU="D" DESCRIPT="Vor dem F4-Aufruf" EXPOSURE="2" STATE="1" EDITORDER="2 " ATTDECLTYP="2" ATTVALUE="&apos;B&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ABAP_CHAR1" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="YIT_SALV_ONF4" CMPNAME="NONE" VERSION="1" LANGU="D" DESCRIPT="Kein F4-Aufruf" EXPOSURE="2" STATE="1" EDITORDER="3 " ATTDECLTYP="2" ATTVALUE="&apos; &apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ABAP_CHAR1" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="YIT_SALV_ONF4" CMPNAME="NORMAL" VERSION="1" LANGU="D" DESCRIPT="Normaler F4-Aufruf" EXPOSURE="2" STATE="1" EDITORDER="4 " ATTDECLTYP="2" ATTVALUE="&apos;X&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ABAP_CHAR1" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
  </INTF>
  <INTF CLSNAME="YIF_SALV_EVENTS_TABLE" VERSION="1" LANGU="D" DESCRIPT="ALV: Events für Tabellen" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" UNICODE="X">
   <events CLSNAME="YIF_SALV_EVENTS_TABLE" CMPNAME="AFTER_DATA_CHANGE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " EVTDECLTYP="0" BCEVTCAT="00">
-   <parameter CLSNAME="YIF_SALV_EVENTS_TABLE" CMPNAME="AFTER_DATA_CHANGE" SCONAME="I_CHANGES" VERSION="1" LANGU="D" DESCRIPT="ALV: Änderungen" CMPTYPE="2" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="1" PARPASSTYP="0" TYPTYPE="3" TYPE="YCL_SALV_CHANGES"/>
+   <parameter CLSNAME="YIF_SALV_EVENTS_TABLE" CMPNAME="AFTER_DATA_CHANGE" SCONAME="CHANGES" VERSION="1" LANGU="D" DESCRIPT="ALV: Änderungen" CMPTYPE="2" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="1" PARPASSTYP="0" TYPTYPE="3" TYPE="YCL_SALV_CHANGES"/>
   </events>
   <events CLSNAME="YIF_SALV_EVENTS_TABLE" CMPNAME="BEFORE_DATA_CHANGE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " EVTDECLTYP="0" BCEVTCAT="00">
-   <parameter CLSNAME="YIF_SALV_EVENTS_TABLE" CMPNAME="BEFORE_DATA_CHANGE" SCONAME="I_CHANGES" VERSION="1" LANGU="D" DESCRIPT="ALV: Änderungen" CMPTYPE="2" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="1" PARPASSTYP="0" TYPTYPE="3" TYPE="YCL_SALV_CHANGES"/>
+   <parameter CLSNAME="YIF_SALV_EVENTS_TABLE" CMPNAME="BEFORE_DATA_CHANGE" SCONAME="CHANGES" VERSION="1" LANGU="D" DESCRIPT="ALV: Änderungen" CMPTYPE="2" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="1" PARPASSTYP="0" TYPTYPE="3" TYPE="YCL_SALV_CHANGES"/>
   </events>
   <events CLSNAME="YIF_SALV_EVENTS_TABLE" CMPNAME="GRID_CREATED" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " EVTDECLTYP="0" BCEVTCAT="00">
-   <parameter CLSNAME="YIF_SALV_EVENTS_TABLE" CMPNAME="GRID_CREATED" SCONAME="I_GRID" VERSION="1" LANGU="D" DESCRIPT="ALV List Viewer" CMPTYPE="2" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="1" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_GUI_ALV_GRID"/>
+   <parameter CLSNAME="YIF_SALV_EVENTS_TABLE" CMPNAME="GRID_CREATED" SCONAME="GRID" VERSION="1" LANGU="D" DESCRIPT="ALV List Viewer" CMPTYPE="2" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="1" PARPASSTYP="0" TYPTYPE="3" TYPE="CL_GUI_ALV_GRID"/>
   </events>
  </INTF>
  <PROG NAME="YBC_SALV_ENHANCEMENT_DEMO" VARCL="X" SUBC="1" RSTAT="T" RMAND="200" RLOAD="D" FIXPT="X" UCCHECK="X">
@@ -974,23 +964,23 @@ CLASS lcl_report DEFINITION FINAL.
           cx_salv_access_error
           cx_salv_error,
       _on_added_function
-        FOR EVENT added_function OF if_salv_events_functions
+            FOR EVENT added_function OF if_salv_events_functions
         IMPORTING
-          sender
-          e_salv_function,
+            sender
+            e_salv_function,
       _on_double_click
-        FOR EVENT double_click OF if_salv_events_actions_table
+            FOR EVENT double_click OF if_salv_events_actions_table
         IMPORTING
-          sender,
+            sender,
       _on_before_data_change
-        FOR EVENT before_data_change OF yif_salv_events_table
+            FOR EVENT before_data_change OF yif_salv_events_table
         IMPORTING
-          i_changes,
+            changes,
       _on_after_data_change
-        FOR EVENT after_data_change OF yif_salv_events_table
+            FOR EVENT after_data_change OF yif_salv_events_table
         IMPORTING
-          sender
-          i_changes,
+            sender
+            changes,
       _toggle
         IMPORTING
           i_table TYPE REF TO cl_salv_table.
@@ -1056,13 +1046,20 @@ CLASS lcl_report IMPLEMENTATION.
 
 
     IF pa_grid EQ abap_true.
-      CALL METHOD cl_salv_table=&gt;factory2
-        IMPORTING
-          r_salv_table = lo_table
-        CHANGING
-          t_table      = gt_data.
+      TRY.
+          CALL METHOD cl_salv_table=&gt;(&apos;FACTORY2&apos;)
+            IMPORTING
+              r_salv_table = lo_table
+            CHANGING
+              t_table      = gt_data.
 
-    ELSE.
+        CATCH cx_sy_dyn_call_error INTO lx_root.
+          &quot; message in case of inactive enhancement
+          MESSAGE lx_root TYPE &apos;I&apos; DISPLAY LIKE &apos;E&apos;.
+      ENDTRY.
+    ENDIF.
+
+    IF lo_table IS NOT BOUND.
       CALL METHOD cl_salv_table=&gt;factory
         EXPORTING
           list_display = pa_list
@@ -1190,7 +1187,7 @@ CLASS lcl_report IMPLEMENTATION.
         .
 
 
-    lt_change = i_changes-&gt;get_changes( ).
+    lt_change = changes-&gt;get_changes( ).
     LOOP AT lt_change REFERENCE INTO ls_change.
       CASE ls_change-&gt;columnname.
         WHEN &apos;CARRID&apos;.
@@ -1200,7 +1197,7 @@ CLASS lcl_report IMPLEMENTATION.
                 INTO lv_value
                 WHERE carrid EQ lv_value.
           IF sy-subrc EQ 0.
-            i_changes-&gt;set_value(
+            changes-&gt;set_value(
                 i_row_id = ls_change-&gt;row_id
                 i_column = &apos;CARRNAME&apos;
                 i_value  = lv_value
@@ -1239,7 +1236,7 @@ CLASS lcl_report IMPLEMENTATION.
         .
 
 
-    lt_changes = i_changes-&gt;get_changes( ).
+    lt_changes = changes-&gt;get_changes( ).
     LOOP AT lt_changes REFERENCE INTO ls_change.
       READ TABLE gt_data
             INDEX ls_change-&gt;row_id
@@ -1406,18 +1403,16 @@ CLASS lcl_report DEFINITION FINAL.
       _on_before_data_change
         FOR EVENT before_data_change OF yif_salv_events_table
         IMPORTING
-          i_changes,
+          changes,
       _on_after_data_change
         FOR EVENT after_data_change OF yif_salv_events_table
         IMPORTING
           sender
-          i_changes,
+          changes,
       _toggle
         IMPORTING
           i_table TYPE REF TO cl_salv_table,
-      _save
-        IMPORTING
-          i_table TYPE REF TO cl_salv_table.
+      _save.
 
 ENDCLASS.                    &quot;lcl_report DEFINITION
 *----------------------------------------------------------------------*
@@ -1514,8 +1509,7 @@ CLASS lcl_report IMPLEMENTATION.
         _toggle( lo_table ).
 
       WHEN cl_gui_alv_grid=&gt;mc_fc_data_save.
-        lo_table = cl_salv_table=&gt;get_table_by_object( sender ).
-        _save( lo_table ).
+        _save( ).
     ENDCASE.
 
   ENDMETHOD.                    &quot;_on_ADDED_FUNCTION
@@ -1533,12 +1527,12 @@ CLASS lcl_report IMPLEMENTATION.
 
   METHOD _on_before_data_change.
 
-*    DATA: lt_change TYPE zbc_salv_t_change
-*        , ls_change TYPE REF TO zbc_salv_s_change
+*    DATA: lt_change TYPE ybc_salv_t_change
+*        , ls_change TYPE REF TO ybc_salv_s_change
 *        .
 *
 *
-*    lt_change = i_changes-&gt;get_changes( ).
+*    lt_change = changes-&gt;get_changes( ).
 *    LOOP AT lt_change REFERENCE INTO ls_change.
 *      &quot; do something
 *    ENDLOOP.
@@ -1552,7 +1546,7 @@ CLASS lcl_report IMPLEMENTATION.
 *
 *
 *    &quot; do something and refresh if needed
-*    lo_table = zcf_salv_table=&gt;get_table_for_object( sender ).
+*    lo_table = cl_salv_table=&gt;get_table_by_object( sender ).
 *    lo_table-&gt;refresh( ).
 
   ENDMETHOD.                    &quot;_on_after_data_change
@@ -1573,13 +1567,7 @@ CLASS lcl_report IMPLEMENTATION.
 
   METHOD _save.
 
-*    DATA: lo_change_settings TYPE REF TO zcl_salv_change_settings
-*        .
-*
-*
-*    lo_change_settings = i_table-&gt;get_change_settings( ).
-*    lo_change_settings-&gt;check_changed_data( ).
-*    &quot; do something
+    &quot; do something
 
   ENDMETHOD.                    &quot;_save
 
