@@ -28,7 +28,7 @@
       CONCATENATE result
                   lv_longtext
                   INTO result
-                  SEPARATED BY yit_abap_char=&gt;crlf.
+                  SEPARATED BY ycc_abap_char=&gt;crlf.
 
     ELSE.
       CONCATENATE result

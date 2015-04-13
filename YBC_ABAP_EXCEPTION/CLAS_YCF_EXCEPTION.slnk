@@ -8,63 +8,61 @@
 *&quot;* components in the private section</localTypes>
  <localMacros>*&quot;* use this source file for any macro definitions you need
 *&quot;* in the implementation part of the class</localMacros>
- <attribute CLSNAME="YCF_EXCEPTION" CMPNAME="MESSAGE" VERSION="1" LANGU="D" DESCRIPT="CHAR(200)" EXPOSURE="2" STATE="1" EDITORDER="1 " ATTDECLTYP="1" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYCHAR200" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <method CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_FUNCTION" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_FUNCTION" SCONAME="I_FUNCTION" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
-  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_FUNCTION" SCONAME="I_SUBRC" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="I" PARVALUE="SY-SUBRC"/>
-  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_FUNCTION" SCONAME="I_DESTINATION" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE" PAROPTIONL="X"/>
-  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_FUNCTION" SCONAME="I_MESSAGE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE" PARVALUE="MESSAGE"/>
-  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_FUNCTION" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für nicht-klassenbasierte Fehler" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YCX_EXCEPTION"/>
-  <source>METHOD get_instance_by_function.
+ <typeUsage CLSNAME="YCF_EXCEPTION" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" IMPLICIT="X"/>
+ <forwardDeclaration>ABAP</forwardDeclaration>
+ <attribute CLSNAME="YCF_EXCEPTION" CMPNAME="COMMUNICATION" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " ATTDECLTYP="2" ATTVALUE="1000" ATTEXPVIRT="0" TYPTYPE="1" TYPE="I" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCF_EXCEPTION" CMPNAME="LAST" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="5 " ATTDECLTYP="1" ATTRDONLY="X" ATTEXPVIRT="0" TYPTYPE="3" TYPE="YCX_EXCEPTION" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCF_EXCEPTION" CMPNAME="MESSAGE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " ATTDECLTYP="2" ATTVALUE="2000" ATTEXPVIRT="0" TYPTYPE="1" TYPE="I" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCF_EXCEPTION" CMPNAME="OTHERS" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " ATTDECLTYP="2" ATTVALUE="3000" ATTEXPVIRT="0" TYPTYPE="1" TYPE="I" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCF_EXCEPTION" CMPNAME="SYSTEM" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="4 " ATTDECLTYP="2" ATTVALUE="4000" ATTEXPVIRT="0" TYPTYPE="1" TYPE="I" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCF_EXCEPTION" CMPNAME="TEXT" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="6 " ATTDECLTYP="1" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SYCHAR200" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <method CLSNAME="YCF_EXCEPTION" CMPNAME="CREATE_BY_FUNCTION" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="CREATE_BY_FUNCTION" SCONAME="I_FUNCTION" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="CREATE_BY_FUNCTION" SCONAME="I_DESTINATION" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE" PAROPTIONL="X"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="CREATE_BY_FUNCTION" SCONAME="I_MESSAGE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ABAP_BOOL" PAROPTIONL="X"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="CREATE_BY_FUNCTION" SCONAME="I_SUBRC" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="I" PARVALUE="SY-SUBRC"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="CREATE_BY_FUNCTION" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YCX_EXCEPTION_FUNCTION"/>
+  <source>METHOD create_by_function.
 
-  DATA: lv_function TYPE string
-      , lv_name TYPE string
+  DATA: lv_subrc TYPE i
+      , lv_function TYPE string
       , lv_destination TYPE string
+      , lx_previous TYPE REF TO ycx_exception
+      , lv_name TYPE string
       , lv_message TYPE string
       .
 
 
-  IF i_subrc EQ yit_abap_subrc=&gt;message.
-    result = get_instance_by_message( ).
+  lv_subrc = i_subrc.
+  lv_function = i_function.
+  lv_destination = i_destination.
+  lx_previous = _create_previous(
+      i_subrc   = lv_subrc
+      i_message = i_message
+         ).
+  lv_name = ycl_exception_helper=&gt;get_name_by_function(
+      i_function = lv_function
+      i_subrc    = lv_subrc
+         ).
 
-  ELSE.
-    lv_function = i_function.
-    lv_name = ycl_exception_helper=&gt;get_name_by_function(
-        i_function = i_function
-        i_subrc    = i_subrc
-           ).
+  CREATE OBJECT result
+    EXPORTING
+      previous    = lx_previous
+      subrc       = lv_subrc
+      name        = lv_name
+      function    = lv_function
+      destination = lv_destination.
 
-    IF i_destination IS INITIAL.
-      CREATE OBJECT result
-        TYPE ycx_exception_function
-        EXPORTING
-          function = lv_function
-          name     = lv_name.
-
-    ELSE.
-      lv_destination = i_destination.
-      lv_message = i_message.
-
-      CREATE OBJECT result
-        TYPE ycx_exception_rfc
-        EXPORTING
-          function    = lv_function
-          name        = lv_name
-          destination = lv_destination
-          message     = lv_message.
-    ENDIF.
-
-    FREE message.
-  ENDIF.
+  FREE text.
+  last = result.
 
 ENDMETHOD.</source>
  </method>
- <method CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_MESSAGE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_MESSAGE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für nicht-klassenbasierte Fehler" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YCX_EXCEPTION"/>
-  <source>METHOD get_instance_by_message.
+ <method CLSNAME="YCF_EXCEPTION" CMPNAME="CREATE_BY_MESSAGE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="CREATE_BY_MESSAGE" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YCX_EXCEPTION_MESSAGE"/>
+  <source>METHOD create_by_message.
 
   CREATE OBJECT result
-    TYPE ycx_exception_message
     EXPORTING
       msgid = sy-msgid
       msgno = sy-msgno
@@ -73,49 +71,57 @@ ENDMETHOD.</source>
       msgv3 = sy-msgv3
       msgv4 = sy-msgv4.
 
-  FREE message.
+  FREE text.
+  last = result.
 
 ENDMETHOD.</source>
  </method>
- <method CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_METHOD" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_METHOD" SCONAME="I_CLASS" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
-  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_METHOD" SCONAME="I_METHOD" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
-  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_METHOD" SCONAME="I_SUBRC" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="I" PARVALUE="SY-SUBRC"/>
-  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_METHOD" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für nicht-klassenbasierte Fehler" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YCX_EXCEPTION"/>
-  <source>METHOD get_instance_by_method.
+ <method CLSNAME="YCF_EXCEPTION" CMPNAME="CREATE_BY_METHOD" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="CREATE_BY_METHOD" SCONAME="I_CLASS" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="CREATE_BY_METHOD" SCONAME="I_METHOD" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="CREATE_BY_METHOD" SCONAME="I_MESSAGE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ABAP_BOOL" PAROPTIONL="X"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="CREATE_BY_METHOD" SCONAME="I_SUBRC" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="I" PARVALUE="SY-SUBRC"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="CREATE_BY_METHOD" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YCX_EXCEPTION_METHOD"/>
+  <source>METHOD create_by_method.
 
-  DATA: lv_class TYPE string
+  DATA: lv_subrc TYPE i
+      , lv_class TYPE string
       , lv_method TYPE string
+      , lx_previous TYPE REF TO ycx_exception
       , lv_name TYPE string
       .
 
 
-  IF i_subrc EQ yit_abap_subrc=&gt;message.
-    result = get_instance_by_message( ).
+  lv_subrc = i_subrc.
+  lv_class = i_class.
+  lv_method = i_method.
+  lx_previous = _create_previous(
+      i_subrc   = lv_subrc
+      i_message = i_message
+         ).
+  lv_name = ycl_exception_helper=&gt;get_name_by_method(
+      i_class  = lv_class
+      i_method = lv_method
+      i_subrc  = lv_subrc
+         ).
 
-  ELSE.
-    lv_class = i_class.
-    lv_method = i_method.
-    lv_name = ycl_exception_helper=&gt;get_name_by_method(
-        i_class  = i_class
-        i_method = i_method
-        i_subrc  = i_subrc
-           ).
+  CREATE OBJECT result
+    EXPORTING
+      previous = lx_previous
+      subrc    = lv_subrc
+      name     = lv_name
+      class    = lv_class
+      method   = lv_method.
 
-    CREATE OBJECT result
-      TYPE ycx_exception_method
-      EXPORTING
-        class  = lv_class
-        method = lv_method
-        name   = lv_name.
-  ENDIF.
+  FREE text.
+  last = result.
 
 ENDMETHOD.</source>
  </method>
- <method CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_TEXT" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_TEXT" SCONAME="I_TEXT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
-  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="GET_INSTANCE_BY_TEXT" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für nicht-klassenbasierte Fehler" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YCX_EXCEPTION"/>
-  <source>METHOD get_instance_by_text.
+ <method CLSNAME="YCF_EXCEPTION" CMPNAME="CREATE_BY_TEXT" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="CREATE_BY_TEXT" SCONAME="I_TEXT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE" PARVALUE="TEXT"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="CREATE_BY_TEXT" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YCX_EXCEPTION_TEXT"/>
+  <source>METHOD create_by_text.
 
   DATA: lv_text TYPE string
       .
@@ -124,9 +130,34 @@ ENDMETHOD.</source>
   lv_text = i_text.
 
   CREATE OBJECT result
-    TYPE ycx_exception_text
     EXPORTING
       text = lv_text.
+
+  FREE text.
+  last = result.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCF_EXCEPTION" CMPNAME="_CREATE_PREVIOUS" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="5 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="_CREATE_PREVIOUS" SCONAME="I_SUBRC" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="I"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="_CREATE_PREVIOUS" SCONAME="I_MESSAGE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ABAP_BOOL"/>
+  <parameter CLSNAME="YCF_EXCEPTION" CMPNAME="_CREATE_PREVIOUS" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YCX_EXCEPTION"/>
+  <source>METHOD _create_previous.
+
+  CASE i_subrc.
+    WHEN communication OR system.
+      IF text IS NOT INITIAL.
+        result = create_by_text( ).
+      ENDIF.
+
+    WHEN ycf_exception=&gt;message.
+      result = create_by_message( ).
+
+    WHEN OTHERS.
+      IF i_message EQ abap_true.
+        result = create_by_message( ).
+      ENDIF.
+  ENDCASE.
 
 ENDMETHOD.</source>
  </method>

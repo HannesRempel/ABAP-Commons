@@ -16,6 +16,7 @@ CLASS lcl_yecl_salv_cntr_metadata DEFINITION FINAL.
   PUBLIC SECTION.
     CLASS-DATA obj TYPE REF TO lcl_yecl_salv_cntr_metadata. "#EC NEEDED
     DATA core_object TYPE REF TO cl_salv_controller_metadata . "#EC NEEDED
+
  INTERFACES  IPO_YECL_SALV_CNTR_METADATA.
     METHODS:
       constructor
@@ -53,7 +54,6 @@ CLASS lcl_yecl_salv_cntr_metadata IMPLEMENTATION.
         .
 
 
-
     IF r_display_settings IS BOUND.
       s_layout-detailinit = r_display_settings->get_detail_initial( ).
     ENDIF.
@@ -67,8 +67,12 @@ CLASS lcl_yecl_salv_cntr_metadata IMPLEMENTATION.
 
         IF lo_table IS BOUND.
           lo_settings = lo_table->get_change_settings( ).
-          s_layout-no_rowmove = lo_settings->get_no_row_move( ).
-          s_layout-no_rowins  = lo_settings->get_no_row_insert( ).
+          IF lo_settings->is_row_moveable( ) NE abap_true.
+            s_layout-no_rowmove = abap_true.
+          ENDIF.
+          IF lo_settings->is_row_insertable( ) NE abap_true.
+            s_layout-no_rowins = abap_true.
+          ENDIF.
         ENDIF.
 
       CATCH cx_sy_dyn_call_error INTO lx_root.
@@ -95,19 +99,17 @@ CLASS lcl_yecl_salv_cntr_metadata IMPLEMENTATION.
         .
 
 
-    IF r_columns IS NOT BOUND.
-      RETURN.
+    IF r_columns IS BOUND.
+      TRY.
+          LOOP AT t_fieldcatalog REFERENCE INTO ls_fieldcatalog.
+            lo_column = r_columns->get_column2( ls_fieldcatalog->fieldname ).
+            ls_fieldcatalog->edit = lo_column->is_editable( ).
+          ENDLOOP.
+
+        CATCH cx_salv_not_found.
+          RETURN.
+      ENDTRY.
     ENDIF.
-
-    TRY.
-        LOOP AT t_fieldcatalog REFERENCE INTO ls_fieldcatalog.
-          lo_column = r_columns->get_column2( ls_fieldcatalog->fieldname ).
-          ls_fieldcatalog->edit = lo_column->get_editable( ).
-        ENDLOOP.
-
-      CATCH cx_salv_not_found.
-        RETURN.
-    ENDTRY.
 
   ENDMETHOD.                    "ipo_yecl_salv_cntr_metadata~get_lvc_fieldcatalog
 
@@ -132,7 +134,6 @@ CLASS lcl_yecl_salv_cntr_metadata IMPLEMENTATION.
         .
 
 
-
     IF r_display_settings IS BOUND.
       s_layout-detailinit = r_display_settings->get_detail_initial( ).
     ENDIF.
@@ -146,8 +147,12 @@ CLASS lcl_yecl_salv_cntr_metadata IMPLEMENTATION.
 
         IF lo_table IS BOUND.
           lo_settings = lo_table->get_change_settings( ).
-          s_layout-no_rowmove = lo_settings->get_no_row_move( ).
-          s_layout-no_rowins  = lo_settings->get_no_row_insert( ).
+          IF lo_settings->is_row_moveable( ) NE abap_true.
+            s_layout-no_rowmove = abap_true.
+          ENDIF.
+          IF lo_settings->is_row_insertable( ) NE abap_true.
+            s_layout-no_rowins = abap_true.
+          ENDIF.
         ENDIF.
 
       CATCH cx_sy_dyn_call_error INTO lx_root.
@@ -172,23 +177,21 @@ CLASS lcl_yecl_salv_cntr_metadata IMPLEMENTATION.
 *"------------------------------------------------------------------------*
 
     DATA: ls_fieldcatalog TYPE REF TO slis_fieldcat_alv
-        , lo_column TYPE REF TO cl_salv_column_list
+        , lo_column TYPE REF TO cl_salv_column
         .
 
 
-    IF r_columns IS NOT BOUND.
-      RETURN.
+    IF r_columns IS BOUND.
+      TRY.
+          LOOP AT t_fieldcatalog REFERENCE INTO ls_fieldcatalog.
+            lo_column = r_columns->get_column( ls_fieldcatalog->fieldname ).
+            ls_fieldcatalog->input = ls_fieldcatalog->edit = lo_column->is_editable( ).
+          ENDLOOP.
+
+        CATCH cx_salv_not_found.
+          RETURN.
+      ENDTRY.
     ENDIF.
-
-    TRY.
-        LOOP AT t_fieldcatalog REFERENCE INTO ls_fieldcatalog.
-          lo_column = r_columns->get_column2( ls_fieldcatalog->fieldname ).
-          ls_fieldcatalog->input = ls_fieldcatalog->edit = lo_column->get_editable( ).
-        ENDLOOP.
-
-      CATCH cx_salv_not_found.
-        RETURN.
-    ENDTRY.
 
   ENDMETHOD.                    "ipo_yecl_salv_cntr_metadata~get_slis_fieldcatalog
 

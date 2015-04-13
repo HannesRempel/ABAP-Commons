@@ -6,12 +6,13 @@ SET_TECHNICAL_TEXTS	Instance Method	Public
 
 
 Method parameters HAS_EDITABLE:
-RESULT	Returning	Type	SAP_BOOL
+RESULT	Returning	Type	ABAP_BOOL
 
 
 
 Method parameters SET_EDITABLE:
-I_EDITABLE	Importing	Type	SAP_BOOL	TRUE
+I_VALUE	Importing	Type	ABAP_BOOL		preferred
+I_KEYS	Importing	Type	ABAP_BOOL	TRUE
 
 
 
@@ -22,8 +23,8 @@ METHOD has_editable .
 
 
   LOOP AT t_columns REFERENCE INTO ls_column.
-    result = ls_column->r_column->get_editable( ).
-    IF result EQ true.
+    result = ls_column->r_column->is_editable( ).
+    IF result EQ abap_true.
       RETURN.
     ENDIF.
   ENDLOOP.
@@ -34,12 +35,27 @@ ENDMETHOD.
 
 METHOD set_editable .
 
-  DATA: ls_column TYPE REF TO salv_s_column_ref
+  DATA: lv_keys TYPE abap_bool
+      , ls_column TYPE REF TO salv_s_column_ref
+      , lo_column TYPE REF TO cl_salv_column_list
       .
 
 
+  lv_keys = i_keys.
   LOOP AT t_columns REFERENCE INTO ls_column.
-    ls_column->r_column->set_editable( i_editable ).
+    IF lv_keys NE abap_true.
+      TRY.
+          lo_column ?= ls_column->r_column.
+          IF lo_column->is_key( ) EQ abap_true.
+            CONTINUE.
+          ENDIF.
+
+        CATCH cx_sy_move_cast_error.
+          lv_keys = abap_true.
+      ENDTRY.
+    ENDIF.
+
+    ls_column->r_column->set_editable( i_value ).
   ENDLOOP.
 
 ENDMETHOD.

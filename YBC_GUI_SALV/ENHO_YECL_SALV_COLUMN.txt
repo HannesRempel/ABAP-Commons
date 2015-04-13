@@ -1,31 +1,31 @@
 New attributes:
-EDITABLE	Instance Attribute	Protected	Type	SAP_BOOL
+EDITABLE	Instance Attribute	Protected	Type	ABAP_BOOL
 
 
 
 New methods:
-GET_EDITABLE	Instance Method	Public
+IS_EDITABLE	Instance Method	Public
 SET_EDITABLE	Instance Method	Public
 SET_TEXT	Instance Method	Public
 
 
 
-Method parameters GET_EDITABLE:
-RESULT	Returning	Type	SAP_BOOL
+Method parameters IS_EDITABLE:
+RESULT	Returning	Type	ABAP_BOOL
 
 
 
 Method parameters SET_EDITABLE:
-I_EDITABLE	Importing	Type	SAP_BOOL	TRUE
+I_VALUE	Importing	Type	ABAP_BOOL	ABAP_TRUE
 
 
 
 Method parameters SET_TEXT:
-VALUE	Importing	Type	CSEQUENCE
+I_VALUE	Importing	Type	CSEQUENCE
 
 
 
-METHOD get_editable .
+METHOD is_editable .
 
   result = editable.
 
@@ -35,8 +35,8 @@ ENDMETHOD.
 
 METHOD set_editable .
 
-  IF editable NE i_editable.
-    editable = i_editable.
+  IF editable NE i_value.
+    editable = i_value.
 
     IF r_controller IS BOUND.
       r_controller->set_changed(
@@ -61,8 +61,8 @@ METHOD set_text .
       .
 
 
-  IF value IS NOT INITIAL.
-    lv_text_s = lv_text_m = lv_text_l = value.
+  IF i_value IS NOT INITIAL.
+    lv_text_s = lv_text_m = lv_text_l = i_value.
     IF get_short_text( ) NE lv_text_s.
       set_short_text( lv_text_s ).
     ENDIF.

@@ -12,10 +12,11 @@ CLASS cl_salv_grid_adapter DEFINITION LOCAL FRIENDS lcl_yecl_salv_grid_adapter.
 *----------------------------------------------------------------------*
 CLASS lcl_yecl_salv_grid_adapter DEFINITION.
 
+  TYPE-POOLS: abap.
+
   PUBLIC SECTION.
     CLASS-DATA obj TYPE REF TO lcl_yecl_salv_grid_adapter.  "#EC NEEDED
     DATA core_object TYPE REF TO cl_salv_grid_adapter .     "#EC NEEDED
-
 
  INTERFACES  IPO_YECL_SALV_GRID_ADAPTER.
     METHODS:
@@ -23,7 +24,7 @@ CLASS lcl_yecl_salv_grid_adapter DEFINITION.
        TYPE REF TO cl_salv_grid_adapter OPTIONAL.
 
   PRIVATE SECTION.
-    DATA gv_flag TYPE sap_bool.
+    DATA flag TYPE abap_bool.
 
 ENDCLASS.                    "lcl_yecl_salv_grid_adapter DEFINITION
 *----------------------------------------------------------------------*
@@ -47,8 +48,8 @@ CLASS lcl_yecl_salv_grid_adapter IMPLEMENTATION.
 *"    !R_CHANGELIST type ref to CL_SALV_CONTROLLER_CHANGELIST .
 *"------------------------------------------------------------------------*
 
-    IF gv_flag EQ if_salv_c_bool_sap=>false.
-      gv_flag = if_salv_c_bool_sap=>true.
+    IF flag NE abap_true.
+      flag = abap_true.
 
       CALL METHOD cl_salv_controller_events=>raise_grid_created
         EXPORTING
@@ -58,4 +59,4 @@ CLASS lcl_yecl_salv_grid_adapter IMPLEMENTATION.
 
   ENDMETHOD.                    "ipo_yecl_salv_grid_adapter~set_metadata
 
-ENDCLASS.               
+ENDCLASS.

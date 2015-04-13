@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CLAS CLSNAME="YCL_ABAP_CODEPAGE" VERSION="1" LANGU="D" DESCRIPT="Hilfsklasse für Zeichencodierungen" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSABSTRCT="X" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+ <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+ <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <typeUsage CLSNAME="YCL_ABAP_CODEPAGE" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+ <forwardDeclaration>ABAP</forwardDeclaration>
+ <typeClasDef CLSNAME="YCL_ABAP_CODEPAGE" TYPEGROUP="YCC_ABAP_CODEPAGE" VERSION="1" TPUTYPE="1" IMPLICIT="X"/>
+ <attribute CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="C2X" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="1 " ATTDECLTYP="1" ATTEXPVIRT="0" TYPTYPE="3" TYPE="CL_ABAP_CONV_OUT_CE" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="X2C" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="2 " ATTDECLTYP="1" ATTEXPVIRT="0" TYPTYPE="3" TYPE="CL_ABAP_CONV_IN_CE" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <method CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="CHECK_BOM" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="CHECK_BOM" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="XSEQUENCE"/>
+  <parameter CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="CHECK_BOM" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="CPCODEPAGE"/>
+  <source>METHOD check_bom.
+
+  DATA: lv_bom TYPE x LENGTH 4
+      .
+
+
+  lv_bom = i_data(*).
+
+  IF lv_bom(3) EQ ycc_abap_bom=&gt;utf8.
+    result = ycc_abap_codepage=&gt;utf8.
+
+  ELSEIF lv_bom(4) EQ ycc_abap_bom=&gt;utf32le. &quot; UTF32LE must be checked before UTF16LE
+    result = ycc_abap_codepage=&gt;utf32le.
+
+  ELSEIF lv_bom(4) EQ ycc_abap_bom=&gt;utf32be.
+    result = ycc_abap_codepage=&gt;utf32be.
+
+  ELSEIF lv_bom(2) EQ ycc_abap_bom=&gt;utf16le.
+    result = ycc_abap_codepage=&gt;utf16le.
+
+  ELSEIF lv_bom(2) EQ ycc_abap_bom=&gt;utf16be.
+    result = ycc_abap_codepage=&gt;utf16be.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="CHECK_UTF8" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="CHECK_UTF8" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="XSEQUENCE"/>
+  <parameter CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="CHECK_UTF8" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="I"/>
+  <source>METHOD check_utf8.
+
+  CONSTANTS: co_c0 TYPE x VALUE &apos;C0&apos;
+           , co_e0 TYPE x VALUE &apos;E0&apos;
+           , co_f0 TYPE x VALUE &apos;F0&apos;
+           .
+
+  DATA: lv_offset TYPE i
+      .
+
+
+  lv_offset = xstrlen( i_data ) - 1.
+
+  IF i_data+lv_offset(1) GE co_f0.
+    result = 3.
+
+  ELSEIF i_data+lv_offset(1) GE co_e0.
+    result = 2.
+
+  ELSEIF i_data+lv_offset(1) GE co_c0.
+    result = 1.
+
+  ELSEIF lv_offset GT 0.
+    SUBTRACT 1 FROM lv_offset.
+
+    IF i_data+lv_offset(1) GE co_f0.
+      result = 2.
+
+    ELSEIF i_data+lv_offset(1) GE co_e0.
+      result = 1.
+
+    ELSEIF lv_offset GT 0.
+      SUBTRACT 1 FROM lv_offset.
+
+      IF i_data+lv_offset(1) GE co_f0.
+        result = 1.
+      ENDIF.
+    ENDIF.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="EXPORT" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="EXPORT" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="STRING"/>
+  <parameter CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="EXPORT" SCONAME="I_CODEPAGE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CPCODEPAGE" PARVALUE="YCC_ABAP_CODEPAGE=&gt;UTF8"/>
+  <parameter CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="EXPORT" SCONAME="I_WITH_BOM" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ABAP_BOOL" PARVALUE="ABAP_FALSE"/>
+  <parameter CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="EXPORT" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="XSTRING"/>
+  <exception CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="EXPORT" SCONAME="CX_SY_CODEPAGE_CONVERTER_INIT" VERSION="1" LANGU="D" DESCRIPT="System-Exception für Initialisierung Code Page Converter" MTDTYPE="0" EDITORDER="1 "/>
+  <exception CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="EXPORT" SCONAME="CX_SY_CONVERSION_CODEPAGE" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei Zeichensatzkonvertierung" MTDTYPE="0" EDITORDER="2 "/>
+  <source>METHOD export.
+
+  DATA: lv_encoding TYPE abap_encoding
+      .
+
+
+  IF c2x IS NOT BOUND OR c2x-&gt;encoding NE i_codepage.
+    lv_encoding = i_codepage.
+    c2x = cl_abap_conv_out_ce=&gt;create( encoding = lv_encoding ).
+  ENDIF.
+
+  CALL METHOD c2x-&gt;convert
+    EXPORTING
+      data   = i_data
+    IMPORTING
+      buffer = result.
+
+  IF i_with_bom EQ abap_true.
+    CASE i_codepage.
+      WHEN ycc_abap_codepage=&gt;utf8.
+        CONCATENATE ycc_abap_bom=&gt;utf8 result INTO result IN BYTE MODE.
+
+      WHEN ycc_abap_codepage=&gt;utf16be.
+        CONCATENATE ycc_abap_bom=&gt;utf16be result INTO result IN BYTE MODE.
+
+      WHEN ycc_abap_codepage=&gt;utf16le.
+        CONCATENATE ycc_abap_bom=&gt;utf16le result INTO result IN BYTE MODE.
+
+      WHEN ycc_abap_codepage=&gt;utf32be.
+        CONCATENATE ycc_abap_bom=&gt;utf32be result INTO result IN BYTE MODE.
+
+      WHEN ycc_abap_codepage=&gt;utf32le.
+        CONCATENATE ycc_abap_bom=&gt;utf32le result INTO result IN BYTE MODE.
+    ENDCASE.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="IMPORT" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="IMPORT" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="XSTRING"/>
+  <parameter CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="IMPORT" SCONAME="I_CODEPAGE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CPCODEPAGE" PARVALUE="YCC_ABAP_CODEPAGE=&gt;UTF8"/>
+  <parameter CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="IMPORT" SCONAME="I_SKIP_BOM" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ABAP_BOOL" PARVALUE="ABAP_TRUE"/>
+  <parameter CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="IMPORT" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+  <exception CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="IMPORT" SCONAME="CX_SY_CODEPAGE_CONVERTER_INIT" VERSION="1" LANGU="D" DESCRIPT="System-Exception für Initialisierung Code Page Converter" MTDTYPE="0" EDITORDER="1 "/>
+  <exception CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="IMPORT" SCONAME="CX_SY_CONVERSION_CODEPAGE" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei Zeichensatzkonvertierung" MTDTYPE="0" EDITORDER="2 "/>
+  <source>METHOD import.
+
+  DATA: lv_encoding TYPE abap_encoding
+      .
+
+
+  IF c2x IS NOT BOUND OR x2c-&gt;encoding NE i_codepage.
+    lv_encoding = i_codepage.
+    x2c = cl_abap_conv_in_ce=&gt;create( encoding = lv_encoding ).
+  ENDIF.
+
+  CALL METHOD x2c-&gt;convert
+    EXPORTING
+      input = i_data
+    IMPORTING
+      data  = result.
+
+  IF i_skip_bom EQ abap_true AND check_bom( i_data ) EQ i_codepage.
+    SHIFT result.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="IMPORT_UNKNOWN" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="5 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="IMPORT_UNKNOWN" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="XSTRING"/>
+  <parameter CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="IMPORT_UNKNOWN" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
+  <exception CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="IMPORT_UNKNOWN" SCONAME="CX_SY_CODEPAGE_CONVERTER_INIT" VERSION="1" LANGU="D" DESCRIPT="System-Exception für Initialisierung Code Page Converter" MTDTYPE="0" EDITORDER="1 "/>
+  <exception CLSNAME="YCL_ABAP_CODEPAGE" CMPNAME="IMPORT_UNKNOWN" SCONAME="CX_SY_CONVERSION_CODEPAGE" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei Zeichensatzkonvertierung" MTDTYPE="0" EDITORDER="2 "/>
+  <source>METHOD import_unknown.
+
+  DATA: lo_x2c TYPE REF TO ycl_abap_x2c
+      .
+
+
+  lo_x2c = ycl_abap_x2c=&gt;create( ).
+  result = lo_x2c-&gt;convert( i_data ).
+
+ENDMETHOD.</source>
+ </method>
+</CLAS>

@@ -12,12 +12,15 @@
 *&quot;* in the implementation part of the class</localMacros>
  <typeUsage CLSNAME="YCL_SALV_CHANGES" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
  <forwardDeclaration>ABAP</forwardDeclaration>
- <attribute CLSNAME="YCL_SALV_CHANGES" CMPNAME="GO_TABLE" VERSION="1" LANGU="D" DESCRIPT="Basisklasse für einfache Tabellen" EXPOSURE="0" STATE="1" EDITORDER="1 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="CL_SALV_TABLE" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <attribute CLSNAME="YCL_SALV_CHANGES" CMPNAME="GT_CHANGES" VERSION="1" LANGU="D" DESCRIPT="ALV: Änderungen" EXPOSURE="0" STATE="1" EDITORDER="2 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="YBC_SALV_T_CHANGE" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <attribute CLSNAME="YCL_SALV_CHANGES" CMPNAME="GV_AFTER" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" EXPOSURE="0" STATE="1" EDITORDER="3 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SAP_BOOL" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <attribute CLSNAME="YCL_SALV_CHANGES" CMPNAME="GV_ONF4" VERSION="1" LANGU="D" DESCRIPT="F4 Typ" EXPOSURE="0" STATE="1" EDITORDER="4 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ABAP_CHAR1" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <method CLSNAME="YCL_SALV_CHANGES" CMPNAME="CONSTRUCTOR" VERSION="1" LANGU="D" DESCRIPT="CONSTRUCTOR" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="2" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="CONSTRUCTOR" SCONAME="I_EVENTS" VERSION="1" LANGU="D" DESCRIPT="Ereignisse in einfachen, zweidimensionalen Tabellen" CMPTYPE="1" MTDTYPE="2" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_SALV_EVENTS_TABLE"/>
+ <attribute CLSNAME="YCL_SALV_CHANGES" CMPNAME="AFTER" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="4 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ABAP_BOOL" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_SALV_CHANGES" CMPNAME="CHANGES" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="5 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="YBC_SALV_T_CHANGE" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_SALV_CHANGES" CMPNAME="ONF4" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="6 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ABAP_CHAR1" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_SALV_CHANGES" CMPNAME="ONF4_AFTER" VERSION="1" LANGU="D" DESCRIPT="Nach dem F4-Aufruf" EXPOSURE="2" STATE="1" EDITORDER="1 " ATTDECLTYP="2" ATTVALUE="&apos;A&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ABAP_CHAR1" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_SALV_CHANGES" CMPNAME="ONF4_BEFORE" VERSION="1" LANGU="D" DESCRIPT="Vor dem F4-Aufruf" EXPOSURE="2" STATE="1" EDITORDER="2 " ATTDECLTYP="2" ATTVALUE="&apos;B&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ABAP_CHAR1" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_SALV_CHANGES" CMPNAME="ONF4_NORMAL" VERSION="1" LANGU="D" DESCRIPT="Normaler F4-Aufruf" EXPOSURE="2" STATE="1" EDITORDER="3 " ATTDECLTYP="2" ATTVALUE="&apos;X&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ABAP_CHAR1" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_SALV_CHANGES" CMPNAME="TABLE" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="7 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="CL_SALV_TABLE" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <method CLSNAME="YCL_SALV_CHANGES" CMPNAME="CONSTRUCTOR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="2" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="CONSTRUCTOR" SCONAME="I_EVENTS" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="2" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_SALV_EVENTS_TABLE"/>
   <exception CLSNAME="YCL_SALV_CHANGES" CMPNAME="CONSTRUCTOR" SCONAME="CX_SY_REF_IS_INITIAL" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei ASSIGN" MTDTYPE="2" EDITORDER="1 "/>
   <source>METHOD constructor.
 
@@ -30,33 +33,33 @@
         EXPORTING
           i_object = i_events
         RECEIVING
-          result   = go_table.
+          result   = table.
 
     CATCH cx_sy_dyn_call_error INTO lx_root.
       &quot; message in case of inactive enhancement
       MESSAGE lx_root TYPE &apos;E&apos;.
   ENDTRY.
 
-  IF go_table IS INITIAL.
+  IF table IS INITIAL.
     RAISE EXCEPTION TYPE cx_sy_ref_is_initial.
   ENDIF.
 
 ENDMETHOD.</source>
  </method>
  <method CLSNAME="YCL_SALV_CHANGES" CMPNAME="GET_CHANGES" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="GET_CHANGES" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="ALV: Änderungen" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="YBC_SALV_T_CHANGE"/>
+  <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="GET_CHANGES" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="YBC_SALV_T_CHANGE"/>
   <source>METHOD get_changes.
 
   DATA: ls_change TYPE REF TO ybc_salv_s_change
       .
 
 
-  IF gv_after EQ abap_true.
-    result = gt_changes.
+  IF after EQ abap_true.
+    result = changes.
 
   ELSE.
-    LOOP AT gt_changes REFERENCE INTO ls_change.
-      IF        ls_change-&gt;r_change-&gt;go_protocol IS BOUND
+    LOOP AT changes REFERENCE INTO ls_change.
+      IF        ls_change-&gt;r_change-&gt;protocol IS BOUND
             AND ls_change-&gt;r_change-&gt;is_changed( ) EQ abap_true.
         INSERT ls_change-&gt;* INTO TABLE result.
       ENDIF.
@@ -69,7 +72,7 @@ ENDMETHOD.</source>
   <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="GET_ONF4" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="ABAP_CHAR1"/>
   <source>METHOD get_onf4.
 
-  result = gv_onf4.
+  result = onf4.
 
 ENDMETHOD.</source>
  </method>
@@ -83,7 +86,7 @@ ENDMETHOD.</source>
       .
 
 
-  READ TABLE gt_changes
+  READ TABLE changes
         WITH TABLE KEY  row_id = i_row_id
                         columnname = i_column
         REFERENCE INTO ls_change.
@@ -110,7 +113,7 @@ ENDMETHOD.</source>
       .
 
 
-  READ TABLE gt_changes
+  READ TABLE changes
         WITH TABLE KEY  row_id = i_row_id
                         columnname = i_column
         REFERENCE INTO ls_change.
@@ -137,7 +140,7 @@ ENDMETHOD.</source>
       .
 
 
-  READ TABLE gt_changes
+  READ TABLE changes
         WITH TABLE KEY  row_id = i_row_id
                         columnname = i_column
         REFERENCE INTO ls_change.
@@ -155,21 +158,21 @@ ENDMETHOD.</source>
 ENDMETHOD.</source>
  </method>
  <method CLSNAME="YCL_SALV_CHANGES" CMPNAME="HAS_CHANGES" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="7 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="HAS_CHANGES" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+  <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="HAS_CHANGES" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="ABAP_BOOL"/>
   <source>METHOD has_changes.
 
   DATA: ls_change TYPE REF TO ybc_salv_s_change
       .
 
 
-  IF gv_after EQ abap_true.
-    IF gt_changes IS NOT INITIAL.
+  IF after EQ abap_true.
+    IF changes IS NOT INITIAL.
       result = abap_true.
     ENDIF.
 
   ELSE.
-    LOOP AT gt_changes REFERENCE INTO ls_change.
-      IF        ls_change-&gt;r_change-&gt;go_protocol IS BOUND
+    LOOP AT changes REFERENCE INTO ls_change.
+      IF        ls_change-&gt;r_change-&gt;protocol IS BOUND
             AND ls_change-&gt;r_change-&gt;is_changed( ) EQ abap_true.
         result = abap_true.
         RETURN.
@@ -180,14 +183,14 @@ ENDMETHOD.</source>
 ENDMETHOD.</source>
  </method>
  <method CLSNAME="YCL_SALV_CHANGES" CMPNAME="HAS_ERROR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="8 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="HAS_ERROR" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+  <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="HAS_ERROR" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="ABAP_BOOL"/>
   <source>METHOD has_error.
 
   DATA: ls_change TYPE REF TO ybc_salv_s_change
       .
 
 
-  LOOP AT gt_changes REFERENCE INTO ls_change.
+  LOOP AT changes REFERENCE INTO ls_change.
     IF ls_change-&gt;r_change-&gt;has_error( ) EQ abap_true.
       result = abap_true.
       RETURN.
@@ -199,10 +202,10 @@ ENDMETHOD.</source>
  <method CLSNAME="YCL_SALV_CHANGES" CMPNAME="IS_CELL_CHANGED" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="9 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
   <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="IS_CELL_CHANGED" SCONAME="I_ROW_ID" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="I"/>
   <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="IS_CELL_CHANGED" SCONAME="I_COLUMN" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
-  <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="IS_CELL_CHANGED" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+  <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="IS_CELL_CHANGED" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="ABAP_BOOL"/>
   <source>METHOD is_cell_changed.
 
-  READ TABLE gt_changes
+  READ TABLE changes
         WITH TABLE KEY  row_id = i_row_id
                         columnname = i_column
         TRANSPORTING NO FIELDS.
@@ -225,7 +228,7 @@ ENDMETHOD.</source>
       .
 
 
-  READ TABLE gt_changes
+  READ TABLE changes
         WITH TABLE KEY  row_id = i_row_id
                         columnname = i_column
         REFERENCE INTO ls_change.
@@ -242,13 +245,13 @@ ENDMETHOD.</source>
     CREATE DATA ls_change.
     ls_change-&gt;row_id = i_row_id.
     ls_change-&gt;columnname = i_column.
-    INSERT ls_change-&gt;* INTO TABLE gt_changes REFERENCE INTO ls_change.
+    INSERT ls_change-&gt;* INTO TABLE changes REFERENCE INTO ls_change.
 
     CREATE OBJECT ls_change-&gt;r_change
       EXPORTING
         i_old_value = ls_mod_cell-&gt;value
         i_mod_cell  = ls_mod_cell
-        i_table     = go_table.
+        i_table     = table.
   ENDIF.
 
   ls_change-&gt;r_change-&gt;set_value( i_value ).
@@ -266,7 +269,7 @@ ENDMETHOD.</source>
 
 
   TRY.
-      CALL METHOD go_table-&gt;(&apos;GET_CELL_VALUE&apos;)
+      CALL METHOD table-&gt;(&apos;GET_CELL_VALUE&apos;)
         EXPORTING
           i_row_id = i_row_id
           i_column = i_column
@@ -284,16 +287,16 @@ ENDMETHOD.</source>
   <source>METHOD _on_after_data_change.
 
   _on_data_change( ).
-  gv_after = abap_true.
-  gv_onf4 = yit_salv_onf4=&gt;none.
+  after = abap_true.
+  FREE onf4.
 
 ENDMETHOD.</source>
  </method>
  <method CLSNAME="YCL_SALV_CHANGES" CMPNAME="_ON_BEFORE_DATA_CHANGE" VERSION="1" LANGU="D" EXPOSURE="1" STATE="1" EDITORDER="12 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="_ON_BEFORE_DATA_CHANGE" SCONAME="I_PROTOCOL" VERSION="1" LANGU="D" DESCRIPT="Message Protokoll für Dataentry" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_ALV_CHANGED_DATA_PROTOCOL"/>
-  <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="_ON_BEFORE_DATA_CHANGE" SCONAME="I_ONF4" VERSION="1" LANGU="D" DESCRIPT="Charakterfeld der Länge 1" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CHAR01"/>
-  <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="_ON_BEFORE_DATA_CHANGE" SCONAME="I_ONF4_BEFORE" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SAP_BOOL"/>
-  <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="_ON_BEFORE_DATA_CHANGE" SCONAME="I_ONF4_AFTER" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SAP_BOOL"/>
+  <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="_ON_BEFORE_DATA_CHANGE" SCONAME="I_PROTOCOL" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_ALV_CHANGED_DATA_PROTOCOL"/>
+  <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="_ON_BEFORE_DATA_CHANGE" SCONAME="I_ONF4" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CHAR01"/>
+  <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="_ON_BEFORE_DATA_CHANGE" SCONAME="I_ONF4_BEFORE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ABAP_BOOL"/>
+  <parameter CLSNAME="YCL_SALV_CHANGES" CMPNAME="_ON_BEFORE_DATA_CHANGE" SCONAME="I_ONF4_AFTER" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ABAP_BOOL"/>
   <exception CLSNAME="YCL_SALV_CHANGES" CMPNAME="_ON_BEFORE_DATA_CHANGE" SCONAME="CX_SY_REF_IS_INITIAL" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei ASSIGN" MTDTYPE="0" EDITORDER="1 "/>
   <source>METHOD _on_before_data_change.
 
@@ -308,18 +311,18 @@ ENDMETHOD.</source>
 
 
   _on_data_change( ).
-  gv_onf4 = yit_salv_onf4=&gt;none.
+  free onf4.
 
   IF i_onf4 IS NOT INITIAL.
-    gv_onf4 = yit_salv_onf4=&gt;normal.
+    onf4 = onf4_normal.
   ENDIF.
 
   IF i_onf4_before EQ abap_true.
-    gv_onf4 = yit_salv_onf4=&gt;before.
+    onf4 = onf4_before.
   ENDIF.
 
   IF i_onf4_after EQ abap_true.
-    gv_onf4 = yit_salv_onf4=&gt;after.
+    onf4 = onf4_after.
   ENDIF.
 
   ASSIGN i_protocol-&gt;mp_mod_rows-&gt;* TO &lt;lt_data&gt;.
@@ -335,7 +338,7 @@ ENDMETHOD.</source>
       CONTINUE.
     ENDIF.
 
-    READ TABLE gt_changes
+    READ TABLE changes
           WITH TABLE KEY  row_id = ls_mod_cell-&gt;row_id
                           columnname = ls_mod_cell-&gt;fieldname
           REFERENCE INTO ls_change.
@@ -343,7 +346,7 @@ ENDMETHOD.</source>
       CREATE DATA ls_change.
       ls_change-&gt;row_id = ls_mod_cell-&gt;row_id.
       ls_change-&gt;columnname = ls_mod_cell-&gt;fieldname.
-      INSERT ls_change-&gt;* INTO TABLE gt_changes REFERENCE INTO ls_change.
+      INSERT ls_change-&gt;* INTO TABLE changes REFERENCE INTO ls_change.
     ENDIF.
 
     lv_value = _get_cell_value(
@@ -356,7 +359,7 @@ ENDMETHOD.</source>
         i_old_value = lv_value
         i_mod_cell  = ls_mod_cell
         i_row_data  = ls_row_data
-        i_table     = go_table
+        i_table     = table
         i_protocol  = i_protocol.
   ENDLOOP.
 
@@ -369,13 +372,13 @@ ENDMETHOD.</source>
       .
 
 
-  LOOP AT gt_changes REFERENCE INTO ls_change.
-    IF        ls_change-&gt;r_change-&gt;gr_mod_cell IS NOT BOUND
+  LOOP AT changes REFERENCE INTO ls_change.
+    IF        ls_change-&gt;r_change-&gt;mod_cell IS NOT BOUND
           OR  ls_change-&gt;r_change-&gt;is_changed( ) NE abap_true.
-      DELETE gt_changes.
+      DELETE changes.
 
     ELSE.
-      FREE ls_change-&gt;r_change-&gt;go_protocol.
+      FREE ls_change-&gt;r_change-&gt;protocol.
     ENDIF.
   ENDLOOP.
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CLAS CLSNAME="YCX_EXCEPTION_FUNCTION" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für Funktionen" CATEGORY="40" EXPOSURE="2" STATE="1" RELEASE="0" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" MSG_ID="YBC_ABAP_EXCEPTION" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="YCX_EXCEPTION_CLASSIC">
+<CLAS CLSNAME="YCX_EXCEPTION_FUNCTION" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für Funktionen" CATEGORY="40" EXPOSURE="2" STATE="1" RELEASE="0" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" MSG_ID="YBC_ABAP_EXCEPTION" DURATION_TYPE="0 " RISK_LEVEL="0 " REFCLSNAME="YCX_EXCEPTION_CLASSIC">
  <localImplementation>*&quot;* use this source file for the definition and implementation of
 *&quot;* local helper classes, interface definitions and type
 *&quot;* declarations</localImplementation>
@@ -10,7 +10,8 @@
 *&quot;* in the implementation part of the class</localMacros>
  <typeUsage CLSNAME="YCX_EXCEPTION_FUNCTION" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
  <forwardDeclaration>ABAP</forwardDeclaration>
- <attribute CLSNAME="YCX_EXCEPTION_FUNCTION" CMPNAME="FUNCTION" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCX_EXCEPTION_FUNCTION" CMPNAME="DESTINATION" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCX_EXCEPTION_FUNCTION" CMPNAME="FUNCTION" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
  <inheritance CLSNAME="YCX_EXCEPTION_FUNCTION" REFCLSNAME="YCX_EXCEPTION_CLASSIC" VERSION="1" STATE="1">
   <redefinition CLSNAME="YCX_EXCEPTION_FUNCTION" REFCLSNAME="YCX_EXCEPTION_CLASSIC" VERSION="1" MTDNAME="_GET_LONGTEXT" EXPOSURE="1"/>
   <redefinition CLSNAME="YCX_EXCEPTION_FUNCTION" REFCLSNAME="YCX_EXCEPTION_CLASSIC" VERSION="1" MTDNAME="_GET_TEXT" EXPOSURE="1"/>
@@ -28,19 +29,38 @@ ENDMETHOD.</source>
  <method CLSNAME="YCX_EXCEPTION_CLASSIC" CMPNAME="_GET_TEXT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
   <source>METHOD _get_text.
 
-  result = ycl_exception_helper=&gt;get_text_by_function(
-      i_function = function
-      i_name     = name
-         ).
+  IF previous IS BOUND.
+    result = previous-&gt;get_text( ).
+  ENDIF.
 
-  IF name IS INITIAL.
-    MESSAGE e017 INTO result WITH function.
+  IF result IS INITIAL.
+    result = ycl_exception_helper=&gt;get_text_by_function(
+        i_function = function
+        i_name     = name
+           ).
+  ENDIF.
 
-  ELSEIF result IS INITIAL.
-    MESSAGE e018 INTO result WITH function name.
+  IF destination IS INITIAL.
+    IF name IS INITIAL.
+      MESSAGE e017 INTO result WITH function.
+
+    ELSEIF result IS INITIAL.
+      MESSAGE e018 INTO result WITH function name.
+
+    ELSE.
+      MESSAGE e019 INTO result WITH function result.
+    ENDIF.
 
   ELSE.
-    MESSAGE e019 INTO result WITH function result.
+    IF name IS INITIAL.
+      MESSAGE e020 INTO result WITH function destination.
+
+    ELSEIF result IS INITIAL.
+      MESSAGE e021 INTO result WITH function destination name.
+
+    ELSE.
+      MESSAGE e022 INTO result WITH function destination result.
+    ENDIF.
   ENDIF.
 
 ENDMETHOD.</source>

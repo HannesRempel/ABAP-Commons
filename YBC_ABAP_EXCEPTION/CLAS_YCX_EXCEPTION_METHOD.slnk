@@ -18,11 +18,17 @@
  <method CLSNAME="YCX_EXCEPTION_CLASSIC" CMPNAME="_GET_TEXT" VERSION="0" EXPOSURE="0" STATE="0" EDITORDER="0 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
   <source>METHOD _get_text.
 
-  result = ycl_exception_helper=&gt;get_text_by_method(
-      i_class  = class
-      i_method = method
-      i_name   = name
-         ).
+  IF previous IS BOUND.
+    result = previous-&gt;get_text( ).
+  ENDIF.
+
+  IF result IS INITIAL.
+    result = ycl_exception_helper=&gt;get_text_by_method(
+        i_class  = class
+        i_method = method
+        i_name   = name
+           ).
+  ENDIF.
 
   IF name IS INITIAL.
     MESSAGE e014 INTO result WITH method class.

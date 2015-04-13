@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CLAS CLSNAME="YCC_ABAP_GUI" VERSION="1" LANGU="D" DESCRIPT="Konstanten von Client-GUI-Informationen" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSABSTRCT="X" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" RSTAT="S" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+ <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+ <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+ <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+ <typeUsage CLSNAME="YCC_ABAP_GUI" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+ <forwardDeclaration>ABAP</forwardDeclaration>
+ <attribute CLSNAME="YCC_ABAP_GUI" CMPNAME="GUI_PATCH" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " ATTDECLTYP="1" ATTRDONLY="X" ATTEXPVIRT="0" TYPTYPE="1" TYPE="GUI_PATCH" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCC_ABAP_GUI" CMPNAME="GUI_VERSION" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " ATTDECLTYP="1" ATTRDONLY="X" ATTEXPVIRT="0" TYPTYPE="1" TYPE="GUI" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCC_ABAP_GUI" CMPNAME="JAVA_GUI" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " ATTDECLTYP="1" ATTRDONLY="X" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ABAP_BOOL" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCC_ABAP_GUI" CMPNAME="SAP_GUI" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="4 " ATTDECLTYP="1" ATTRDONLY="X" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ABAP_BOOL" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCC_ABAP_GUI" CMPNAME="WEB_DYNPRO" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="5 " ATTDECLTYP="1" ATTRDONLY="X" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ABAP_BOOL" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCC_ABAP_GUI" CMPNAME="WEB_GUI" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="6 " ATTDECLTYP="1" ATTRDONLY="X" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ABAP_BOOL" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <method CLSNAME="YCC_ABAP_GUI" CMPNAME="CLASS_CONSTRUCTOR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="2" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD class_constructor.
+
+  IF wdr_task=&gt;client_window IS BOUND.
+    web_dynpro = abap_true.
+
+  ELSEIF cl_gui_object=&gt;www_active EQ abap_true.
+    web_gui = abap_true.
+
+  ELSEIF cl_gui_object=&gt;javabean EQ abap_true.
+    java_gui = abap_true.
+    _init_version( ).
+
+  ELSEIF cl_gui_object=&gt;activex EQ abap_true.
+    sap_gui = abap_true.
+    _init_version( ).
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCC_ABAP_GUI" CMPNAME="_INIT_VERSION" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+  <source>METHOD _init_version.
+
+  DATA: lt_file TYPE filetable
+      , lv_rc TYPE i
+      , ls_file TYPE REF TO file_table
+      .
+
+
+  CALL METHOD cl_gui_frontend_services=&gt;get_gui_version
+    CHANGING
+      version_table = lt_file
+      rc            = lv_rc
+    EXCEPTIONS
+      OTHERS        = 0.
+
+  READ TABLE lt_file
+        REFERENCE INTO ls_file
+        INDEX 1.
+  IF sy-subrc EQ 0.
+    gui_version = ls_file-&gt;filename.
+  ENDIF.
+
+  READ TABLE lt_file
+        REFERENCE INTO ls_file
+        INDEX 3.
+  IF sy-subrc EQ 0.
+    gui_patch = ls_file-&gt;filename.
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+</CLAS>

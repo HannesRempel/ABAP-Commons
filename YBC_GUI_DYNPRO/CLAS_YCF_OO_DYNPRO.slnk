@@ -12,21 +12,20 @@
  <forwardDeclaration>ABAP</forwardDeclaration>
  <method CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_BROWSER" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
   <parameter CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_BROWSER" SCONAME="I_TITLE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE" PAROPTIONL="X"/>
-  <parameter CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_BROWSER" SCONAME="I_URL" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE" PAROPTIONL="X" PARPREFERD="X"/>
+  <parameter CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_BROWSER" SCONAME="I_URL" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE" PARPREFERD="X"/>
   <parameter CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_BROWSER" SCONAME="I_CALL" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ABAP_BOOL" PAROPTIONL="X"/>
   <parameter CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_BROWSER" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Dynpro mit Custom Control Container" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YIF_OO_DYNPRO"/>
   <exception CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_BROWSER" SCONAME="CX_SY_CREATE_OBJECT_ERROR" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei Objekterzeugung" MTDTYPE="0" EDITORDER="1 "/>
   <exception CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_BROWSER" SCONAME="YCX_EXCEPTION" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für nicht-klassenbasierte Fehler" MTDTYPE="0" EDITORDER="2 "/>
   <source>METHOD create_browser.
 
-  DATA: lv_url TYPE scms_uric
-      , lo_container TYPE REF TO cl_gui_container
+  DATA: lo_container TYPE REF TO cl_gui_container
       , lo_viewer TYPE REF TO cl_gui_html_viewer
-      , lx_exception TYPE REF TO ycx_exception
+      , lv_url TYPE scms_uric
       .
 
 
-  result = _create_dynpro( i_title ).
+  result = create_dynpro( i_title ).
   lo_container = result-&gt;get_container( ).
   CREATE OBJECT lo_viewer
     EXPORTING
@@ -41,14 +40,14 @@
         cntl_error             = 1
         cnht_error_not_allowed = 2
         cnht_error_parameter   = 3
-        dp_error_general       = 4.
-
+        dp_error_general       = 4
+        OTHERS                 = ycf_exception=&gt;others.
     IF sy-subrc NE 0.
-      lx_exception = ycf_exception=&gt;get_instance_by_method(
+      ycf_exception=&gt;create_by_method(
           i_class  = &apos;CL_GUI_HTML_VIEWER&apos;
           i_method = &apos;SHOW_URL&apos;
              ).
-      RAISE EXCEPTION lx_exception.
+      RAISE EXCEPTION ycf_exception=&gt;last.
     ENDIF.
   ENDIF.
 
@@ -58,14 +57,75 @@
 
 ENDMETHOD.</source>
  </method>
- <method CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_DYNPRO" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_DYNPRO" SCONAME="I_TITLE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE" PAROPTIONL="X" PARPREFERD="X"/>
-  <parameter CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_DYNPRO" SCONAME="I_CALL" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ABAP_BOOL" PAROPTIONL="X"/>
-  <parameter CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_DYNPRO" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Dynpro mit Custom Control Container" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YIF_OO_DYNPRO"/>
-  <exception CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_DYNPRO" SCONAME="CX_SY_CREATE_OBJECT_ERROR" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei Objekterzeugung" MTDTYPE="0" EDITORDER="1 "/>
-  <source>METHOD create_dynpro.
+ <method CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_BROWSER_BY_DATA" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_BROWSER_BY_DATA" SCONAME="I_TITLE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE" PAROPTIONL="X"/>
+  <parameter CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_BROWSER_BY_DATA" SCONAME="I_DATA" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="XSTRING"/>
+  <parameter CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_BROWSER_BY_DATA" SCONAME="I_MIMETYPE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+  <parameter CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_BROWSER_BY_DATA" SCONAME="I_CALL" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ABAP_BOOL" PAROPTIONL="X"/>
+  <parameter CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_BROWSER_BY_DATA" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YIF_OO_DYNPRO"/>
+  <exception CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_BROWSER_BY_DATA" SCONAME="CX_SY_CREATE_OBJECT_ERROR" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei Objekterzeugung" MTDTYPE="0" EDITORDER="1 "/>
+  <exception CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_BROWSER_BY_DATA" SCONAME="YCX_EXCEPTION" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für nicht-klassenbasierte Fehler" MTDTYPE="0" EDITORDER="2 "/>
+  <source>METHOD create_browser_by_data.
 
-  result = _create_dynpro( i_title ).
+  DATA: lo_container TYPE REF TO cl_gui_container
+      , lo_viewer TYPE REF TO cl_gui_html_viewer
+      , lv_type TYPE sdok_ct128
+      , lv_subtype TYPE sdok_ct128
+      , lv_size TYPE i
+      , lt_data TYPE solix_tab
+      , lv_url TYPE scms_uric
+      .
+
+
+  result = create_dynpro( i_title ).
+  lo_container = result-&gt;get_container( ).
+  CREATE OBJECT lo_viewer
+    EXPORTING
+      parent = lo_container.
+
+  SPLIT i_mimetype AT &apos;/&apos; INTO lv_type lv_subtype.
+  lv_size = xstrlen( i_data ).
+  lt_data = cl_bcs_convert=&gt;xstring_to_solix( i_data ).
+
+  CALL METHOD lo_viewer-&gt;load_data
+    EXPORTING
+      type                   = lv_type
+      subtype                = lv_subtype
+      size                   = lv_size
+    IMPORTING
+      assigned_url           = lv_url
+    CHANGING
+      data_table             = lt_data
+    EXCEPTIONS
+      dp_invalid_parameter   = 1
+      dp_error_general       = 2
+      cntl_error             = 3
+*     html_syntax_notcorrect = 4  &quot; does not exists in older releases
+      OTHERS                 = ycf_exception=&gt;others.
+  IF sy-subrc NE 0.
+    ycf_exception=&gt;create_by_method(
+        i_class  = &apos;CL_GUI_HTML_VIEWER&apos;
+        i_method = &apos;SHOW_URL&apos;
+           ).
+    RAISE EXCEPTION ycf_exception=&gt;last.
+  ENDIF.
+
+  CALL METHOD lo_viewer-&gt;show_url
+    EXPORTING
+      url                    = lv_url
+    EXCEPTIONS
+      cntl_error             = 1
+      cnht_error_not_allowed = 2
+      cnht_error_parameter   = 3
+      dp_error_general       = 4
+      OTHERS                 = ycf_exception=&gt;others.
+  IF sy-subrc NE 0.
+    ycf_exception=&gt;create_by_method(
+        i_class  = &apos;CL_GUI_HTML_VIEWER&apos;
+        i_method = &apos;SHOW_URL&apos;
+           ).
+    RAISE EXCEPTION ycf_exception=&gt;last.
+  ENDIF.
 
   IF i_call EQ abap_true.
     result-&gt;call_dynpro( ).
@@ -73,15 +133,65 @@ ENDMETHOD.</source>
 
 ENDMETHOD.</source>
  </method>
- <method CLSNAME="YCF_OO_DYNPRO" CMPNAME="_CREATE_DYNPRO" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="YCF_OO_DYNPRO" CMPNAME="_CREATE_DYNPRO" SCONAME="I_TITLE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
-  <parameter CLSNAME="YCF_OO_DYNPRO" CMPNAME="_CREATE_DYNPRO" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="Dynpro mit Custom Control Container" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YCL_OO_DYNPRO"/>
-  <exception CLSNAME="YCF_OO_DYNPRO" CMPNAME="_CREATE_DYNPRO" SCONAME="CX_SY_CREATE_OBJECT_ERROR" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei Objekterzeugung" MTDTYPE="0" EDITORDER="1 "/>
-  <source>METHOD _create_dynpro.
+ <method CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_BROWSER_BY_WD" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_BROWSER_BY_WD" SCONAME="I_TITLE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE" PAROPTIONL="X"/>
+  <parameter CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_BROWSER_BY_WD" SCONAME="I_APPLICATION" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="WDY_APPLICATION_NAME"/>
+  <parameter CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_BROWSER_BY_WD" SCONAME="I_PARAMETERS" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="TIHTTPNVP" PAROPTIONL="X"/>
+  <parameter CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_BROWSER_BY_WD" SCONAME="I_CALL" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ABAP_BOOL" PAROPTIONL="X"/>
+  <parameter CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_BROWSER_BY_WD" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YIF_OO_DYNPRO"/>
+  <exception CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_BROWSER_BY_WD" SCONAME="CX_SY_CREATE_OBJECT_ERROR" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei Objekterzeugung" MTDTYPE="0" EDITORDER="1 "/>
+  <exception CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_BROWSER_BY_WD" SCONAME="YCX_EXCEPTION" VERSION="1" LANGU="D" DESCRIPT="Ausnahme für nicht-klassenbasierte Fehler" MTDTYPE="0" EDITORDER="2 "/>
+  <source>METHOD create_browser_by_wd.
+
+  DATA: lo_container TYPE REF TO cl_gui_container
+      , lo_viewer TYPE REF TO cl_gui_wdr_viewer
+      .
+
+
+  result = create_dynpro( i_title ).
+  lo_container = result-&gt;get_container( ).
+  CREATE OBJECT lo_viewer
+    EXPORTING
+      parent = lo_container.
+
+  CALL METHOD lo_viewer-&gt;load_application
+    EXPORTING
+      application         = i_application
+      parameters          = i_parameters
+    EXCEPTIONS
+      invalid_application = 1
+      cntl_error          = 2
+      dp_error_general    = 3
+      OTHERS              = ycf_exception=&gt;others.
+  IF sy-subrc NE 0.
+    ycf_exception=&gt;create_by_method(
+        i_class  = &apos;CL_GUI_HTML_VIEWER&apos;
+        i_method = &apos;SHOW_URL&apos;
+           ).
+    RAISE EXCEPTION ycf_exception=&gt;last.
+  ENDIF.
+
+  IF i_call EQ abap_true.
+    result-&gt;call_dynpro( ).
+  ENDIF.
+
+ENDMETHOD.</source>
+ </method>
+ <method CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_DYNPRO" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" MTDNEWEXC="X" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_DYNPRO" SCONAME="I_TITLE" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE" PAROPTIONL="X" PARPREFERD="X"/>
+  <parameter CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_DYNPRO" SCONAME="I_CALL" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ABAP_BOOL" PAROPTIONL="X"/>
+  <parameter CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_DYNPRO" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="3" TYPE="YIF_OO_DYNPRO"/>
+  <exception CLSNAME="YCF_OO_DYNPRO" CMPNAME="CREATE_DYNPRO" SCONAME="CX_SY_CREATE_OBJECT_ERROR" VERSION="1" LANGU="D" DESCRIPT="System-Exception bei Objekterzeugung" MTDTYPE="0" EDITORDER="1 "/>
+  <source>METHOD create_dynpro.
 
   CREATE OBJECT result
+    TYPE ycl_oo_dynpro
     EXPORTING
       i_title = i_title.
+
+  IF i_call EQ abap_true.
+    result-&gt;call_dynpro( ).
+  ENDIF.
 
 ENDMETHOD.</source>
  </method>

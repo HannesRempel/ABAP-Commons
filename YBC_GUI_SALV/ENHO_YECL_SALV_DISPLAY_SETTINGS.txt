@@ -15,7 +15,7 @@ RESULT	Returning	Type	LVC_DETINI
 
 
 Method parameters SET_DETAIL_INITIAL:
-I_DETINI	Importing	Type	LVC_DETINI
+I_VALUE	Importing	Type	LVC_DETINI
 
 
 
@@ -29,8 +29,8 @@ ENDMETHOD.
 
 METHOD set_detail_initial .
 
-  IF detail_initial NE i_detini.
-    detail_initial = i_detini.
+  IF detail_initial NE i_value.
+    detail_initial = i_value.
 
     IF r_controller IS BOUND.
       r_controller->set_changed(

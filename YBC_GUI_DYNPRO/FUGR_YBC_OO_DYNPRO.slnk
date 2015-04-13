@@ -130,9 +130,9 @@ FORM pai.
   lo_dynpro = ycl_oo_dynpro=&gt;get_active( ).
   lo_dynpro-&gt;raise_function_code( sy-ucomm ).
   CASE sy-ucomm.
-    WHEN yit_gui_function=&gt;back
-      OR yit_gui_function=&gt;cancel
-      OR yit_gui_function=&gt;exit.
+    WHEN ycc_gui_function=&gt;back
+      OR ycc_gui_function=&gt;cancel
+      OR ycc_gui_function=&gt;exit.
       PERFORM exit.
 
     WHEN OTHERS.

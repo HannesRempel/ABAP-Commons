@@ -21,6 +21,10 @@ _TO_READ_ONLY_REF	Instance Method	Private
 
 Post-Methods for:
 FACTORY
+
+
+
+Overwrite-Methods for:
 DISPLAY
 
 
@@ -60,8 +64,8 @@ RESULT	Returning	Type Ref To	DATA
 
 
 
-Method parameters GET_DATA:
-ROW	Importing	Type	I
+Method parameters GET_DATA_ROW:
+I_ROW	Importing	Type	I
 RESULT	Returning	Type Ref To	DATA
 
 
@@ -245,7 +249,7 @@ METHOD get_data_row .
     IF sy-subrc EQ 0.
       READ TABLE <lt_data>
             REFERENCE INTO lr_data
-            INDEX row.
+            INDEX i_row.
       IF lr_data IS BOUND.
         ASSIGN lr_data->* TO <ls_data>.
         result = _to_read_only_ref( <ls_data> ).
@@ -436,18 +440,22 @@ CLASS lcl_yecl_salv_table IMPLEMENTATION.
     cl_salv_table=>_cache_tables( i_table = r_salv_table ).
     r_salv_table->get_change_settings( ).
 
-    IF r_salv_table->r_container IS BOUND.
-      cl_salv_controller_events=>init_uifunction( r_salv_table ).
-    ENDIF.
-
   ENDMETHOD.                    "ipo_yecl_salv_table~factory
 
-  METHOD ipo_yecl_salv_table~display.
+  METHOD iow_yecl_salv_table~display.
 *"------------------------------------------------------------------------*
-*" Declaration of POST-method, do not insert any comments here please!
+*" Declaration of Overwrite-method, do not insert any comments here please!
 *"
 *"methods DISPLAY .
 *"------------------------------------------------------------------------*
+
+    IF core_object->r_container IS BOUND.
+      cl_salv_controller_events=>init_uifunction( core_object ).
+    ENDIF.
+
+    IF core_object->r_controller IS BOUND.
+      core_object->r_controller->display( ).
+    ENDIF.
 
     IF core_object->r_dynpro IS BOUND.
       core_object->r_dynpro->call_dynpro( ).

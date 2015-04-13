@@ -459,7 +459,7 @@ CLASS lcl_report IMPLEMENTATION.
   METHOD _toggle.
 
     DATA: lo_columns TYPE REF TO cl_salv_columns_table
-        , lv_editable TYPE sap_bool
+        , lv_editable TYPE abap_bool
         , lo_column TYPE REF TO cl_salv_column_table
         , lx_root TYPE REF TO cx_root
         .
@@ -473,12 +473,13 @@ CLASS lcl_report IMPLEMENTATION.
         TRANSLATE lv_editable USING &apos;X  X&apos;.
         CALL METHOD lo_columns-&gt;(&apos;SET_EDITABLE&apos;)
           EXPORTING
-            i_editable = lv_editable.
+            i_value = lv_editable
+            i_keys  = abap_true.
 
         lo_column ?= lo_columns-&gt;get_column( &apos;CARRNAME&apos; ).
         CALL METHOD lo_column-&gt;(&apos;SET_EDITABLE&apos;)
           EXPORTING
-            i_editable = abap_false.
+            i_value = abap_false.
 
       CATCH cx_sy_dyn_call_error cx_salv_not_found INTO lx_root.
         &quot; message in case of inactive enhancement

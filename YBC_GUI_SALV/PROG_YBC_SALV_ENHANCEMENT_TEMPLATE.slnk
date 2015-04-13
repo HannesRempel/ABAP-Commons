@@ -116,11 +116,12 @@ CLASS lcl_report IMPLEMENTATION.
 
     lo_columns = lo_table-&gt;get_columns( ).
     lo_columns-&gt;set_optimize( ).
-    lo_columns-&gt;set_editable( ).
+    lo_columns-&gt;set_editable(
+        i_value = abap_true
+        i_keys  = abap_false
+           ).
     lo_column = lo_columns-&gt;get_column2( &apos;MANDT&apos; ).
     lo_column-&gt;set_technical( ).
-    lo_column = lo_columns-&gt;get_column2( &apos;LAND1&apos; ).
-    lo_column-&gt;set_editable( abap_false ).
 
     lo_events = lo_table-&gt;get_event( ).
     SET HANDLER _on_double_click
@@ -200,7 +201,7 @@ CLASS lcl_report IMPLEMENTATION.
   METHOD _toggle.
 
     DATA: lo_columns TYPE REF TO cl_salv_columns_table
-        , lv_editable TYPE sap_bool
+        , lv_editable TYPE abap_bool
         .
 
 

@@ -18,10 +18,10 @@
  </textPool>
  <typeUsage CLSNAME="YCL_EXCEPTION_HELPER" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
  <forwardDeclaration>ABAP</forwardDeclaration>
- <attribute CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="CO_COMMUNICATION" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="1 " ATTDECLTYP="2" ATTVALUE="&apos;COMMUNICATION_FAILURE&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <attribute CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="CO_MESSAGE" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="2 " ATTDECLTYP="2" ATTVALUE="&apos;ERROR_MESSAGE&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <attribute CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="CO_OTHERS" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="3 " ATTDECLTYP="2" ATTVALUE="&apos;OTHERS&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <attribute CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="CO_SYSTEM" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="4 " ATTDECLTYP="2" ATTVALUE="&apos;SYSTEM_FAILURE&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="COMMUNICATION" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " ATTDECLTYP="2" ATTVALUE="&apos;COMMUNICATION_FAILURE&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="MESSAGE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " ATTDECLTYP="2" ATTVALUE="&apos;ERROR_MESSAGE&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="OTHERS" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " ATTDECLTYP="2" ATTVALUE="&apos;OTHERS&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="SYSTEM" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="4 " ATTDECLTYP="2" ATTVALUE="&apos;SYSTEM_FAILURE&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="STRING" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
  <method CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="CLEAN_TEXT" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="CLEAN_TEXT" SCONAME="I_TEXT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="CLEAN_TEXT" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
@@ -35,8 +35,8 @@
     result = i_text.
     CONDENSE result.
     lv_offset = strlen( result ) - 1.
-    IF result+lv_offset(1) CN yit_abap_regex=&gt;punct.
-      CONCATENATE result yit_abap_char=&gt;dot INTO result.
+    IF result+lv_offset(1) CN ycc_abap_regex=&gt;punct.
+      CONCATENATE result ycc_abap_char=&gt;dot INTO result.
     ENDIF.
   ENDIF.
 
@@ -151,7 +151,7 @@ ENDMETHOD.</source>
   ENDIF.
 
   IF result IS INITIAL.
-    result = co_others.
+    result = others.
   ENDIF.
 
 ENDMETHOD.</source>
@@ -179,7 +179,7 @@ ENDMETHOD.</source>
   ENDIF.
 
   IF result IS INITIAL.
-    result = co_others.
+    result = others.
   ENDIF.
 
 ENDMETHOD.</source>
@@ -197,14 +197,14 @@ ENDMETHOD.</source>
       WHEN space.
         RETURN.
 
-      WHEN co_message.
+      WHEN message.
         result = get_text_by_message2( ).
 
-      WHEN co_communication
-        OR co_system.
+      WHEN communication
+        OR system.
         result = i_default.
 
-      WHEN co_others.
+      WHEN ycl_exception_helper=&gt;others.
         IF i_default IS NOT INITIAL.
           result = i_default.
 
@@ -265,7 +265,7 @@ ENDMETHOD.</source>
   <parameter CLSNAME="YCL_EXCEPTION_HELPER" CMPNAME="GET_TEXT_BY_MESSAGE" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="7 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="STRING"/>
   <source>METHOD get_text_by_message.
 
-  IF i_msgid IS NOT INITIAL AND i_msgno IS NOT INITIAL.
+  IF i_msgid IS NOT INITIAL.
     MESSAGE ID i_msgid
             TYPE &apos;S&apos;
             NUMBER i_msgno
@@ -304,14 +304,14 @@ ENDMETHOD.</source>
       WHEN space.
         RETURN.
 
-      WHEN co_message.
+      WHEN message.
         result = get_text_by_message2( ).
 
-      WHEN co_communication
-        OR co_system.
+      WHEN communication
+        OR system.
         result = i_default.
 
-      WHEN co_others.
+      WHEN ycl_exception_helper=&gt;others.
         IF i_default IS NOT INITIAL.
           result = i_default.
 
@@ -396,17 +396,17 @@ ENDMETHOD.</source>
   <source>METHOD _subrc_to_name.
 
   CASE i_subrc.
-    WHEN yit_abap_subrc=&gt;communication.
-      result = co_communication.
+    WHEN ycf_exception=&gt;communication.
+      result = communication.
 
-    WHEN yit_abap_subrc=&gt;system.
-      result = co_system.
+    WHEN ycf_exception=&gt;system.
+      result = system.
 
-    WHEN yit_abap_subrc=&gt;message.
-      result = co_message.
+    WHEN ycf_exception=&gt;message.
+      result = message.
 
-    WHEN yit_abap_subrc=&gt;others.
-      result = co_others.
+    WHEN ycf_exception=&gt;others.
+      result = others.
   ENDCASE.
 
 ENDMETHOD.</source>

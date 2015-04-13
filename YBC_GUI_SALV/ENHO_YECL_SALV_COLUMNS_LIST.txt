@@ -6,7 +6,7 @@ SET_KEY	Instance Method	Public
 
 
 Method parameters GET_COLUMN2:
-I_COLUMNNAME	Importing	Type	LVC_FNAME
+I_NAME	Importing	Type	LVC_FNAME
 RESULT	Returning	Type Ref To	CL_SALV_COLUMN_LIST
 
 
@@ -17,7 +17,7 @@ CX_SALV_NOT_FOUND
 
 
 Method parameters HAS_KEY:
-RESULT	Returning	Type	SAP_BOOL
+RESULT	Returning	Type	ABAP_BOOL
 
 
 
@@ -28,7 +28,7 @@ I_DESCR	Importing	Type Ref To	CL_ABAP_TABLEDESCR
 
 METHOD get_column2 .
 
-  result ?= get_column( i_columnname ).
+  result ?= get_column( i_name ).
 
 ENDMETHOD.
 

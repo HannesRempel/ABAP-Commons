@@ -33,7 +33,7 @@
          ).
 
   IF preserve_newlines NE abap_true.
-    REPLACE ALL OCCURRENCES OF yit_abap_char=&gt;crlf IN result WITH space.
+    REPLACE ALL OCCURRENCES OF ycc_abap_char=&gt;crlf IN result WITH space.
   ENDIF.
 
 ENDMETHOD.</source>

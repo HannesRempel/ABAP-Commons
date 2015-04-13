@@ -229,14 +229,14 @@ ENDMETHOD.</source>
             AND sprsl EQ sy-langu.
   ENDIF.
 
-  INSERT yit_gui_function=&gt;first_page     INTO TABLE fcode.
-  INSERT yit_gui_function=&gt;last_page      INTO TABLE fcode.
-  INSERT yit_gui_function=&gt;next_page      INTO TABLE fcode.
-  INSERT yit_gui_function=&gt;previous_page  INTO TABLE fcode.
-  INSERT yit_gui_function=&gt;print          INTO TABLE fcode.
-  INSERT yit_gui_function=&gt;save           INTO TABLE fcode.
-  INSERT yit_gui_function=&gt;search         INTO TABLE fcode.
-  INSERT yit_gui_function=&gt;search_next    INTO TABLE fcode.
+  INSERT ycc_gui_function=&gt;first_page     INTO TABLE fcode.
+  INSERT ycc_gui_function=&gt;last_page      INTO TABLE fcode.
+  INSERT ycc_gui_function=&gt;next_page      INTO TABLE fcode.
+  INSERT ycc_gui_function=&gt;previous_page  INTO TABLE fcode.
+  INSERT ycc_gui_function=&gt;print          INTO TABLE fcode.
+  INSERT ycc_gui_function=&gt;save           INTO TABLE fcode.
+  INSERT ycc_gui_function=&gt;search         INTO TABLE fcode.
+  INSERT ycc_gui_function=&gt;search_next    INTO TABLE fcode.
 
 ENDMETHOD.</source>
  </method>

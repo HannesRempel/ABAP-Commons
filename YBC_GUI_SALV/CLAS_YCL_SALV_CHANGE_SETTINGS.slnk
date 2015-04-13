@@ -9,12 +9,15 @@
 *&quot;* components in the private section</localTypes>
  <localMacros>*&quot;* use this source file for any macro definitions you need
 *&quot;* in the implementation part of the class</localMacros>
- <attribute CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="GO_COLUMNS" VERSION="1" LANGU="D" DESCRIPT="Spalten in einfachen, zweidimensionalen Tabellen" EXPOSURE="0" STATE="1" EDITORDER="1 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="CL_SALV_COLUMNS_TABLE" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <attribute CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="GO_EVENTS" VERSION="1" LANGU="D" DESCRIPT="ALV: Events für Tabellen" EXPOSURE="0" STATE="1" EDITORDER="2 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="YIF_SALV_EVENTS_TABLE" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <attribute CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="GO_GRID" VERSION="1" LANGU="D" DESCRIPT="ALV List Viewer" EXPOSURE="0" STATE="1" EDITORDER="3 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="CL_GUI_ALV_GRID" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <attribute CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="GO_TABLE" VERSION="1" LANGU="D" DESCRIPT="Basisklasse für einfache Tabellen" EXPOSURE="0" STATE="1" EDITORDER="4 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="CL_SALV_TABLE" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <attribute CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="GV_NO_ROW_INSERT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" EXPOSURE="0" STATE="1" EDITORDER="5 " ATTDECLTYP="0" ATTVALUE="TRUE" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SAP_BOOL" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
- <attribute CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="GV_NO_ROW_MOVE" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" EXPOSURE="0" STATE="1" EDITORDER="6 " ATTDECLTYP="0" ATTVALUE="TRUE" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SAP_BOOL" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <typeUsage CLSNAME="YCL_SALV_CHANGE_SETTINGS" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" IMPLICIT="X"/>
+ <forwardDeclaration>ABAP</forwardDeclaration>
+ <attribute CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="COLUMNS" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="1 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="CL_SALV_COLUMNS_TABLE" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="EVENTS" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="2 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="YIF_SALV_EVENTS_TABLE" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="GRID" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="3 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="CL_GUI_ALV_GRID" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="KEY_CHANGEABLE" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="4 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ABAP_BOOL" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="ROW_INSERTABLE" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="5 " ATTDECLTYP="0" ATTVALUE="TRUE" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ABAP_BOOL" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="ROW_MOVEABLE" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="6 " ATTDECLTYP="0" ATTVALUE="TRUE" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ABAP_BOOL" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+ <attribute CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="TABLE" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="7 " ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="3" TYPE="CL_SALV_TABLE" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
  <inheritance CLSNAME="YCL_SALV_CHANGE_SETTINGS" REFCLSNAME="CL_SALV_METADATA_BASE" VERSION="1" STATE="1"/>
  <method CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="CHECK_CHANGED_DATA" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
   <source>METHOD check_changed_data.
@@ -25,7 +28,7 @@
 
 
   TRY.
-      CALL METHOD go_columns-&gt;(&apos;HAS_EDITABLE&apos;)
+      CALL METHOD columns-&gt;(&apos;HAS_EDITABLE&apos;)
         RECEIVING
           result = lv_bool.
 
@@ -36,14 +39,14 @@
 
   IF lv_bool EQ abap_true.
     IF _is_grid_bound( ) EQ abap_true.
-      go_grid-&gt;check_changed_data( ).
+      grid-&gt;check_changed_data( ).
     ENDIF.
   ENDIF.
 
 ENDMETHOD.</source>
  </method>
- <method CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="CONSTRUCTOR" VERSION="1" LANGU="D" DESCRIPT="CONSTRUCTOR" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="2" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="CONSTRUCTOR" SCONAME="I_CONTROLLER" VERSION="1" LANGU="D" DESCRIPT="ALV: Controller für einfache Listen" CMPTYPE="1" MTDTYPE="2" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_SALV_CONTROLLER_METADATA"/>
+ <method CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="CONSTRUCTOR" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " MTDTYPE="2" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="CONSTRUCTOR" SCONAME="I_CONTROLLER" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="2" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="IF_SALV_CONTROLLER_METADATA"/>
   <source>METHOD constructor.
 
   DATA: lo_controller TYPE REF TO cl_salv_controller_table
@@ -58,9 +61,9 @@ ENDMETHOD.</source>
 
   TRY.
       lo_controller ?= r_controller.
-      go_table = lo_controller-&gt;r_table.
-      go_columns = go_table-&gt;get_columns( ).
-      go_events ?= go_table-&gt;get_event( ).
+      table = lo_controller-&gt;r_table.
+      columns = table-&gt;get_columns( ).
+      events ?= table-&gt;get_event( ).
 
     CATCH cx_sy_move_cast_error INTO lx_root.
       &quot; message in case of inactive enhancement
@@ -69,19 +72,19 @@ ENDMETHOD.</source>
 
 ENDMETHOD.</source>
  </method>
- <method CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="GET_NO_ROW_INSERT" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="GET_NO_ROW_INSERT" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
-  <source>METHOD GET_NO_ROW_INSERT.
+ <method CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="IS_ROW_INSERTABLE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="IS_ROW_INSERTABLE" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="ABAP_BOOL"/>
+  <source>METHOD is_row_insertable.
 
-  result = gv_no_row_insert.
+  result = row_insertable.
 
 ENDMETHOD.</source>
  </method>
- <method CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="GET_NO_ROW_MOVE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="GET_NO_ROW_MOVE" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
-  <source>METHOD GET_NO_ROW_MOVE.
+ <method CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="IS_ROW_MOVEABLE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="IS_ROW_MOVEABLE" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="ABAP_BOOL"/>
+  <source>METHOD is_row_moveable.
 
-  result = gv_no_row_move.
+  result = row_moveable.
 
 ENDMETHOD.</source>
  </method>
@@ -93,11 +96,11 @@ ENDMETHOD.</source>
   ENDIF.
 
   IF _is_grid_bound( ) EQ abap_true.
-    go_grid-&gt;register_edit_event( cl_gui_alv_grid=&gt;mc_evt_enter ).
-    SET HANDLER register_edit_event_enter FOR go_events ACTIVATION abap_false.
+    grid-&gt;register_edit_event( cl_gui_alv_grid=&gt;mc_evt_enter ).
+    SET HANDLER register_edit_event_enter FOR events ACTIVATION abap_false.
 
   ELSE.
-    SET HANDLER register_edit_event_enter FOR go_events.
+    SET HANDLER register_edit_event_enter FOR events.
   ENDIF.
 
 ENDMETHOD.</source>
@@ -110,55 +113,55 @@ ENDMETHOD.</source>
   ENDIF.
 
   IF _is_grid_bound( ) EQ abap_true.
-    go_grid-&gt;register_edit_event( cl_gui_alv_grid=&gt;mc_evt_modified ).
-    SET HANDLER register_edit_event_modified FOR go_events ACTIVATION abap_false.
+    grid-&gt;register_edit_event( cl_gui_alv_grid=&gt;mc_evt_modified ).
+    SET HANDLER register_edit_event_modified FOR events ACTIVATION abap_false.
 
   ELSE.
-    SET HANDLER register_edit_event_modified FOR go_events.
+    SET HANDLER register_edit_event_modified FOR events.
   ENDIF.
 
 ENDMETHOD.</source>
  </method>
- <method CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="SET_NO_ROW_INSERT" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="7 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="SET_NO_ROW_INSERT" SCONAME="I_BOOL" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SAP_BOOL"/>
-  <source>METHOD SET_NO_ROW_INSERT.
+ <method CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="SET_ROW_INSERTABLE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="7 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="SET_ROW_INSERTABLE" SCONAME="I_BOOL" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ABAP_BOOL"/>
+  <source>METHOD set_row_insertable.
 
-  gv_no_row_insert = i_bool.
+  row_insertable = i_bool.
 
 ENDMETHOD.</source>
  </method>
- <method CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="SET_NO_ROW_MOVE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="8 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="SET_NO_ROW_MOVE" SCONAME="I_BOOL" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SAP_BOOL"/>
-  <source>METHOD SET_NO_ROW_MOVE.
+ <method CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="SET_ROW_MOVEABLE" VERSION="1" LANGU="D" EXPOSURE="2" STATE="1" EDITORDER="8 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+  <parameter CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="SET_ROW_MOVEABLE" SCONAME="I_BOOL" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="ABAP_BOOL"/>
+  <source>METHOD set_row_moveable.
 
-  gv_no_row_move = i_bool.
+  row_moveable = i_bool.
 
 ENDMETHOD.</source>
  </method>
  <method CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="_IS_GRID_BOUND" VERSION="1" LANGU="D" EXPOSURE="0" STATE="1" EDITORDER="9 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
-  <parameter CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="_IS_GRID_BOUND" SCONAME="RESULT" VERSION="1" LANGU="D" DESCRIPT="boolsche Variable (X=true, space=false)" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="SAP_BOOL"/>
+  <parameter CLSNAME="YCL_SALV_CHANGE_SETTINGS" CMPNAME="_IS_GRID_BOUND" SCONAME="RESULT" VERSION="1" LANGU="D" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="ABAP_BOOL"/>
   <source>METHOD _is_grid_bound.
 
   DATA: lx_root TYPE REF TO cx_root
       .
 
 
-  IF go_grid IS NOT BOUND.
+  IF grid IS NOT BOUND.
     TRY.
-        CALL METHOD go_table-&gt;(&apos;GET_GRID&apos;)
+        CALL METHOD table-&gt;(&apos;GET_GRID&apos;)
           RECEIVING
-            result = go_grid.
+            result = grid.
 
       CATCH cx_sy_dyn_call_error INTO lx_root.
         &quot; message in case of inactive enhancement
         MESSAGE lx_root TYPE &apos;E&apos;.
     ENDTRY.
 
-  ELSEIF go_grid-&gt;is_alive( ) EQ cl_gui_control=&gt;state_dead.
-    FREE go_grid.
+  ELSEIF grid-&gt;is_alive( ) EQ cl_gui_control=&gt;state_dead.
+    FREE grid.
   ENDIF.
 
-  IF go_grid IS BOUND.
+  IF grid IS BOUND.
     result = abap_true.
   ENDIF.
 
@@ -182,11 +185,11 @@ ENDMETHOD.</source>
   <source>METHOD _on_grid_created.
 
   IF _is_grid_bound( ) EQ abap_true.
-    SET HANDLER _on_before_user_command FOR go_grid.
-    SET HANDLER _on_grid_created FOR go_events ACTIVATION abap_false.
+    SET HANDLER _on_before_user_command FOR grid.
+    SET HANDLER _on_grid_created FOR events ACTIVATION abap_false.
 
   ELSE.
-    SET HANDLER _on_grid_created FOR go_events.
+    SET HANDLER _on_grid_created FOR events.
   ENDIF.
 
 ENDMETHOD.</source>
