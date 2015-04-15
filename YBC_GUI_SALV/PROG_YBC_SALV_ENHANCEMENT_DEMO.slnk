@@ -7,27 +7,24 @@
    <textElement ID="I" KEY="T03" ENTRY="Adapter" LENGTH="132 "/>
    <textElement ID="R" ENTRY="Testen der SALV Erweiterung" LENGTH="27 "/>
    <textElement ID="S" KEY="PA_EDIT" ENTRY="        SET_EDITABLE" LENGTH="20 "/>
-   <textElement ID="S" KEY="PA_ENTE" ENTRY="        REGISTER_EDIT_EVENT_ENTER" LENGTH="33 "/>
+   <textElement ID="S" KEY="PA_ENTE" ENTRY="        CHECK_ON_ENTER" LENGTH="33 "/>
    <textElement ID="S" KEY="PA_FULL" ENTRY="        CL_SALV_FULLSCREEN_ADAPTER" LENGTH="34 "/>
    <textElement ID="S" KEY="PA_GRID" ENTRY="        CL_SALV_GRID_ADAPTER" LENGTH="28 "/>
    <textElement ID="S" KEY="PA_LIST" ENTRY="        CL_SALV_LIST_ADAPTER" LENGTH="28 "/>
    <textElement ID="S" KEY="PA_MAX" ENTRY="D       ." LENGTH="9 "/>
-   <textElement ID="S" KEY="PA_MODI" ENTRY="        REGISTER_EDIT_EVENT_MODIFIED" LENGTH="36 "/>
+   <textElement ID="S" KEY="PA_MODI" ENTRY="        CHECK_ON_MODIFIED" LENGTH="36 "/>
   </language>
   <language SPRAS="E">
    <textElement ID="I" KEY="T01" ENTRY="Settings" LENGTH="132 "/>
    <textElement ID="I" KEY="T02" ENTRY="Event" LENGTH="132 "/>
    <textElement ID="I" KEY="T03" ENTRY="Adapter" LENGTH="132 "/>
-   <textElement ID="I" KEY="T04" ENTRY="Container" LENGTH="132 "/>
    <textElement ID="R" ENTRY="Testing of SALV Enhancement" LENGTH="70 "/>
-   <textElement ID="S" KEY="PA_CUST" ENTRY="        ZCL_GUI_CUSTOM_CONTAINER" LENGTH="32 "/>
    <textElement ID="S" KEY="PA_EDIT" ENTRY="        SET_EDITABLE" LENGTH="20 "/>
-   <textElement ID="S" KEY="PA_ENTE" ENTRY="        REGISTER_EDIT_EVENT_ENTER" LENGTH="33 "/>
+   <textElement ID="S" KEY="PA_ENTE" ENTRY="        CHECK_ON_ENTER" LENGTH="33 "/>
    <textElement ID="S" KEY="PA_FULL" ENTRY="        CL_SALV_FULLSCREEN_ADAPTER" LENGTH="34 "/>
    <textElement ID="S" KEY="PA_GRID" ENTRY="        CL_SALV_GRID_ADAPTER" LENGTH="28 "/>
    <textElement ID="S" KEY="PA_LIST" ENTRY="        CL_SALV_LIST_ADAPTER" LENGTH="28 "/>
-   <textElement ID="S" KEY="PA_MODI" ENTRY="        REGISTER_EDIT_EVENT_MODIFIED" LENGTH="36 "/>
-   <textElement ID="S" KEY="PA_SPLIT" ENTRY="        CL_GUI_SPLITTER_CONTAINER" LENGTH="33 "/>
+   <textElement ID="S" KEY="PA_MODI" ENTRY="        CHECK_ON_MODIFIED" LENGTH="36 "/>
    <textElement ID="S" KEY="PA_MAX" ENTRY="D       ." LENGTH="9 "/>
   </language>
   <language SPRAS="T">
@@ -60,19 +57,19 @@ REPORT ybc_salv_enhancement_demo.
 
 
 SELECTION-SCREEN BEGIN OF BLOCK start WITH FRAME TITLE text-t01.
-PARAMETERS: pa_max  TYPE bapi_maxhits OBLIGATORY DEFAULT 100,
-            pa_edit AS CHECKBOX DEFAULT &apos;X&apos;.
+PARAMETERS: pa_max    TYPE bapi_maxhits OBLIGATORY DEFAULT 100,
+            pa_edit   AS CHECKBOX DEFAULT &apos;X&apos;.
 SELECTION-SCREEN END OF BLOCK start.
 
 SELECTION-SCREEN BEGIN OF BLOCK event WITH FRAME TITLE text-t02.
-PARAMETERS: pa_ente AS CHECKBOX DEFAULT &apos;X&apos;,
-            pa_modi AS CHECKBOX.
+PARAMETERS: pa_ente   AS CHECKBOX DEFAULT &apos;X&apos;,
+            pa_modi   AS CHECKBOX.
 SELECTION-SCREEN END OF BLOCK event.
 
 SELECTION-SCREEN BEGIN OF BLOCK adapter WITH FRAME TITLE text-t03.
-PARAMETERS: pa_list RADIOBUTTON GROUP type,
-            pa_full RADIOBUTTON GROUP type,
-            pa_grid RADIOBUTTON GROUP type DEFAULT &apos;X&apos;.
+PARAMETERS: pa_list   RADIOBUTTON GROUP type,
+            pa_full   RADIOBUTTON GROUP type,
+            pa_grid   RADIOBUTTON GROUP type DEFAULT &apos;X&apos;.
 SELECTION-SCREEN END OF BLOCK adapter.
 
 
@@ -257,10 +254,10 @@ CLASS lcl_report IMPLEMENTATION.
           RECEIVING
             result = lo_change_settings.
         IF pa_ente EQ abap_true.
-          lo_change_settings-&gt;register_edit_event_enter( ).
+          lo_change_settings-&gt;check_on_enter( ).
         ENDIF.
         IF pa_modi EQ abap_true.
-          lo_change_settings-&gt;register_edit_event_modified( ).
+          lo_change_settings-&gt;check_on_modified( ).
         ENDIF.
 
       CATCH cx_sy_dyn_call_error INTO lx_root.
