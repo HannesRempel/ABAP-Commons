@@ -54,6 +54,14 @@ CLASS lcl_report DEFINITION FINAL.
       _save.
 
 ENDCLASS.                    "lcl_report DEFINITION
+
+
+
+START-OF-SELECTION.
+  lcl_report=>main( ).
+
+
+
 *----------------------------------------------------------------------*
 *       CLASS lcl_report IMPLEMENTATION
 *----------------------------------------------------------------------*
@@ -131,7 +139,7 @@ CLASS lcl_report IMPLEMENTATION.
     lo_selections->set_selection_mode( if_salv_c_selection_mode=>cell ).
 
     lo_change_settings = lo_table->get_change_settings( ).
-    lo_change_settings->register_edit_event_enter( ).
+    lo_change_settings->check_on_enter( ).
 
     lo_table->display( ).
 
@@ -152,7 +160,7 @@ CLASS lcl_report IMPLEMENTATION.
         _save( ).
     ENDCASE.
 
-  ENDMETHOD.                    "_on_ADDED_FUNCTION
+  ENDMETHOD.                    "_on_added_function
 
   METHOD _on_double_click.
 
@@ -163,7 +171,7 @@ CLASS lcl_report IMPLEMENTATION.
     lo_table = cl_salv_table=>get_table_by_object( sender ).
     lo_table->set_function( cl_gui_alv_grid=>mc_fc_detail ).
 
-  ENDMETHOD.                    "_on_DOUBLE_CLICK
+  ENDMETHOD.                    "_on_double_click
 
   METHOD _on_before_data_change.
 
@@ -212,8 +220,3 @@ CLASS lcl_report IMPLEMENTATION.
   ENDMETHOD.                    "_save
 
 ENDCLASS.                    "lcl_report IMPLEMENTATION
-
-
-
-START-OF-SELECTION.
-  lcl_report=>main( ).
